@@ -1,0 +1,10 @@
+^C:\USERS\A\DOCUMENTS\CODEX\2026-09-11\V\OUTPUTS\AXIOMCHESS\BUILD-CAUSAL\CMAKEFILES\2C9EE148B4BF29D403064271705C564C\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/A/Documents/Codex/2026-09-11/v/outputs/AxiomChess -BC:/Users/A/Documents/Codex/2026-09-11/v/outputs/AxiomChess/build-causal --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/A/Documents/Codex/2026-09-11/v/outputs/AxiomChess/build-causal/AxiomChess.slnx
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -1,0 +1,83 @@
+{
+  "date": "2026-09-13T11:09:21.875Z",
+  "command": [
+    "C:\\Program Files\\nodejs\\node.exe",
+    "C:\\Users\\A\\Documents\\Codex\\2026-09-11\\v\\outputs\\AxiomChess\\tools\\v07p2-artifacts.mjs"
+  ],
+  "tool_sha256": "32949e112a0b775a3ed8ae6758723bef686a80db4f5c1ee44e618b64e7578eae",
+  "source_revision": "baseline/v07-phase2-source.zip",
+  "source_sha256": "891b47e49d3303c96308943753ca33dc937354c7de6ce1c7660d079c82e0afdb",
+  "binary_sha256": "79bf757b7911f6ab2b61e8f2ce929eb6260b0572ce3b3271f896c36ce4948800",
+  "compiler": "MSVC 19.51.36246 Release AVX2 IPO",
+  "benchmark_manifest": {
+    "command": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\A\\Documents\\Codex\\2026-09-11\\v\\outputs\\AxiomChess\\tools\\v07-benchmark.mjs",
+      "build/Release/axiom-0.7-cost.exe",
+      "results/v07p2-benchmark",
+      "legal_fast_path"
+    ],
+    "date": "2026-09-13T11:04:43.203Z",
+    "engine_sha256": "79bf757b7911f6ab2b61e8f2ce929eb6260b0572ce3b3271f896c36ce4948800",
+    "tool_sha256": "21ac29c13daa783e3e2cae028e0dfe29ab6eca79617cd171e0e70cd87df5f3e3",
+    "stockfish_sha256": "c86215fa1977d53b82ed854540a4c7b025be4cd042276c85ba3de53fb9118911",
+    "compiler": "MSVC 19.51 Release AVX2 IPO; tracing compiled out",
+    "threads": 1,
+    "hash_mb": 32,
+    "corpus": [
+      "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1",
+      "8/2p5/3p4/KP5r/1R3p1k/8/4P1P1/8 w - - 0 1",
+      "r3k2r/Pppp1ppp/1b3nbN/nP6/BBP1P3/q4N2/Pp1P2PP/R2Q1RK1 w kq - 0 1",
+      "7k/8/8/5K2/5Q2/8/8/8 w - - 0 1",
+      "r1bqkbnr/pp3ppp/2n1p3/2ppP3/3P4/2P5/PP3PPP/RNBQKBNR w KQkq - 0 1",
+      "rnbqkb1r/pp1p1ppp/5n2/2pp4/2P5/2N5/PP2PPPP/R1BQKBNR w KQkq - 0 1",
+      "r1bqkb1r/pp1ppp1p/2n2np1/2p5/2P5/2N2NP1/PP1PPP1P/R1BQKB1R w KQkq - 0 1",
+      "rn1qkb1r/pbpp1ppp/1p2pn2/8/2PP4/5NP1/PP2PP1P/RNBQKB1R w KQkq - 0 1",
+      "rnbqk2r/ppppp1bp/5np1/5p2/3P4/5NP1/PPP1PPBP/RNBQK2R w KQkq - 0 1",
+      "rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 0 1",
+      "r1bqkbnr/pp1ppp1p/2n3p1/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 0 1",
+      "rn1qkbnr/pp2pppp/2p5/5b2/3PN3/8/PPP2PPP/R1BQKBNR w KQkq - 0 1",
+      "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 1",
+      "rnbqkb1r/ppp2ppp/3p4/8/4n3/3P1N2/PPP2PPP/RNBQKB1R b KQkq - 0 1",
+      "r1bqkbnr/pp3ppp/2n1p3/2ppP3/3P4/2P1B3/PP3PPP/RN1QKBNR b KQkq - 1 1",
+      "rnbqk2r/ppp1bppp/4pn2/3P4/3P4/2N2N2/PP2PPPP/R1BQKB1R b KQkq - 0 1",
+      "rn1qkb1r/pbpp1ppp/1p2pn2/8/2PP1B2/5NP1/PP2PP1P/RN1QKB1R b KQkq - 1 1",
+      "rnbq1rk1/pppp1ppp/4pn2/8/1bPP4/2NBP3/PP3PPP/R1BQK1NR b KQ - 1 1",
+      "r1bqkbnr/pp1ppp1p/2n3p1/8/3NP3/4B3/PPP2PPP/RN1QKB1R b KQkq - 1 1"
+    ],
+    "features": "Middlegame; only legal_fast_path differs",
+    "repeats": 3,
+    "order": "alternating OFF/ON per repetition",
+    "limits": {
+      "nodes": 20000,
+      "depth": 4,
+      "time_ms": 100
+    },
+    "reference_depth": 18,
+    "interpretation": "Same binary feature ablation. No other benchmark jobs deliberately run concurrently."
+  },
+  "profile_manifest": {
+    "engine_sha256": "07d9872fb26885427129bf67b6a07ca5ebc666a43e4d0f9cf50fc5a7a514cded",
+    "corpus_sha256": "46d218e5acafe2141a74f33903b7eaf96e537b63127af9cea0cdcb425168c680",
+    "tool_sha256": "8921354e71af5a0908c4f032fbc432ee65bafb4606e4f119daef1222cdeff738",
+    "command": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\A\\Documents\\Codex\\2026-09-11\\v\\outputs\\AxiomChess\\tools\\v07-profile.mjs",
+      "build-causal/Release/axiom-0.7-cost-research.exe",
+      "results/v07p2-profile-on",
+      "--feature",
+      "legal_fast_path"
+    ],
+    "compiler": "MSVC 19.51 Release AVX2 IPO research build",
+    "date": "2026-09-13T05:51:45.544Z",
+    "nodes_per_position": 20000,
+    "threads": 1,
+    "hash_mb": 32,
+    "features": "Middlegame; trace disabled",
+    "limits": "depth 100, no time limit, 20000 nodes",
+    "interpretation": "Instrumented timings include observer overhead; exclusive time subtracts nested instrumented scopes. Not uninstrumented CPU performance. Logical bytes count snapshot payloads, not measured memory traffic."
+  },
+  "status": "NOT_CREATED",
+  "reason": "General ordered-equivalence includes quiets, but does not substitute for independent high-confidence quiet-reference corpus."
+}

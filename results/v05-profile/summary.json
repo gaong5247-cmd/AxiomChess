@@ -1,0 +1,170 @@
+{
+  "kind": "node_bounded_not_elo",
+  "summaries": [
+    {
+      "variant": "all_on_rfp_off",
+      "positions": 5,
+      "nodes": 84338,
+      "elapsed_ms": 935,
+      "nps": 90201,
+      "mean_depth": 9.4,
+      "agreement": 1,
+      "score_difference": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "reference_agreement": 0,
+      "reference_positions": 0,
+      "stats": {
+        "threads": 5,
+        "root_correction": 10,
+        "correction_updates": 1691,
+        "continuation_updates": 10171,
+        "capture_updates": 2725,
+        "tt_hits": 2998,
+        "null_attempts": 43,
+        "null_verifications": 0,
+        "null_rejections": 0,
+        "singular_tests": 0,
+        "singular_extensions": 0,
+        "probcut_attempts": 0,
+        "probcut_cutoffs": 0,
+        "lmr_reductions": 490,
+        "lmr_researches": 0,
+        "history_prunes": 0,
+        "see_prunes": 797,
+        "mate_distance_cutoffs": 756,
+        "iid_searches": 0,
+        "bestmove_changes": 6,
+        "safety_protected": 10960,
+        "pawn_cache_hits": 60792,
+        "pawn_cache_misses": 28779,
+        "qnodes": 75374,
+        "tt_cutoffs": 939,
+        "null_cutoffs": 9,
+        "pvs_scouts": 21121,
+        "pvs_researches": 55,
+        "lmr_verifications_completed": 0,
+        "horizon_interruptions": 0,
+        "qcheck_evasions": 18227,
+        "rfp_cuts": 0,
+        "tt_probes": 8161,
+        "iid_nodes": 0,
+        "iid_moves_found": 0,
+        "singular_excluded_nodes": 0,
+        "singular_branch_nodes": 0,
+        "singular_beta_cutoffs": 0,
+        "singular_pv_updates": 0,
+        "null_fail_highs": 9,
+        "null_verification_success": 0,
+        "null_verification_nodes": 0,
+        "null_material_rejections": 774,
+        "probcut_qsuccess": 0,
+        "probcut_reduced_success": 0,
+        "probcut_nodes": 0,
+        "rfp_attempts": 0,
+        "history_reductions": 0,
+        "lmr_reduction_sum": 552,
+        "lmr_unverified_fail_lows": 489,
+        "aspiration_fail_low": 4,
+        "aspiration_fail_high": 2,
+        "soft_time_stops": 0,
+        "order_ns": 155145400,
+        "eval_ns": 284178900,
+        "correction_ns": 28394000,
+        "tt_ns": 2043900,
+        "legal_ns": 285809300,
+        "qsearch_ns": 4063523200
+      },
+      "correction": {
+        "label": "pre_update_finite_search_proxy_not_stockfish_truth",
+        "raw": {
+          "n": 46,
+          "mae": 29.91304347826087,
+          "median": 31,
+          "p90": 42,
+          "sign_agreement": 0.5869565217391305
+        },
+        "corrected": {
+          "n": 46,
+          "mae": 26.282608695652176,
+          "median": 24,
+          "p90": 38,
+          "sign_agreement": 0.8260869565217391
+        },
+        "middlegame": {
+          "raw": {
+            "n": 34,
+            "mae": 28.441176470588236,
+            "median": 30,
+            "p90": 39,
+            "sign_agreement": 0.5294117647058824
+          },
+          "corrected": {
+            "n": 34,
+            "mae": 24.235294117647058,
+            "median": 22.5,
+            "p90": 34,
+            "sign_agreement": 0.8529411764705882
+          }
+        },
+        "endgame": {
+          "raw": {
+            "n": 12,
+            "mae": 34.083333333333336,
+            "median": 37,
+            "p90": 64,
+            "sign_agreement": 0.75
+          },
+          "corrected": {
+            "n": 12,
+            "mae": 32.083333333333336,
+            "median": 33.5,
+            "p90": 63,
+            "sign_agreement": 0.75
+          }
+        },
+        "component_only": [
+          {
+            "n": 46,
+            "mae": 27.043478260869566,
+            "median": 24.5,
+            "p90": 42,
+            "sign_agreement": 0.8043478260869565
+          },
+          {
+            "n": 46,
+            "mae": 24.630434782608695,
+            "median": 17.5,
+            "p90": 38,
+            "sign_agreement": 0.7608695652173914
+          },
+          {
+            "n": 46,
+            "mae": 26.52173913043478,
+            "median": 24,
+            "p90": 39,
+            "sign_agreement": 0.7608695652173914
+          },
+          {
+            "n": 46,
+            "mae": 28.08695652173913,
+            "median": 26,
+            "p90": 39,
+            "sign_agreement": 0.7391304347826086
+          },
+          {
+            "n": 46,
+            "mae": 28.347826086956523,
+            "median": 27,
+            "p90": 40,
+            "sign_agreement": 0.7391304347826086
+          }
+        ]
+      }
+    }
+  ]
+}

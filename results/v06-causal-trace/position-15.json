@@ -1,0 +1,1787 @@
+{
+  "id": 15,
+  "reference_stability": {
+    "depths": [
+      16,
+      17,
+      18
+    ],
+    "moves": [
+      "b7b5",
+      "b7b5",
+      "b7b5"
+    ],
+    "scores": [
+      {
+        "type": "cp",
+        "value": 21
+      },
+      {
+        "type": "cp",
+        "value": 22
+      },
+      {
+        "type": "cp",
+        "value": 19
+      }
+    ],
+    "variance": 1.5555555555555554,
+    "last_three_same": true,
+    "grade": "HIGH"
+  },
+  "result": {
+    "fen": "rnbqkb1r/pp2pppp/2p2n2/8/2pPP3/2N2N2/PP3PPP/R1BQKB1R b KQkq e3 0 1",
+    "bestmove": "d8a5",
+    "result": "SEARCH_RESULT",
+    "outcome": "UNKNOWN",
+    "score_cp": 24,
+    "depth": 4,
+    "nodes": 20000,
+    "proof_nodes": 0,
+    "elapsed_ms": 286,
+    "claim_draw": false,
+    "verification": {
+      "completed": false,
+      "certificate_verified": false,
+      "detail": ""
+    },
+    "evaluation": {
+      "perspective": "side_to_move",
+      "total": 39,
+      "phase": 1,
+      "BadBishop": -3,
+      "Coordination": 0,
+      "EndgameTerms": 0,
+      "KingCoordination": 0,
+      "KingOpenFiles": -6,
+      "KingRingPressure": 0,
+      "KingSafety": 5,
+      "Material": 100,
+      "Mobility": -15,
+      "Outposts": 0,
+      "PassedPawns": 0,
+      "PassedPotential": 4,
+      "PawnBreaks": 0,
+      "PawnStructure": -16,
+      "PieceActivity": -16,
+      "RookFiles": 0,
+      "Space": -6,
+      "Threats": -8,
+      "TrappedPieces": 0,
+      "WeakSquares": 0
+    },
+    "moves": [
+      {
+        "move": "d8a5",
+        "evaluation": 24,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "EXACT_SEARCH",
+        "nodes": 3471,
+        "principal_variation": [
+          "d8a5",
+          "c1d2",
+          "a5b6",
+          "c3a4"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "e7e5",
+        "evaluation": 24,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 167,
+        "principal_variation": [
+          "e7e5",
+          "d4e5",
+          "f6e4",
+          "d1d8"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "c8e6",
+        "evaluation": 23,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "EXACT_SEARCH",
+        "nodes": 2127,
+        "principal_variation": [
+          "c8e6",
+          "f3e5",
+          "b7b5",
+          "c1g5"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "b7b5",
+        "evaluation": 23,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 3932,
+        "principal_variation": [
+          "b7b5",
+          "f3e5",
+          "c8e6",
+          "c1g5"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "f6e4",
+        "evaluation": 19,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 304,
+        "principal_variation": [
+          "f6e4",
+          "c3e4",
+          "f7f5",
+          "f1c4"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "c8g4",
+        "evaluation": 16,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 629,
+        "principal_variation": [
+          "c8g4",
+          "f1c4",
+          "b8d7",
+          "c4f7"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "f6h5",
+        "evaluation": 16,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 4,
+        "principal_variation": [
+          "f6h5"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "c6c5",
+        "evaluation": 14,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 126,
+        "principal_variation": [
+          "c6c5",
+          "d4c5",
+          "f6e4",
+          "d1d8"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "d8d6",
+        "evaluation": 12,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 342,
+        "principal_variation": [
+          "d8d6",
+          "f1c4",
+          "c8g4",
+          "c4f7"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "f6g4",
+        "evaluation": 10,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 217,
+        "principal_variation": [
+          "f6g4",
+          "f1c4",
+          "e7e5",
+          "d4e5"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "b8a6",
+        "evaluation": 6,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 264,
+        "principal_variation": [
+          "b8a6",
+          "f1c4",
+          "c8g4",
+          "c4f7"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "h7h5",
+        "evaluation": 2,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 267,
+        "principal_variation": [
+          "h7h5",
+          "f1c4",
+          "c8g4",
+          "c4f7"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "f6g8",
+        "evaluation": 2,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 4,
+        "principal_variation": [
+          "f6g8"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "c8h3",
+        "evaluation": 0,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 30,
+        "principal_variation": [
+          "c8h3"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "g7g6",
+        "evaluation": -1,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 232,
+        "principal_variation": [
+          "g7g6",
+          "f1c4",
+          "c8g4",
+          "c4f7"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "e8d7",
+        "evaluation": -1,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 9,
+        "principal_variation": [
+          "e8d7"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "a7a5",
+        "evaluation": -3,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 257,
+        "principal_variation": [
+          "a7a5",
+          "f1c4",
+          "c8g4",
+          "c4f7"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "f6d7",
+        "evaluation": -5,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 2,
+        "principal_variation": [
+          "f6d7"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "b8d7",
+        "evaluation": -7,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 176,
+        "principal_variation": [
+          "b8d7",
+          "f1c4",
+          "d7b6",
+          "c4d3"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "a7a6",
+        "evaluation": -10,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 193,
+        "principal_variation": [
+          "a7a6",
+          "f1c4",
+          "c8g4",
+          "c4f7"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "g7g5",
+        "evaluation": -14,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 167,
+        "principal_variation": [
+          "g7g5",
+          "f1c4",
+          "h7h6",
+          "c4d3"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "h7h6",
+        "evaluation": -14,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 226,
+        "principal_variation": [
+          "h7h6",
+          "f1c4",
+          "g7g5",
+          "c4d3"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "e7e6",
+        "evaluation": -15,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 294,
+        "principal_variation": [
+          "e7e6",
+          "f1c4",
+          "c6c5",
+          "d4c5"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "h8g8",
+        "evaluation": -16,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 221,
+        "principal_variation": [
+          "h8g8",
+          "f1c4",
+          "a7a5",
+          "c4d3"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "d8c7",
+        "evaluation": -17,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 228,
+        "principal_variation": [
+          "d8c7",
+          "f1c4",
+          "c8g4",
+          "c4d3"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "c8d7",
+        "evaluation": -18,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 195,
+        "principal_variation": [
+          "c8d7",
+          "f1c4",
+          "d7g4",
+          "c4f7"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "d8b6",
+        "evaluation": -18,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 296,
+        "principal_variation": [
+          "d8b6",
+          "f1c4",
+          "c8g4",
+          "c4f7"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "d8d4",
+        "evaluation": -19,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 67,
+        "principal_variation": [
+          "d8d4",
+          "f3d4",
+          "c8g4",
+          "f1c4"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "d8d7",
+        "evaluation": -21,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 166,
+        "principal_variation": [
+          "d8d7",
+          "f1c4",
+          "a7a5",
+          "c4d3"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "b7b6",
+        "evaluation": -23,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 146,
+        "principal_variation": [
+          "b7b6",
+          "f1c4",
+          "a7a5",
+          "c4d3"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "c8f5",
+        "evaluation": -66,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 92,
+        "principal_variation": [
+          "c8f5",
+          "e4f5",
+          "f6d5",
+          "f1c4"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "f6d5",
+        "evaluation": -144,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 115,
+        "principal_variation": [
+          "f6d5",
+          "e4d5",
+          "c6d5",
+          "d1a4"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      },
+      {
+        "move": "d8d5",
+        "evaluation": -586,
+        "depth": 4,
+        "proven_status": "SEARCH_RESULT",
+        "mate_distance": null,
+        "bound_type": "UPPER",
+        "nodes": 102,
+        "principal_variation": [
+          "d8d5",
+          "e4d5",
+          "f6d5",
+          "f1c4"
+        ],
+        "tactical_status": [],
+        "tactical_verification": {
+          "completed": false,
+          "depth": 0,
+          "score": 0,
+          "strongest_reply": "0000"
+        },
+        "tablebase_result": null
+      }
+    ],
+    "tablebase": null,
+    "features": "correction,continuation,capture_history,countermove,dynamic_lmr,strategic_eval,king_safety,search_safety,pawn_cache",
+    "search_stats": {
+      "threads": 1,
+      "root_correction": 6,
+      "correction_updates": 197,
+      "continuation_updates": 2085,
+      "capture_updates": 906,
+      "tt_hits": 460,
+      "null_attempts": 7,
+      "null_verifications": 0,
+      "null_rejections": 0,
+      "singular_tests": 0,
+      "singular_extensions": 0,
+      "probcut_attempts": 0,
+      "probcut_cutoffs": 0,
+      "lmr_reductions": 47,
+      "lmr_researches": 0,
+      "history_prunes": 0,
+      "see_prunes": 0,
+      "mate_distance_cutoffs": 0,
+      "iid_searches": 0,
+      "bestmove_changes": 3,
+      "safety_protected": 4531,
+      "pawn_cache_hits": 13506,
+      "pawn_cache_misses": 7943,
+      "qnodes": 18157,
+      "tt_cutoffs": 213,
+      "null_cutoffs": 5,
+      "pvs_scouts": 7692,
+      "pvs_researches": 47,
+      "lmr_verifications_completed": 0,
+      "horizon_interruptions": 0,
+      "qcheck_evasions": 2808,
+      "rfp_cuts": 0,
+      "tt_probes": 1843,
+      "iid_nodes": 0,
+      "iid_moves_found": 0,
+      "singular_excluded_nodes": 0,
+      "singular_branch_nodes": 0,
+      "singular_beta_cutoffs": 0,
+      "singular_pv_updates": 0,
+      "null_fail_highs": 5,
+      "null_verification_success": 0,
+      "null_verification_nodes": 0,
+      "null_material_rejections": 0,
+      "probcut_qsuccess": 0,
+      "probcut_reduced_success": 0,
+      "probcut_nodes": 0,
+      "rfp_attempts": 0,
+      "history_reductions": 0,
+      "lmr_reduction_sum": 47,
+      "lmr_unverified_fail_lows": 47,
+      "aspiration_fail_low": 0,
+      "aspiration_fail_high": 0,
+      "soft_time_stops": 0,
+      "order_ns": 0,
+      "eval_ns": 0,
+      "correction_ns": 0,
+      "tt_ns": 0,
+      "legal_ns": 0,
+      "qsearch_ns": 0,
+      "q_generated": 605430,
+      "q_searched": 10625,
+      "q_captures": 8576,
+      "q_promotions": 58,
+      "q_checks": 1735,
+      "q_delta_prunes": 1385,
+      "q_see_prunes": 2505,
+      "q_beta_cutoffs": 3917,
+      "q_stand_cutoffs": 8970,
+      "q_checked_nodes": 1885
+    },
+    "safety_mask": 16103,
+    "force_root_move": "",
+    "safety_skipped_checks": {
+      "lmr": {
+        "tt": 0,
+        "pv": 99,
+        "history": 0,
+        "continuation": 0,
+        "counter": 0,
+        "check": 0,
+        "promotion": 0,
+        "unstable": 0,
+        "king": 0,
+        "singular": 0,
+        "onlymove": 0,
+        "strategic": 12,
+        "tactical": 0,
+        "improving": 5
+      },
+      "history": {
+        "tt": 0,
+        "pv": 0,
+        "history": 0,
+        "continuation": 0,
+        "counter": 0,
+        "check": 0,
+        "promotion": 0,
+        "unstable": 0,
+        "king": 0,
+        "singular": 0,
+        "onlymove": 0,
+        "strategic": 0,
+        "tactical": 0,
+        "improving": 0
+      },
+      "see": {
+        "tt": 0,
+        "pv": 818,
+        "history": 0,
+        "continuation": 0,
+        "counter": 0,
+        "check": 0,
+        "promotion": 0,
+        "unstable": 0,
+        "king": 0,
+        "singular": 0,
+        "onlymove": 0,
+        "strategic": 0,
+        "tactical": 1105,
+        "improving": 1971
+      },
+      "futility": {
+        "tt": 0,
+        "pv": 818,
+        "history": 0,
+        "continuation": 0,
+        "counter": 0,
+        "check": 0,
+        "promotion": 0,
+        "unstable": 0,
+        "king": 0,
+        "singular": 0,
+        "onlymove": 0,
+        "strategic": 0,
+        "tactical": 1105,
+        "improving": 1971
+      },
+      "rfp": {
+        "tt": 0,
+        "pv": 0,
+        "history": 0,
+        "continuation": 0,
+        "counter": 0,
+        "check": 0,
+        "promotion": 0,
+        "unstable": 0,
+        "king": 0,
+        "singular": 0,
+        "onlymove": 0,
+        "strategic": 0,
+        "tactical": 0,
+        "improving": 0
+      },
+      "null": {
+        "tt": 0,
+        "pv": 0,
+        "history": 0,
+        "continuation": 0,
+        "counter": 0,
+        "check": 0,
+        "promotion": 0,
+        "unstable": 0,
+        "king": 0,
+        "singular": 0,
+        "onlymove": 0,
+        "strategic": 0,
+        "tactical": 0,
+        "improving": 0
+      },
+      "probcut": {
+        "tt": 0,
+        "pv": 0,
+        "history": 0,
+        "continuation": 0,
+        "counter": 0,
+        "check": 0,
+        "promotion": 0,
+        "unstable": 0,
+        "king": 0,
+        "singular": 0,
+        "onlymove": 0,
+        "strategic": 0,
+        "tactical": 0,
+        "improving": 0
+      },
+      "singular": {
+        "tt": 0,
+        "pv": 0,
+        "history": 0,
+        "continuation": 0,
+        "counter": 0,
+        "check": 0,
+        "promotion": 0,
+        "unstable": 0,
+        "king": 0,
+        "singular": 0,
+        "onlymove": 0,
+        "strategic": 0,
+        "tactical": 0,
+        "improving": 0
+      }
+    },
+    "qply_histogram": [
+      7532,
+      2271,
+      1878,
+      1518,
+      1456,
+      1256,
+      812,
+      454,
+      248,
+      142,
+      103,
+      113,
+      117,
+      58,
+      125,
+      27,
+      34,
+      4,
+      9,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "time_telemetry": {
+      "queue_ms": 0,
+      "setup_ms": 0,
+      "hard_overshoot_ms": 0,
+      "next_iteration_estimate_ms": 1660.05,
+      "last_completed_estimate_error_ms": 136.686,
+      "guard_stopped": false
+    },
+    "qsearch_ratio": 0.90785,
+    "correction_samples": [],
+    "lmr_samples": [],
+    "time_factor": 1,
+    "root_node_fraction": 0.230356,
+    "root_history": [
+      {
+        "move": "b7b5",
+        "score": 23,
+        "previous_score": 48,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 4090,
+        "score_variance": 578.917
+      },
+      {
+        "move": "c8e6",
+        "score": 23,
+        "previous_score": 55,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 2634,
+        "score_variance": 602.667
+      },
+      {
+        "move": "c8g4",
+        "score": 16,
+        "previous_score": -8,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 678,
+        "score_variance": 2617.58
+      },
+      {
+        "move": "d8a5",
+        "score": 24,
+        "previous_score": 50,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 4366,
+        "score_variance": 232
+      },
+      {
+        "move": "d8d6",
+        "score": 12,
+        "previous_score": 32,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 417,
+        "score_variance": 2788.25
+      },
+      {
+        "move": "e7e5",
+        "score": 24,
+        "previous_score": 38,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 244,
+        "score_variance": 1431.33
+      },
+      {
+        "move": "b8a6",
+        "score": 6,
+        "previous_score": 45,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 303,
+        "score_variance": 3570
+      },
+      {
+        "move": "h7h5",
+        "score": 2,
+        "previous_score": 50,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 306,
+        "score_variance": 3325.58
+      },
+      {
+        "move": "g7g6",
+        "score": -1,
+        "previous_score": 45,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 271,
+        "score_variance": 3270.92
+      },
+      {
+        "move": "g7g5",
+        "score": -14,
+        "previous_score": 40,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 212,
+        "score_variance": 3259.58
+      },
+      {
+        "move": "h7h6",
+        "score": -14,
+        "previous_score": 40,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 265,
+        "score_variance": 3297.58
+      },
+      {
+        "move": "e7e6",
+        "score": -15,
+        "previous_score": 38,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 352,
+        "score_variance": 3071.33
+      },
+      {
+        "move": "d8b6",
+        "score": -18,
+        "previous_score": 38,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 337,
+        "score_variance": 3296.25
+      },
+      {
+        "move": "h8g8",
+        "score": -16,
+        "previous_score": 39,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 258,
+        "score_variance": 3306
+      },
+      {
+        "move": "d8d5",
+        "score": -586,
+        "previous_score": -772,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 136,
+        "score_variance": 149440
+      },
+      {
+        "move": "d8c7",
+        "score": -17,
+        "previous_score": 33,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 269,
+        "score_variance": 3248.25
+      },
+      {
+        "move": "b8d7",
+        "score": -7,
+        "previous_score": 30,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 206,
+        "score_variance": 3310
+      },
+      {
+        "move": "c8d7",
+        "score": -18,
+        "previous_score": 29,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 227,
+        "score_variance": 3298
+      },
+      {
+        "move": "d8d7",
+        "score": -21,
+        "previous_score": 32,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 199,
+        "score_variance": 3550
+      },
+      {
+        "move": "c8f5",
+        "score": -66,
+        "previous_score": -219,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 126,
+        "score_variance": 20652.7
+      },
+      {
+        "move": "c8h3",
+        "score": 0,
+        "previous_score": -167,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 64,
+        "score_variance": 20637.6
+      },
+      {
+        "move": "e8d7",
+        "score": -1,
+        "previous_score": -19,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 40,
+        "score_variance": 4104.25
+      },
+      {
+        "move": "a7a5",
+        "score": -3,
+        "previous_score": 48,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 304,
+        "score_variance": 3537.58
+      },
+      {
+        "move": "a7a6",
+        "score": -10,
+        "previous_score": 37,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 239,
+        "score_variance": 3536.92
+      },
+      {
+        "move": "b7b6",
+        "score": -23,
+        "previous_score": 37,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 184,
+        "score_variance": 3360.33
+      },
+      {
+        "move": "c6c5",
+        "score": 14,
+        "previous_score": 47,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 330,
+        "score_variance": 3831
+      },
+      {
+        "move": "f6g4",
+        "score": 10,
+        "previous_score": -21,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 260,
+        "score_variance": 2484.25
+      },
+      {
+        "move": "f6h5",
+        "score": 16,
+        "previous_score": 16,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 41,
+        "score_variance": 5043
+      },
+      {
+        "move": "f6g8",
+        "score": 2,
+        "previous_score": 2,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 40,
+        "score_variance": 5043
+      },
+      {
+        "move": "f6d7",
+        "score": -5,
+        "previous_score": -57,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 30,
+        "score_variance": 3587
+      },
+      {
+        "move": "f6d5",
+        "score": -144,
+        "previous_score": -152,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 152,
+        "score_variance": 16
+      },
+      {
+        "move": "f6e4",
+        "score": 19,
+        "previous_score": -96,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 354,
+        "score_variance": 9513.67
+      },
+      {
+        "move": "d8d4",
+        "score": -19,
+        "previous_score": -764,
+        "depth": 4,
+        "observations": 4,
+        "stable_iterations": 0,
+        "nodes": 100,
+        "score_variance": 166608
+      }
+    ]
+  },
+  "report": {
+    "root_fen": "rnbqkb1r/pp2pppp/2p2n2/8/2pPP3/2N2N2/PP3PPP/R1BQKB1R b KQkq e3 0 1",
+    "reference": "b7b5",
+    "trace_complete": false,
+    "dropped": 5020,
+    "reference_legal": true,
+    "root_searched": true,
+    "root_order": [
+      {
+        "depth": 3,
+        "index": 10,
+        "node": 1
+      },
+      {
+        "depth": 4,
+        "index": 2,
+        "node": 91
+      }
+    ],
+    "ranks": [
+      {
+        "depth": 1,
+        "rank": 1,
+        "score": 76,
+        "bound": "EXACT_SEARCH"
+      },
+      {
+        "depth": 2,
+        "rank": 2,
+        "score": 28,
+        "bound": "EXACT_SEARCH"
+      },
+      {
+        "depth": 3,
+        "rank": 5,
+        "score": 48,
+        "bound": "UPPER"
+      },
+      {
+        "depth": 4,
+        "rank": 4,
+        "score": 23,
+        "bound": "UPPER"
+      }
+    ],
+    "first_shallow_best": true,
+    "first_loss_of_lead": 2,
+    "events": {
+      "ROOT_ITERATION_RANK": 4,
+      "NODE_ENTER": 820,
+      "ROOT_SEARCH_BEGIN": 2,
+      "TT_HIT": 3,
+      "STATIC_EVALUATION": 39,
+      "MOVE_CONSIDERED": 327,
+      "SAFETY_PROTECTION": 197,
+      "QSEARCH_ENTER": 489,
+      "QSEARCH_STAND_CUTOFF": 312,
+      "MOVE_RESULT": 326,
+      "PVS_SCOUT_BEGIN": 289,
+      "QSEARCH_MOVE_BEGIN": 199,
+      "QSEARCH_MOVE_RESULT": 199,
+      "QSEARCH_DELTA_PRUNE": 40,
+      "QSEARCH_BETA_CUTOFF": 77,
+      "PVS_SCOUT_RESULT": 268,
+      "QSEARCH_SEE_PRUNE": 59,
+      "QDELTA_BLOCKED_BY_SAFETY": 7,
+      "QSEE_BLOCKED_BY_SAFETY": 22,
+      "BETA_CUTOFF": 30,
+      "ROOT_SEARCH_RESULT": 1,
+      "LMR_APPLIED": 21,
+      "LMR_REDUCED_RESULT": 20,
+      "LMR_BLOCKED_BY_SAFETY": 3
+    },
+    "safety_matrix": {
+      "joint": {
+        "2048": 3,
+        "4096": 16,
+        "8192": 13
+      },
+      "exclusive": {
+        "2048": 3,
+        "4096": 16,
+        "8192": 13
+      },
+      "combinations": {
+        "2048": {
+          "events": 3,
+          "prevented_reduction_plies": 3
+        },
+        "4096": {
+          "events": 16,
+          "prevented_reduction_plies": 0
+        },
+        "8192": {
+          "events": 13,
+          "prevented_reduction_plies": 0
+        }
+      }
+    },
+    "reduction_events": [
+      {
+        "event_id": 1545,
+        "node_id": 92,
+        "fen": "rnbqkb1r/p3pppp/2p2n2/1p6/2pPP3/2N2N2/PP3PPP/R1BQKB1R w KQkq b6 0 2",
+        "move": "e4e5",
+        "depth": 3,
+        "reduction": 1,
+        "history": 8
+      },
+      {
+        "event_id": 1629,
+        "node_id": 92,
+        "fen": "rnbqkb1r/p3pppp/2p2n2/1p6/2pPP3/2N2N2/PP3PPP/R1BQKB1R w KQkq b6 0 2",
+        "move": "f1d3",
+        "depth": 3,
+        "reduction": 1,
+        "history": 0
+      },
+      {
+        "event_id": 1645,
+        "node_id": 92,
+        "fen": "rnbqkb1r/p3pppp/2p2n2/1p6/2pPP3/2N2N2/PP3PPP/R1BQKB1R w KQkq b6 0 2",
+        "move": "d1a4",
+        "depth": 3,
+        "reduction": 1,
+        "history": -4
+      },
+      {
+        "event_id": 1661,
+        "node_id": 92,
+        "fen": "rnbqkb1r/p3pppp/2p2n2/1p6/2pPP3/2N2N2/PP3PPP/R1BQKB1R w KQkq b6 0 2",
+        "move": "a1b1",
+        "depth": 3,
+        "reduction": 1,
+        "history": -8
+      },
+      {
+        "event_id": 1677,
+        "node_id": 92,
+        "fen": "rnbqkb1r/p3pppp/2p2n2/1p6/2pPP3/2N2N2/PP3PPP/R1BQKB1R w KQkq b6 0 2",
+        "move": "c1e3",
+        "depth": 3,
+        "reduction": 1,
+        "history": -8
+      },
+      {
+        "event_id": 1712,
+        "node_id": 92,
+        "fen": "rnbqkb1r/p3pppp/2p2n2/1p6/2pPP3/2N2N2/PP3PPP/R1BQKB1R w KQkq b6 0 2",
+        "move": "d1e2",
+        "depth": 3,
+        "reduction": 1,
+        "history": -8
+      },
+      {
+        "event_id": 1728,
+        "node_id": 92,
+        "fen": "rnbqkb1r/p3pppp/2p2n2/1p6/2pPP3/2N2N2/PP3PPP/R1BQKB1R w KQkq b6 0 2",
+        "move": "d1d2",
+        "depth": 3,
+        "reduction": 1,
+        "history": -8
+      },
+      {
+        "event_id": 1744,
+        "node_id": 92,
+        "fen": "rnbqkb1r/p3pppp/2p2n2/1p6/2pPP3/2N2N2/PP3PPP/R1BQKB1R w KQkq b6 0 2",
+        "move": "d1d3",
+        "depth": 3,
+        "reduction": 1,
+        "history": -8
+      },
+      {
+        "event_id": 1760,
+        "node_id": 92,
+        "fen": "rnbqkb1r/p3pppp/2p2n2/1p6/2pPP3/2N2N2/PP3PPP/R1BQKB1R w KQkq b6 0 2",
+        "move": "d1c2",
+        "depth": 3,
+        "reduction": 1,
+        "history": -8
+      },
+      {
+        "event_id": 1776,
+        "node_id": 92,
+        "fen": "rnbqkb1r/p3pppp/2p2n2/1p6/2pPP3/2N2N2/PP3PPP/R1BQKB1R w KQkq b6 0 2",
+        "move": "d1b3",
+        "depth": 3,
+        "reduction": 1,
+        "history": -8
+      },
+      {
+        "event_id": 1797,
+        "node_id": 92,
+        "fen": "rnbqkb1r/p3pppp/2p2n2/1p6/2pPP3/2N2N2/PP3PPP/R1BQKB1R w KQkq b6 0 2",
+        "move": "f1e2",
+        "depth": 3,
+        "reduction": 1,
+        "history": -8
+      },
+      {
+        "event_id": 1813,
+        "node_id": 92,
+        "fen": "rnbqkb1r/p3pppp/2p2n2/1p6/2pPP3/2N2N2/PP3PPP/R1BQKB1R w KQkq b6 0 2",
+        "move": "c3e2",
+        "depth": 3,
+        "reduction": 1,
+        "history": -8
+      },
+      {
+        "event_id": 1827,
+        "node_id": 92,
+        "fen": "rnbqkb1r/p3pppp/2p2n2/1p6/2pPP3/2N2N2/PP3PPP/R1BQKB1R w KQkq b6 0 2",
+        "move": "c3b1",
+        "depth": 3,
+        "reduction": 1,
+        "history": -8
+      },
+      {
+        "event_id": 2235,
+        "node_id": 92,
+        "fen": "rnbqkb1r/p3pppp/2p2n2/1p6/2pPP3/2N2N2/PP3PPP/R1BQKB1R w KQkq b6 0 2",
+        "move": "c1d2",
+        "depth": 3,
+        "reduction": 1,
+        "history": -12
+      },
+      {
+        "event_id": 2251,
+        "node_id": 92,
+        "fen": "rnbqkb1r/p3pppp/2p2n2/1p6/2pPP3/2N2N2/PP3PPP/R1BQKB1R w KQkq b6 0 2",
+        "move": "c1g5",
+        "depth": 3,
+        "reduction": 1,
+        "history": -12
+      },
+      {
+        "event_id": 2299,
+        "node_id": 92,
+        "fen": "rnbqkb1r/p3pppp/2p2n2/1p6/2pPP3/2N2N2/PP3PPP/R1BQKB1R w KQkq b6 0 2",
+        "move": "c1h6",
+        "depth": 3,
+        "reduction": 1,
+        "history": -12
+      },
+      {
+        "event_id": 2315,
+        "node_id": 92,
+        "fen": "rnbqkb1r/p3pppp/2p2n2/1p6/2pPP3/2N2N2/PP3PPP/R1BQKB1R w KQkq b6 0 2",
+        "move": "e1e2",
+        "depth": 3,
+        "reduction": 1,
+        "history": -12
+      },
+      {
+        "event_id": 2330,
+        "node_id": 92,
+        "fen": "rnbqkb1r/p3pppp/2p2n2/1p6/2pPP3/2N2N2/PP3PPP/R1BQKB1R w KQkq b6 0 2",
+        "move": "e1d2",
+        "depth": 3,
+        "reduction": 1,
+        "history": -12
+      },
+      {
+        "event_id": 2396,
+        "node_id": 92,
+        "fen": "rnbqkb1r/p3pppp/2p2n2/1p6/2pPP3/2N2N2/PP3PPP/R1BQKB1R w KQkq b6 0 2",
+        "move": "h1g1",
+        "depth": 3,
+        "reduction": 1,
+        "history": -12
+      },
+      {
+        "event_id": 2412,
+        "node_id": 92,
+        "fen": "rnbqkb1r/p3pppp/2p2n2/1p6/2pPP3/2N2N2/PP3PPP/R1BQKB1R w KQkq b6 0 2",
+        "move": "a2a3",
+        "depth": 3,
+        "reduction": 1,
+        "history": -12
+      },
+      {
+        "event_id": 3846,
+        "node_id": 92,
+        "fen": "rnbqkb1r/p3pppp/2p2n2/1p6/2pPP3/2N2N2/PP3PPP/R1BQKB1R w KQkq b6 0 2",
+        "move": "b2b4",
+        "depth": 3,
+        "reduction": 1,
+        "history": -12
+      }
+    ],
+    "direct_full_depth_researches_above_alpha": 0,
+    "evidence": "DIRECT_REDUCTION_EVENT",
+    "category": "UNKNOWN",
+    "limitations": "A direct event proves the event occurred, not that it caused a root error. Truncated or unvisited branches are unknown, never absent. Frozen FEN replay does not restore original TT, feedback, repetition, window, excluded/synthetic state."
+  }
+}

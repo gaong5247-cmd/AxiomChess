@@ -1,0 +1,10 @@
+^C:\USERS\A\DOCUMENTS\CODEX\2026-09-11\V\OUTPUTS\AXIOMCHESS\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/A/Documents/Codex/2026-09-11/v/outputs/AxiomChess -BC:/Users/A/Documents/Codex/2026-09-11/v/outputs/AxiomChess/build-asan --check-stamp-file C:/Users/A/Documents/Codex/2026-09-11/v/outputs/AxiomChess/build-asan/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

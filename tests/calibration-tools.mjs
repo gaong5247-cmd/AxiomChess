@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {parseCorpus,quality} from '../tools/calibrate.mjs';
+const fen='7k/8/8/8/8/8/8/K7 w - - 0 1';
+assert.equal(parseCorpus(fen).length,1);
+assert.equal(parseCorpus(JSON.stringify({fen,cp_loss:30,reference_move:'a1b1'}),true).length,1);
+assert.throws(()=>parseCorpus(JSON.stringify({fen,cp_loss:-1}),true));
+assert.throws(()=>parseCorpus('bad fen'));
+const q=quality([{raw:0,corrected:10,score:20,pieces:20,components_scaled16:[160,0,0,0,0]}]);
+assert.equal(q.raw.mae,20); assert.equal(q.corrected.mae,10); assert.equal(q.endgame.raw.mae,null);
+console.log('PASS critical-record validation and correction-quality metrics');

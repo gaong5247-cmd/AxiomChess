@@ -1,0 +1,30 @@
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { resolve,dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { summarize } from '../tools/stockfish-regression.mjs';
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
+const json=async p=>JSON.parse(await readFile(resolve(root,p),'utf8'));
+const run='results/regression-balanced-v3-depth18/';
+const rows=(await readFile(resolve(root,run+'positions.jsonl'),'utf8')).trim().split(/\r?\n/).map(JSON.parse);
+assert.deepEqual(summarize(rows),await json(run+'summary.json'));
+const completion=await json(run+'completion.json');
+assert.equal(completion.positions,1170); assert.equal(completion.reference_errors,500);
+assert.equal(completion.target_reached,true); assert.equal(completion.stopped,false);
+const expected=rows.filter(r=>r.status==='measured' && (r.candidate.cp_loss>0 || r.candidate.mate_regression)).map(r=>r.fen);
+const errors=(await readFile(resolve(root,run+'reference-errors.fens'),'utf8')).trim().split(/\r?\n/);
+assert.deepEqual(errors,expected); assert.equal(new Set(errors).size,500);
+const equivalence=await json('results/final-equivalence.json');
+assert.equal(equivalence.positions,1500); assert.equal(equivalence.mismatches,0);
+assert(equivalence.rows.every(r=>r.equal));
+const hash=createHash('sha256').update(await readFile(resolve(root,'build/Release/axiom-0.3-cpu.exe'))).digest('hex');
+assert.equal(equivalence.new_sha256,hash);
+assert.equal(equivalence.old_sha256,(await json(run+'manifest.json')).engine_sha256);
+const bench=await json('results/cpu-final-v3-v2.json');
+assert.equal(bench.candidate_sha256.toLowerCase(),hash);
+for(let i=0;i<bench.observations.length;i+=2) {
+  const a=bench.observations[i],b=bench.observations[i+1];
+  for(const field of ['fen','bestmove','depth','nodes','score']) assert.deepEqual(a[field],b[field]);
+}
+console.log('PASS report recomputation, 500 unique error FENs, final binary provenance and benchmark equivalence');

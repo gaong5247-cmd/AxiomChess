@@ -1,0 +1,37 @@
+{
+  "time_soft_ms": 70,
+  "engine_sha256": "2759BE2D57FEA934ECB871A6AB87781D5DA72EA118C05BFB7ED9E8D8C72DA21F",
+  "policy": "Completed-call costs, not counterfactual node savings; finite exploratory fixtures",
+  "time_hard_ms": 250,
+  "cases": [
+    {
+      "nodes": 1000000,
+      "name": "singular-probcut",
+      "depth": 10,
+      "fen": "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1",
+      "flags": [
+        "--experimental"
+      ]
+    },
+    {
+      "nodes": 500000,
+      "name": "verified-null",
+      "depth": 10,
+      "fen": "r3k2r/ppp2ppp/8/8/8/8/PPP2PPP/R2QK2R w KQkq - 0 1",
+      "flags": [
+        "--feature",
+        "verified_null"
+      ]
+    },
+    {
+      "nodes": 500000,
+      "name": "iid",
+      "depth": 7,
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "flags": [
+        "--feature",
+        "iid"
+      ]
+    }
+  ]
+}

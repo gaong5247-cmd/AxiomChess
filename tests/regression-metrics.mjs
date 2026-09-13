@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import { summarize } from '../tools/stockfish-regression.mjs';
+const records=[0,30,100,101,200,201,300].map((loss,i)=>({status:'measured',candidate:{cp_loss:loss,top1:i===0,top3:i<3,mate_regression:false}}));
+records.push({status:'measured',candidate:{cp_loss:null,top1:false,top3:false,mate_regression:true}});
+records.push({status:'reference_incomplete'});
+const s=summarize(records);
+assert.equal(s.measured,8); assert.equal(s.excluded,1);
+assert.equal(s.candidate.cp_positions,7); assert.equal(s.candidate.top1_agreement,1/8);
+assert.equal(s.candidate.top3_agreement,3/8); assert.equal(s.candidate.median_cp_loss,101);
+assert.equal(s.candidate.p95_cp_loss,300); assert.equal(s.candidate.max_cp_loss,300);
+assert.equal(s.candidate.blunder_rate,2/7); assert.equal(s.candidate.major_error_rate,4/7);
+assert.equal(s.candidate.mate_regressions,1);
+assert.equal(summarize([]).candidate.mean_cp_loss,null);
+console.log('PASS regression metric boundaries, percentiles, mate exclusion and empty input');

@@ -1,0 +1,12 @@
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {search,sha} from './causal-analysis.mjs';
+const exe=process.argv[2],out=process.argv[3];if(!exe||!out)throw Error('engine output-directory');
+await mkdir(out);
+const fens=(await readFile('tests/middlegame-balanced.fens','utf8')).split(/\r?\n/).filter(s=>s&&!s.startsWith('#')).slice(0,100);
+const results=fens.map(fen=>search(exe,fen,['--depth','100','--nodes','20000','--feature','legal_fast_path']));
+const ratios=results.map(r=>r.qsearch_ratio).sort((a,b)=>a-b),q=p=>ratios[Math.ceil(ratios.length*p)-1];
+const flagged=results.filter(r=>r.qsearch_ratio>0.9).map(r=>({fen:r.fen,qratio:r.qsearch_ratio,category:'UNKNOWN',observed_checks:r.search_stats.q_checks,observed_evasions:r.search_stats.qcheck_evasions,qply_histogram:r.qply_histogram}));
+const save=(n,d)=>writeFile(`${out}/${n}.json`,JSON.stringify(d,null,2),{flag:'wx'});
+await save('observations',results);await save('summary',{positions:results.length,median:q(.5),p75:q(.75),p90:q(.9),p95:q(.95),max:q(1),flagged,interpretation:'Ratio is descriptive, not wasted-work proof. Counts cannot establish causal chain categories.'});
+await save('manifest',{date:new Date().toISOString(),command:process.argv,engine_sha256:await sha(exe),corpus_sha256:await sha('tests/middlegame-balanced.fens'),compiler:'MSVC Release AVX2 IPO',threads:1,hash_mb:32,nodes:20000,features:'Middlegame + legal_fast_path only',proof_nodes:0});
+console.log(`Measured ${results.length} positions; qratio median ${q(.5)}`);

@@ -1,0 +1,35 @@
+{
+  "date": "2026-09-13T00:40:27.785Z",
+  "command": [
+    "C:\\Program Files\\nodejs\\node.exe",
+    "C:\\Users\\A\\Documents\\Codex\\2026-09-11\\v\\outputs\\AxiomChess\\tools\\causal-corpus.mjs",
+    "--out",
+    "results/v06-causal-trace",
+    "--limit",
+    "300",
+    "--nodes",
+    "20000",
+    "--events",
+    "5000"
+  ],
+  "options": {
+    "engine": "build-causal/Release/axiom-0.6-causal-research.exe",
+    "corpus": "results/v06-critical-corpus/critical.jsonl",
+    "out": "results/v06-causal-trace",
+    "limit": 300,
+    "nodes": 20000,
+    "events": 5000
+  },
+  "engine_sha256": "ae8e0c60bac5ee1006334f6a47f3b65b11453644145b42ead332155fb6a909e6",
+  "corpus_sha256": "ec69aa069bbd389f01faef079e52c316db81a5c501a67e7e0ded032dd8b4fe9e",
+  "stockfish_sha256": "c86215fa1977d53b82ed854540a4c7b025be4cd042276c85ba3de53fb9118911",
+  "compiler": "MSVC 19.51 Release C++20 AVX2 IPO research tracing",
+  "uci": {
+    "Middlegame": true,
+    "Hash": 32,
+    "Threads": 1,
+    "ProofNodes": 0,
+    "SafetyMask": "legacy"
+  },
+  "reference": "Historical corpus reference, not independently restabilized for this trace run"
+}

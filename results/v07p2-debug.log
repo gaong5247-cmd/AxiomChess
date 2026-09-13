@@ -1,0 +1,49 @@
+-- Configuring done (0.0s)
+-- Generating done (0.3s)
+-- Build files have been written to: C:/Users/A/Documents/Codex/2026-09-11/v/outputs/AxiomChess/build
+msbuild 버전 18.6.3+84d3e95b4(.NET Framework용)
+
+  chess.cpp
+  evaluation.cpp
+  feedback.cpp
+  move_order.cpp
+  proof.cpp
+  qsearch.cpp
+  search.cpp
+  search_report.cpp
+  strategic.cpp
+  tablebase.cpp
+  코드를 생성하고 있습니다...
+  axiom_core.vcxproj -> C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Debug\axiom_core.lib
+  audit.cpp
+  calibration.cpp
+  tests.cpp
+  pgn.cpp
+  corpus.cpp
+  holdout.cpp
+  Building Custom Rule C:/Users/A/Documents/Codex/2026-09-11/v/outputs/AxiomChess/CMakeLists.txt
+  legal_fast.cpp
+  axiom_pgn.vcxproj -> C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Debug\axiom_pgn.exe
+  main.cpp
+  axiom_audit.vcxproj -> C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Debug\axiom_audit.exe
+  axiom_holdout.vcxproj -> C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Debug\axiom_holdout.exe
+  LINK : C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Debug\axiom_calibration.exe을(를) 찾을 수 없거나 마지막 증분 링크에 의해 빌드되지 않았습니다. 전체 링크를 수행하고 있습니다.
+  axiom_calibration.vcxproj -> C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Debug\axiom_calibration.exe
+  axiom_legal_fast.vcxproj -> C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Debug\axiom_legal_fast.exe
+  axiom_tests.vcxproj -> C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Debug\axiom_tests.exe
+  axiom_corpus.vcxproj -> C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Debug\axiom_corpus.exe
+  axiom.vcxproj -> C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Debug\axiom-0.7-cost.exe
+Test project C:/Users/A/Documents/Codex/2026-09-11/v/outputs/AxiomChess/build
+    Start 1: axiom_tests
+1/4 Test #1: axiom_tests ......................   Passed    1.17 sec
+    Start 2: axiom_audit
+2/4 Test #2: axiom_audit ......................   Passed   31.58 sec
+    Start 3: axiom_calibration
+3/4 Test #3: axiom_calibration ................   Passed   13.23 sec
+    Start 4: axiom_legal_fast
+4/4 Test #4: axiom_legal_fast .................   Passed    2.19 sec
+
+100% tests passed out of 4
+
+Total Test time (real) =  48.29 sec
+PASS UCI handshake, finite search, concurrent isready, stop, stalemate, quit

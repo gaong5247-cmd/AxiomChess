@@ -1,0 +1,21 @@
+{
+  "engine_sha256": "07d9872fb26885427129bf67b6a07ca5ebc666a43e4d0f9cf50fc5a7a514cded",
+  "corpus_sha256": "46d218e5acafe2141a74f33903b7eaf96e537b63127af9cea0cdcb425168c680",
+  "tool_sha256": "8921354e71af5a0908c4f032fbc432ee65bafb4606e4f119daef1222cdeff738",
+  "command": [
+    "C:\\Program Files\\nodejs\\node.exe",
+    "C:\\Users\\A\\Documents\\Codex\\2026-09-11\\v\\outputs\\AxiomChess\\tools\\v07-profile.mjs",
+    "build-causal/Release/axiom-0.7-cost-research.exe",
+    "results/v07p2-profile-on",
+    "--feature",
+    "legal_fast_path"
+  ],
+  "compiler": "MSVC 19.51 Release AVX2 IPO research build",
+  "date": "2026-09-13T05:51:45.544Z",
+  "nodes_per_position": 20000,
+  "threads": 1,
+  "hash_mb": 32,
+  "features": "Middlegame; trace disabled",
+  "limits": "depth 100, no time limit, 20000 nodes",
+  "interpretation": "Instrumented timings include observer overhead; exclusive time subtracts nested instrumented scopes. Not uninstrumented CPU performance. Logical bytes count snapshot payloads, not measured memory traffic."
+}

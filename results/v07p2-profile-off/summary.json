@@ -1,0 +1,1444 @@
+{
+  "positions": 5,
+  "nodes": 100000,
+  "logical_board_snapshot_bytes": 4377015296,
+  "pushes_per_node": 42.74388,
+  "counters": {
+    "push": {
+      "calls": 4274388,
+      "inclusive_ns": 278992900,
+      "exclusive_ns": 278992900
+    },
+    "pop": {
+      "calls": 4274429,
+      "inclusive_ns": 127615000,
+      "exclusive_ns": 127615000
+    },
+    "null_push": {
+      "calls": 41,
+      "inclusive_ns": 3100,
+      "exclusive_ns": 3100
+    },
+    "legal": {
+      "calls": 109644,
+      "inclusive_ns": 791739800,
+      "exclusive_ns": 292153100
+    },
+    "pseudo": {
+      "calls": 109644,
+      "inclusive_ns": 89571900,
+      "exclusive_ns": 83375700
+    },
+    "attacked": {
+      "calls": 4143703,
+      "inclusive_ns": 301774600,
+      "exclusive_ns": 301774600
+    },
+    "gives_check": {
+      "calls": 741843,
+      "inclusive_ns": 226691500,
+      "exclusive_ns": 126009500
+    },
+    "see": {
+      "calls": 95532,
+      "inclusive_ns": 171415600,
+      "exclusive_ns": 12977800
+    },
+    "see_exchange": {
+      "calls": 203725,
+      "inclusive_ns": 299214700,
+      "exclusive_ns": 26655100
+    },
+    "legal_captures": {
+      "calls": 203725,
+      "inclusive_ns": 117474400,
+      "exclusive_ns": 101363000
+    },
+    "evaluation": {
+      "calls": 95693,
+      "inclusive_ns": 396374400,
+      "exclusive_ns": 133382000
+    },
+    "attack_map": {
+      "calls": 95693,
+      "inclusive_ns": 118986900,
+      "exclusive_ns": 118986900
+    },
+    "pawn_probe": {
+      "calls": 102622,
+      "inclusive_ns": 86942100,
+      "exclusive_ns": 22427900
+    },
+    "pawn_compute": {
+      "calls": 28164,
+      "inclusive_ns": 64514200,
+      "exclusive_ns": 64514200
+    },
+    "proof_key": {
+      "calls": 7911,
+      "inclusive_ns": 8840200,
+      "exclusive_ns": 8840200
+    },
+    "correction": {
+      "calls": 95899,
+      "inclusive_ns": 39727400,
+      "exclusive_ns": 39727400
+    },
+    "ordering": {
+      "calls": 57658,
+      "inclusive_ns": 313580600,
+      "exclusive_ns": 5287700
+    },
+    "order_scoring": {
+      "calls": 57658,
+      "inclusive_ns": 300706200,
+      "exclusive_ns": 50507400
+    },
+    "order_sort": {
+      "calls": 57658,
+      "inclusive_ns": 7586700,
+      "exclusive_ns": 7586700
+    },
+    "qsearch": {
+      "calls": 92137,
+      "inclusive_ns": 8751121800,
+      "exclusive_ns": 160963600
+    },
+    "main_search": {
+      "calls": 30230,
+      "inclusive_ns": 7838584400,
+      "exclusive_ns": 40781800
+    },
+    "proof": {
+      "calls": 0,
+      "inclusive_ns": 0,
+      "exclusive_ns": 0
+    },
+    "king_eval": {
+      "calls": 191386,
+      "inclusive_ns": 58095600,
+      "exclusive_ns": 58095600
+    },
+    "strategic_eval": {
+      "calls": 0,
+      "inclusive_ns": 0,
+      "exclusive_ns": 0
+    },
+    "phase": {
+      "calls": 0,
+      "inclusive_ns": 0,
+      "exclusive_ns": 0
+    },
+    "pawn_terms": {
+      "calls": 0,
+      "inclusive_ns": 0,
+      "exclusive_ns": 0
+    }
+  },
+  "sites": {
+    "push": {
+      "other": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "search": {
+        "calls": 30252,
+        "inclusive_ns": 17140300,
+        "exclusive_ns": 17140300
+      },
+      "legal": {
+        "calls": 3001386,
+        "inclusive_ns": 126008400,
+        "exclusive_ns": 126008400
+      },
+      "see": {
+        "calls": 313955,
+        "inclusive_ns": 12144300,
+        "exclusive_ns": 12144300
+      },
+      "gives_check": {
+        "calls": 741843,
+        "inclusive_ns": 29287000,
+        "exclusive_ns": 29287000
+      },
+      "evaluation": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "qsearch": {
+        "calls": 186952,
+        "inclusive_ns": 94412900,
+        "exclusive_ns": 94412900
+      },
+      "proof": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "ordering": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      }
+    },
+    "pop": {
+      "other": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "search": {
+        "calls": 30293,
+        "inclusive_ns": 11869200,
+        "exclusive_ns": 11869200
+      },
+      "legal": {
+        "calls": 3001386,
+        "inclusive_ns": 74303200,
+        "exclusive_ns": 74303200
+      },
+      "see": {
+        "calls": 313955,
+        "inclusive_ns": 9451700,
+        "exclusive_ns": 9451700
+      },
+      "gives_check": {
+        "calls": 741843,
+        "inclusive_ns": 19898500,
+        "exclusive_ns": 19898500
+      },
+      "evaluation": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "qsearch": {
+        "calls": 186952,
+        "inclusive_ns": 12092400,
+        "exclusive_ns": 12092400
+      },
+      "proof": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "ordering": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      }
+    },
+    "null_push": {
+      "other": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "search": {
+        "calls": 41,
+        "inclusive_ns": 3100,
+        "exclusive_ns": 3100
+      },
+      "legal": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "see": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "gives_check": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "evaluation": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "qsearch": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "proof": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "ordering": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      }
+    },
+    "legal": {
+      "other": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "search": {
+        "calls": 7904,
+        "inclusive_ns": 58959200,
+        "exclusive_ns": 24209700
+      },
+      "legal": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "see": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "gives_check": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "evaluation": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "qsearch": {
+        "calls": 101740,
+        "inclusive_ns": 732780600,
+        "exclusive_ns": 267943400
+      },
+      "proof": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "ordering": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      }
+    },
+    "pseudo": {
+      "other": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "search": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "legal": {
+        "calls": 109644,
+        "inclusive_ns": 89571900,
+        "exclusive_ns": 83375700
+      },
+      "see": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "gives_check": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "evaluation": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "qsearch": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "proof": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "ordering": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      }
+    },
+    "attacked": {
+      "other": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "search": {
+        "calls": 34313,
+        "inclusive_ns": 3545200,
+        "exclusive_ns": 3545200
+      },
+      "legal": {
+        "calls": 3092928,
+        "inclusive_ns": 215899400,
+        "exclusive_ns": 215899400
+      },
+      "see": {
+        "calls": 110230,
+        "inclusive_ns": 8823700,
+        "exclusive_ns": 8823700
+      },
+      "gives_check": {
+        "calls": 741843,
+        "inclusive_ns": 51496500,
+        "exclusive_ns": 51496500
+      },
+      "evaluation": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "qsearch": {
+        "calls": 164389,
+        "inclusive_ns": 22009800,
+        "exclusive_ns": 22009800
+      },
+      "proof": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "ordering": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      }
+    },
+    "gives_check": {
+      "other": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "search": {
+        "calls": 54249,
+        "inclusive_ns": 19127500,
+        "exclusive_ns": 9473900
+      },
+      "legal": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "see": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "gives_check": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "evaluation": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "qsearch": {
+        "calls": 363810,
+        "inclusive_ns": 107579700,
+        "exclusive_ns": 64283000
+      },
+      "proof": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "ordering": {
+        "calls": 323784,
+        "inclusive_ns": 99984300,
+        "exclusive_ns": 52252600
+      }
+    },
+    "see": {
+      "other": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "search": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "legal": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "see": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "gives_check": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "evaluation": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "qsearch": {
+        "calls": 9999,
+        "inclusive_ns": 21201100,
+        "exclusive_ns": 2243400
+      },
+      "proof": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "ordering": {
+        "calls": 85533,
+        "inclusive_ns": 150214500,
+        "exclusive_ns": 10734400
+      }
+    },
+    "see_exchange": {
+      "other": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "search": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "legal": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "see": {
+        "calls": 203725,
+        "inclusive_ns": 299214700,
+        "exclusive_ns": 26655100
+      },
+      "gives_check": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "evaluation": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "qsearch": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "proof": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "ordering": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      }
+    },
+    "legal_captures": {
+      "other": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "search": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "legal": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "see": {
+        "calls": 203725,
+        "inclusive_ns": 117474400,
+        "exclusive_ns": 101363000
+      },
+      "gives_check": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "evaluation": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "qsearch": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "proof": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "ordering": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      }
+    },
+    "evaluation": {
+      "other": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "search": {
+        "calls": 7074,
+        "inclusive_ns": 32668900,
+        "exclusive_ns": 8245100
+      },
+      "legal": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "see": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "gives_check": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "evaluation": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "qsearch": {
+        "calls": 88619,
+        "inclusive_ns": 363705500,
+        "exclusive_ns": 125136900
+      },
+      "proof": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "ordering": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      }
+    },
+    "attack_map": {
+      "other": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "search": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "legal": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "see": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "gives_check": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "evaluation": {
+        "calls": 95693,
+        "inclusive_ns": 118986900,
+        "exclusive_ns": 118986900
+      },
+      "qsearch": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "proof": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "ordering": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      }
+    },
+    "pawn_probe": {
+      "other": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "search": {
+        "calls": 6929,
+        "inclusive_ns": 1032200,
+        "exclusive_ns": 1032200
+      },
+      "legal": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "see": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "gives_check": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "evaluation": {
+        "calls": 95693,
+        "inclusive_ns": 85909900,
+        "exclusive_ns": 21395700
+      },
+      "qsearch": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "proof": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "ordering": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      }
+    },
+    "pawn_compute": {
+      "other": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "search": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "legal": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "see": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "gives_check": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "evaluation": {
+        "calls": 28164,
+        "inclusive_ns": 64514200,
+        "exclusive_ns": 64514200
+      },
+      "qsearch": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "proof": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "ordering": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      }
+    },
+    "proof_key": {
+      "other": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "search": {
+        "calls": 7911,
+        "inclusive_ns": 8840200,
+        "exclusive_ns": 8840200
+      },
+      "legal": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "see": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "gives_check": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "evaluation": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "qsearch": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "proof": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "ordering": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      }
+    },
+    "correction": {
+      "other": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "search": {
+        "calls": 7393,
+        "inclusive_ns": 3039400,
+        "exclusive_ns": 3039400
+      },
+      "legal": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "see": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "gives_check": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "evaluation": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "qsearch": {
+        "calls": 88506,
+        "inclusive_ns": 36688000,
+        "exclusive_ns": 36688000
+      },
+      "proof": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "ordering": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      }
+    },
+    "ordering": {
+      "other": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "search": {
+        "calls": 6951,
+        "inclusive_ns": 108366000,
+        "exclusive_ns": 844300
+      },
+      "legal": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "see": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "gives_check": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "evaluation": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "qsearch": {
+        "calls": 50707,
+        "inclusive_ns": 205214600,
+        "exclusive_ns": 4443400
+      },
+      "proof": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "ordering": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      }
+    },
+    "order_scoring": {
+      "other": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "search": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "legal": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "see": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "gives_check": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "evaluation": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "qsearch": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "proof": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "ordering": {
+        "calls": 57658,
+        "inclusive_ns": 300706200,
+        "exclusive_ns": 50507400
+      }
+    },
+    "order_sort": {
+      "other": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "search": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "legal": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "see": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "gives_check": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "evaluation": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "qsearch": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "proof": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "ordering": {
+        "calls": 57658,
+        "inclusive_ns": 7586700,
+        "exclusive_ns": 7586700
+      }
+    },
+    "qsearch": {
+      "other": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "search": {
+        "calls": 22362,
+        "inclusive_ns": 1756648200,
+        "exclusive_ns": 18072900
+      },
+      "legal": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "see": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "gives_check": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "evaluation": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "qsearch": {
+        "calls": 69775,
+        "inclusive_ns": 6994473600,
+        "exclusive_ns": 142890700
+      },
+      "proof": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "ordering": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      }
+    },
+    "main_search": {
+      "other": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "search": {
+        "calls": 30230,
+        "inclusive_ns": 7838584400,
+        "exclusive_ns": 40781800
+      },
+      "legal": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "see": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "gives_check": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "evaluation": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "qsearch": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "proof": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "ordering": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      }
+    },
+    "proof": {
+      "other": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "search": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "legal": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "see": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "gives_check": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "evaluation": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "qsearch": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "proof": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "ordering": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      }
+    },
+    "king_eval": {
+      "other": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "search": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "legal": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "see": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "gives_check": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "evaluation": {
+        "calls": 191386,
+        "inclusive_ns": 58095600,
+        "exclusive_ns": 58095600
+      },
+      "qsearch": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "proof": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "ordering": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      }
+    },
+    "strategic_eval": {
+      "other": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "search": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "legal": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "see": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "gives_check": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "evaluation": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "qsearch": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "proof": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "ordering": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      }
+    },
+    "phase": {
+      "other": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "search": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "legal": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "see": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "gives_check": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "evaluation": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "qsearch": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "proof": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "ordering": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      }
+    },
+    "pawn_terms": {
+      "other": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "search": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "legal": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "see": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "gives_check": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "evaluation": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "qsearch": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "proof": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      },
+      "ordering": {
+        "calls": 0,
+        "inclusive_ns": 0,
+        "exclusive_ns": 0
+      }
+    }
+  },
+  "top10_exclusive": [
+    [
+      "attacked",
+      {
+        "calls": 4143703,
+        "inclusive_ns": 301774600,
+        "exclusive_ns": 301774600
+      }
+    ],
+    [
+      "legal",
+      {
+        "calls": 109644,
+        "inclusive_ns": 791739800,
+        "exclusive_ns": 292153100
+      }
+    ],
+    [
+      "push",
+      {
+        "calls": 4274388,
+        "inclusive_ns": 278992900,
+        "exclusive_ns": 278992900
+      }
+    ],
+    [
+      "qsearch",
+      {
+        "calls": 92137,
+        "inclusive_ns": 8751121800,
+        "exclusive_ns": 160963600
+      }
+    ],
+    [
+      "evaluation",
+      {
+        "calls": 95693,
+        "inclusive_ns": 396374400,
+        "exclusive_ns": 133382000
+      }
+    ],
+    [
+      "pop",
+      {
+        "calls": 4274429,
+        "inclusive_ns": 127615000,
+        "exclusive_ns": 127615000
+      }
+    ],
+    [
+      "gives_check",
+      {
+        "calls": 741843,
+        "inclusive_ns": 226691500,
+        "exclusive_ns": 126009500
+      }
+    ],
+    [
+      "attack_map",
+      {
+        "calls": 95693,
+        "inclusive_ns": 118986900,
+        "exclusive_ns": 118986900
+      }
+    ],
+    [
+      "legal_captures",
+      {
+        "calls": 203725,
+        "inclusive_ns": 117474400,
+        "exclusive_ns": 101363000
+      }
+    ],
+    [
+      "pseudo",
+      {
+        "calls": 109644,
+        "inclusive_ns": 89571900,
+        "exclusive_ns": 83375700
+      }
+    ]
+  ]
+}

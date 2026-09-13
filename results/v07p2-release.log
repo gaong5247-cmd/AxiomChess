@@ -1,0 +1,82 @@
+-- Configuring done (0.1s)
+-- Generating done (1.6s)
+-- Build files have been written to: C:/Users/A/Documents/Codex/2026-09-11/v/outputs/AxiomChess/build
+msbuild 버전 18.6.3+84d3e95b4(.NET Framework용)
+
+cl : 명령줄  warning D9025: '/Ob2'을(를) '/Ob3'(으)로 재정의합니다. [C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\axiom_core.vcxproj]
+  chess.cpp
+  evaluation.cpp
+  feedback.cpp
+  move_order.cpp
+  proof.cpp
+  qsearch.cpp
+  search.cpp
+  search_report.cpp
+  strategic.cpp
+  tablebase.cpp
+  axiom_core.vcxproj -> C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Release\axiom_core.lib
+  corpus.cpp
+  audit.cpp
+  calibration.cpp
+  holdout.cpp
+  tests.cpp
+  pgn.cpp
+  Building Custom Rule C:/Users/A/Documents/Codex/2026-09-11/v/outputs/AxiomChess/CMakeLists.txt
+  legal_fast.cpp
+  코드를 생성하고 있습니다.
+  Previous IPDB and IOBJ mismatch, fall back to full compilation.
+  All 637 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  코드를 생성했습니다.
+  axiom_pgn.vcxproj -> C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Release\axiom_pgn.exe
+  axiom_core.lib(chess.obj) : /GL로 컴파일한 MSIL .netmodule 또는 모듈이 있습니다. /LTCG를 지정하여 링크를 다시 시작하십시오. /LTCG를 링크 명령줄에 추가하면 링커 성능이 향상됩니다.
+  코드를 생성하고 있습니다.
+  코드를 생성했습니다.
+  axiom_legal_fast.vcxproj -> C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Release\axiom_legal_fast.exe
+  main.cpp
+  코드를 생성하고 있습니다.
+  코드를 생성하고 있습니다.
+  코드를 생성하고 있습니다.
+  코드를 생성하고 있습니다.
+  axiom_core.lib(chess.obj) : /GL로 컴파일한 MSIL .netmodule 또는 모듈이 있습니다. /LTCG를 지정하여 링크를 다시 시작하십시오. /LTCG를 링크 명령줄에 추가하면 링커 성능이 향상됩니다.
+  Previous IPDB and IOBJ mismatch, fall back to full compilation.
+  코드를 생성하고 있습니다.
+  90 of 2541 functions ( 3.5%) were compiled, the rest were copied from previous compilation.
+    2 functions were new in current compilation
+    34 functions had inline decision re-evaluated but remain unchanged
+  코드를 생성했습니다.
+  axiom_calibration.vcxproj -> C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Release\axiom_calibration.exe
+  164 of 2447 functions ( 6.7%) were compiled, the rest were copied from previous compilation.
+    2 functions were new in current compilation
+    53 functions had inline decision re-evaluated but remain unchanged
+  코드를 생성했습니다.
+  axiom_audit.vcxproj -> C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Release\axiom_audit.exe
+  All 988 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  코드를 생성했습니다.
+  axiom_corpus.vcxproj -> C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Release\axiom_corpus.exe
+  161 of 2911 functions ( 5.5%) were compiled, the rest were copied from previous compilation.
+    2 functions were new in current compilation
+    56 functions had inline decision re-evaluated but remain unchanged
+  코드를 생성했습니다.
+  axiom_tests.vcxproj -> C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Release\axiom_tests.exe
+  코드를 생성하고 있습니다.
+  112 of 2560 functions ( 4.4%) were compiled, the rest were copied from previous compilation.
+    2 functions were new in current compilation
+    36 functions had inline decision re-evaluated but remain unchanged
+  코드를 생성했습니다.
+  axiom.vcxproj -> C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Release\axiom-0.7-cost.exe
+  코드를 생성했습니다.
+  axiom_holdout.vcxproj -> C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Release\axiom_holdout.exe
+Test project C:/Users/A/Documents/Codex/2026-09-11/v/outputs/AxiomChess/build
+    Start 1: axiom_tests
+1/4 Test #1: axiom_tests ......................   Passed    0.28 sec
+    Start 2: axiom_audit
+2/4 Test #2: axiom_audit ......................   Passed    5.84 sec
+    Start 3: axiom_calibration
+3/4 Test #3: axiom_calibration ................   Passed    2.19 sec
+    Start 4: axiom_legal_fast
+4/4 Test #4: axiom_legal_fast .................   Passed    0.43 sec
+
+100% tests passed out of 4
+
+Total Test time (real) =   8.89 sec
+PASS UCI handshake, finite search, concurrent isready, stop, stalemate, quit

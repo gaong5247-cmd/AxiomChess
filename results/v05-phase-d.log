@@ -1,0 +1,60 @@
+-- Configuring done (0.0s)
+-- Generating done (0.2s)
+-- Build files have been written to: C:/Users/A/Documents/Codex/2026-09-11/v/outputs/AxiomChess/build
+msbuild 버전 18.6.3+84d3e95b4(.NET Framework용)
+
+cl : 명령줄  warning D9025: '/Ob2'을(를) '/Ob3'(으)로 재정의합니다. [C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\axiom_core.vcxproj]
+  evaluation.cpp
+  feedback.cpp
+  proof.cpp
+  search.cpp
+  strategic.cpp
+  tablebase.cpp
+  axiom_core.vcxproj -> C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Release\axiom_core.lib
+  corpus.cpp
+  audit.cpp
+  Building Custom Rule C:/Users/A/Documents/Codex/2026-09-11/v/outputs/AxiomChess/CMakeLists.txt
+  main.cpp
+  tests.cpp
+  calibration.cpp
+  코드를 생성하고 있습니다.
+  코드를 생성하고 있습니다.
+  코드를 생성하고 있습니다.
+  Previous IPDB not found, fall back to full compilation.
+  코드를 생성하고 있습니다.
+  코드를 생성하고 있습니다.
+  0 of 986 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  코드를 생성했습니다.
+  axiom_corpus.vcxproj -> C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Release\axiom_corpus.exe
+  23 of 2184 functions ( 1.1%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
+    5 functions had inline decision re-evaluated but remain unchanged
+  코드를 생성했습니다.
+  axiom_audit.vcxproj -> C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Release\axiom_audit.exe
+  25 of 2292 functions ( 1.1%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
+    6 functions had inline decision re-evaluated but remain unchanged
+  코드를 생성했습니다.
+  axiom.vcxproj -> C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Release\axiom-0.5-calibration.exe
+  All 2154 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  코드를 생성했습니다.
+  22 of 2663 functions ( 0.8%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
+    6 functions had inline decision re-evaluated but remain unchanged
+  코드를 생성했습니다.
+  axiom_calibration.vcxproj -> C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Release\axiom_calibration.exe
+  axiom_tests.vcxproj -> C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Release\axiom_tests.exe
+Test project C:/Users/A/Documents/Codex/2026-09-11/v/outputs/AxiomChess/build
+    Start 1: axiom_tests
+1/3 Test #1: axiom_tests ......................   Passed    0.23 sec
+    Start 2: axiom_audit
+2/3 Test #2: axiom_audit ......................   Passed    3.96 sec
+    Start 3: axiom_calibration
+3/3 Test #3: axiom_calibration ................   Passed    0.13 sec
+
+100% tests passed out of 3
+
+Total Test time (real) =   4.38 sec
+PASS UCI handshake, finite search, concurrent isready, stop, stalemate, quit

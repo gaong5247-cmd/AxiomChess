@@ -1,0 +1,83 @@
+{
+  "engine_sha256": "7f404d751d30415bc70fc4644d308b4d34caea13738b21bf895ae171cf112982",
+  "date": "2026-09-13T05:34:04.417Z",
+  "command": [
+    "C:\\Program Files\\nodejs\\node.exe",
+    "C:\\Users\\A\\Documents\\Codex\\2026-09-11\\v\\outputs\\AxiomChess\\tests\\stop-latency.mjs",
+    "build/Release/axiom-0.7-cost.exe",
+    "results/v07-stop-latency.json"
+  ],
+  "interpretation": "External UCI latency includes IPC and scheduling; subsystem at request unobserved. Ten samples do not establish a worst-case bound.",
+  "results": [
+    {
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "enabled": false,
+      "stop_to_bestmove_ms": 0.30580000000000496,
+      "move": "bestmove d2d4",
+      "subsystem": "UNKNOWN"
+    },
+    {
+      "fen": "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1",
+      "enabled": false,
+      "stop_to_bestmove_ms": 0.2640999999999849,
+      "move": "bestmove e2a6",
+      "subsystem": "UNKNOWN"
+    },
+    {
+      "fen": "8/2p5/3p4/KP5r/1R3p1k/8/4P1P1/8 w - - 0 1",
+      "enabled": false,
+      "stop_to_bestmove_ms": 0.210899999999981,
+      "move": "bestmove b4f4",
+      "subsystem": "UNKNOWN"
+    },
+    {
+      "fen": "r3k2r/Pppp1ppp/1b3nbN/nP6/BBP1P3/q4N2/Pp1P2PP/R2Q1RK1 w kq - 0 1",
+      "enabled": false,
+      "stop_to_bestmove_ms": 0.21850000000006276,
+      "move": "bestmove g1h1",
+      "subsystem": "UNKNOWN"
+    },
+    {
+      "fen": "7k/8/8/5K2/5Q2/8/8/8 w - - 0 1",
+      "enabled": false,
+      "stop_to_bestmove_ms": 0.25689999999997326,
+      "move": "bestmove f5g6",
+      "subsystem": "UNKNOWN"
+    },
+    {
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "enabled": true,
+      "stop_to_bestmove_ms": 0.6384999999999081,
+      "move": "bestmove d2d4",
+      "subsystem": "UNKNOWN"
+    },
+    {
+      "fen": "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1",
+      "enabled": true,
+      "stop_to_bestmove_ms": 0.21749999999997272,
+      "move": "bestmove e2a6",
+      "subsystem": "UNKNOWN"
+    },
+    {
+      "fen": "8/2p5/3p4/KP5r/1R3p1k/8/4P1P1/8 w - - 0 1",
+      "enabled": true,
+      "stop_to_bestmove_ms": 0.25699999999994816,
+      "move": "bestmove b4f4",
+      "subsystem": "UNKNOWN"
+    },
+    {
+      "fen": "r3k2r/Pppp1ppp/1b3nbN/nP6/BBP1P3/q4N2/Pp1P2PP/R2Q1RK1 w kq - 0 1",
+      "enabled": true,
+      "stop_to_bestmove_ms": 0.16990000000009786,
+      "move": "bestmove c4c5",
+      "subsystem": "UNKNOWN"
+    },
+    {
+      "fen": "7k/8/8/5K2/5Q2/8/8/8 w - - 0 1",
+      "enabled": true,
+      "stop_to_bestmove_ms": 0.24329999999986285,
+      "move": "bestmove f5g6",
+      "subsystem": "UNKNOWN"
+    }
+  ]
+}

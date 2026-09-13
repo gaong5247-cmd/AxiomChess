@@ -1,0 +1,276 @@
+{
+  "options": {
+    "engine": "build\\Release\\axiom-0.5-calibration.exe",
+    "fens": "results\\v05-critical\\critical.jsonl",
+    "out": "results\\v05-depth-ablation",
+    "limit": 5,
+    "nodes": 0,
+    "depth": 4,
+    "time": 0,
+    "matrix": "ablation",
+    "profile": 0
+  },
+  "variants": [
+    {
+      "name": "all_on_rfp_off",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "probcut",
+        "dynamic_lmr",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache"
+      ],
+      "off": []
+    },
+    {
+      "name": "minus_probcut",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "probcut",
+        "dynamic_lmr",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache"
+      ],
+      "off": [
+        "probcut"
+      ]
+    },
+    {
+      "name": "minus_singular",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "probcut",
+        "dynamic_lmr",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache"
+      ],
+      "off": [
+        "singular"
+      ]
+    },
+    {
+      "name": "minus_iid",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "probcut",
+        "dynamic_lmr",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache"
+      ],
+      "off": [
+        "iid"
+      ]
+    },
+    {
+      "name": "minus_history_pruning",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "probcut",
+        "dynamic_lmr",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache"
+      ],
+      "off": [
+        "history_pruning"
+      ]
+    },
+    {
+      "name": "minus_see_pruning",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "probcut",
+        "dynamic_lmr",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache"
+      ],
+      "off": [
+        "see_pruning"
+      ]
+    },
+    {
+      "name": "minus_correction",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "probcut",
+        "dynamic_lmr",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache"
+      ],
+      "off": [
+        "correction"
+      ]
+    },
+    {
+      "name": "minus_continuation",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "probcut",
+        "dynamic_lmr",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache"
+      ],
+      "off": [
+        "continuation"
+      ]
+    },
+    {
+      "name": "minus_dynamic_lmr",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "probcut",
+        "dynamic_lmr",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache"
+      ],
+      "off": [
+        "dynamic_lmr"
+      ]
+    },
+    {
+      "name": "minus_search_safety",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "probcut",
+        "dynamic_lmr",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache"
+      ],
+      "off": [
+        "search_safety"
+      ]
+    }
+  ],
+  "engine_sha256": "f5388d867c5444241cf9acf72260ed5e538dceca6baefccc323eb05f3ca48a83",
+  "corpus_sha256": "abb98963047d61fc51cc35329e714394e9fdbf8d7ea1ad0b104dc3b4ae2a1e07",
+  "created": "2026-09-12T13:16:23.549Z"
+}

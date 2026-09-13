@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Solution>
+	<Configurations>
+		<BuildType Name="Debug"/>
+		<BuildType Name="Release"/>
+		<BuildType Name="MinSizeRel"/>
+		<BuildType Name="RelWithDebInfo"/>
+		<Platform Name="x64"/>
+	</Configurations>
+	<Project Path="ALL_BUILD.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="76bd6a35-324f-34d2-a5cd-5a76daaf236a">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="axiom.vcxproj"/>
+		<BuildDependency Project="axiom_audit.vcxproj"/>
+		<BuildDependency Project="axiom_calibration.vcxproj"/>
+		<BuildDependency Project="axiom_core.vcxproj"/>
+		<BuildDependency Project="axiom_corpus.vcxproj"/>
+		<BuildDependency Project="axiom_holdout.vcxproj"/>
+		<BuildDependency Project="axiom_legal_fast.vcxproj"/>
+		<BuildDependency Project="axiom_pgn.vcxproj"/>
+		<BuildDependency Project="axiom_tests.vcxproj"/>
+		<Build Solution="Debug|*" Project="false"/>
+		<Build Solution="Release|*" Project="false"/>
+		<Build Solution="MinSizeRel|*" Project="false"/>
+		<Build Solution="RelWithDebInfo|*" Project="false"/>
+	</Project>
+	<Project Path="RUN_TESTS.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="2f65f5cb-e5db-3bac-9cfe-68a95f454b34">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<Build Solution="Debug|*" Project="false"/>
+		<Build Solution="Release|*" Project="false"/>
+		<Build Solution="MinSizeRel|*" Project="false"/>
+		<Build Solution="RelWithDebInfo|*" Project="false"/>
+	</Project>
+	<Project Path="ZERO_CHECK.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="3dc55506-a158-3c8e-8105-57ccea7b15c9"/>
+	<Project Path="axiom.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="cbdd3cbb-b80c-3d02-a595-f327033f8708" DefaultStartup="true">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="axiom_core.vcxproj"/>
+	</Project>
+	<Project Path="axiom_audit.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="bc69a320-74be-326a-89b9-b602fa8d5839">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="axiom_core.vcxproj"/>
+	</Project>
+	<Project Path="axiom_calibration.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="74efc8b0-20e1-30ba-ae8f-4445d8eff302">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="axiom_core.vcxproj"/>
+	</Project>
+	<Project Path="axiom_core.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="70cffeed-46e2-3fd2-bcb8-97a632c42437">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+	</Project>
+	<Project Path="axiom_corpus.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="d8776111-d1fd-3792-a83b-a3dc5ddac8c4">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="axiom_core.vcxproj"/>
+	</Project>
+	<Project Path="axiom_holdout.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="ac167d69-5f58-373b-b0ad-923508755fc2">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="axiom_core.vcxproj"/>
+	</Project>
+	<Project Path="axiom_legal_fast.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="f25773f7-1309-31d9-a07e-15b83dd9a072">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="axiom_core.vcxproj"/>
+	</Project>
+	<Project Path="axiom_pgn.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="30543615-6b41-39d1-a137-1bcad8e36c95">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="axiom_core.vcxproj"/>
+	</Project>
+	<Project Path="axiom_tests.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="196d4854-85f0-335e-848f-3afe584dc599">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="axiom_core.vcxproj"/>
+	</Project>
+</Solution>

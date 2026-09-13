@@ -1,0 +1,29 @@
+{
+  "date": "2026-09-13T11:32:43.192Z",
+  "engine_sha256": "1758a9c51351555d0951455a816b286539393933c9d7e6a1c23f3cb185b505c0",
+  "tested": 100,
+  "passed": true,
+  "bench_runs": [
+    {
+      "positions": 5,
+      "depth_limit": 4,
+      "node_limit_per_position": 20000,
+      "nodes": 50208,
+      "time_ms": 624,
+      "nps": 80461,
+      "checksum": "1adfb4f5b7d47cb9",
+      "policy": "v1-baseline-middlegame-proof0-threads1-hash32"
+    },
+    {
+      "positions": 5,
+      "depth_limit": 4,
+      "node_limit_per_position": 20000,
+      "nodes": 50208,
+      "time_ms": 602,
+      "nps": 83401,
+      "checksum": "1adfb4f5b7d47cb9",
+      "policy": "v1-baseline-middlegame-proof0-threads1-hash32"
+    }
+  ],
+  "description": "Production preset equivalence, clean options, strict go parsing, standard info, clocks, stop, bench determinism; no strength claim"
+}
