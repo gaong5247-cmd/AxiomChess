@@ -1,0 +1,17 @@
+{
+  "options": {
+    "pgn": "results\\audit-version-pilot\\games.pgn",
+    "converter": "build\\Release\\axiom_pgn.exe",
+    "reference": "reference\\stockfish-18\\stockfish\\stockfish-windows-x86-64-avx2.exe",
+    "out": "results\\v05-critical",
+    "threshold": 100,
+    "depth": 12,
+    "games": 6,
+    "plies": 80
+  },
+  "pgn_sha256": "c5519bf69f8fc8e60c651c8c52e4869872aa0c2456dcc1d32dee54a663c0b456",
+  "reference_sha256": "c86215fa1977d53b82ed854540a4c7b025be4cd042276c85ba3de53fb9118911",
+  "source_positions": 2573,
+  "created": "2026-09-12T13:12:39.114Z",
+  "policy": "First threshold crossing per game and side; null labels are unavailable original PGN telemetry. FEN replay omits repetition history; repeated positions excluded."
+}

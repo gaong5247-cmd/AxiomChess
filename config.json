@@ -1,0 +1,251 @@
+{
+    "resign": {
+        "move_count": 1,
+        "score": 0,
+        "twosided": false,
+        "enabled": false
+    },
+    "draw": {
+        "move_number": 0,
+        "move_count": 1,
+        "score": 0,
+        "enabled": false
+    },
+    "maxmoves": {
+        "move_count": 1,
+        "enabled": false
+    },
+    "tb_adjudication": {
+        "syzygy_dirs": "",
+        "max_pieces": 0,
+        "ignore_50_move_rule": false,
+        "enabled": false
+    },
+    "opening": {
+        "file": "C:\\Users\\A\\Documents\\Codex\\2026-09-11\\v\\outputs\\AxiomChess\\results\\v05-openings\\openings.epd",
+        "format": 0,
+        "order": 0,
+        "plies": -1,
+        "start": 1
+    },
+    "pgn": {
+        "additional_lines_rgx": [],
+        "event_name": "Fastchess Tournament",
+        "site": "?",
+        "file": "C:\\Users\\A\\Documents\\Codex\\2026-09-11\\v\\outputs\\AxiomChess\\results\\v06-paired\\games.pgn",
+        "notation": 0,
+        "append_file": false,
+        "track_nodes": true,
+        "track_seldepth": false,
+        "track_nps": true,
+        "track_hashfull": false,
+        "track_tbhits": false,
+        "track_timeleft": true,
+        "track_latency": false,
+        "track_pv": false,
+        "min": false,
+        "crc": false
+    },
+    "epd": {
+        "file": "",
+        "append_file": true
+    },
+    "sprt": {
+        "alpha": 0.05,
+        "beta": 0.05,
+        "elo0": 0.0,
+        "elo1": 5.0,
+        "model": "logistic",
+        "enabled": true
+    },
+    "config_name": "config.json",
+    "output": 1,
+    "seed": 20260911,
+    "variant": 0,
+    "type": 0,
+    "gauntlet_seeds": 1,
+    "ratinginterval": 10,
+    "scoreinterval": 1,
+    "wait": 0,
+    "autosaveinterval": 20,
+    "games": 2,
+    "rounds": 50,
+    "concurrency": 2,
+    "force_concurrency": false,
+    "recover": false,
+    "noswap": false,
+    "reverse": false,
+    "report_penta": false,
+    "affinity": false,
+    "check_mate_pvs": false,
+    "show_latency": false,
+    "log": {
+        "file": "C:\\Users\\A\\Documents\\Codex\\2026-09-11\\v\\outputs\\AxiomChess\\results\\v06-paired\\runner.log",
+        "level": 2,
+        "append_file": false,
+        "compress": false,
+        "realtime": true,
+        "engine_coms": false
+    },
+    "engines": [
+        {
+            "name": "candidate_version",
+            "dir": "",
+            "cmd": "C:\\Users\\A\\Documents\\Codex\\2026-09-11\\v\\outputs\\AxiomChess\\results\\v06-paired\\candidate.exe",
+            "args": "",
+            "restart": false,
+            "options": [
+                [
+                    "Experimental",
+                    "false"
+                ],
+                [
+                    "Threads",
+                    "1"
+                ],
+                [
+                    "Feature_correction",
+                    "true"
+                ],
+                [
+                    "Feature_continuation",
+                    "true"
+                ],
+                [
+                    "Feature_capture_history",
+                    "true"
+                ],
+                [
+                    "Feature_countermove",
+                    "true"
+                ],
+                [
+                    "Feature_dynamic_lmr",
+                    "true"
+                ],
+                [
+                    "Feature_strategic_eval",
+                    "true"
+                ],
+                [
+                    "Feature_king_safety",
+                    "true"
+                ],
+                [
+                    "Feature_search_safety",
+                    "true"
+                ],
+                [
+                    "Feature_pawn_cache",
+                    "true"
+                ],
+                [
+                    "Hash",
+                    "32"
+                ],
+                [
+                    "ProofNodes",
+                    "0"
+                ]
+            ],
+            "limit": {
+                "tc": {
+                    "increment": 10,
+                    "fixed_time": 0,
+                    "time": 1000,
+                    "moves": 0,
+                    "timemargin": 0
+                },
+                "nodes": 0,
+                "plies": 0
+            },
+            "variant": 0
+        },
+        {
+            "name": "reference",
+            "dir": "",
+            "cmd": "C:\\Users\\A\\Documents\\Codex\\2026-09-11\\v\\outputs\\AxiomChess\\results\\v06-paired\\reference.exe",
+            "args": "",
+            "restart": false,
+            "options": [
+                [
+                    "Experimental",
+                    "false"
+                ],
+                [
+                    "Threads",
+                    "1"
+                ],
+                [
+                    "Feature_correction",
+                    "true"
+                ],
+                [
+                    "Feature_continuation",
+                    "true"
+                ],
+                [
+                    "Feature_capture_history",
+                    "true"
+                ],
+                [
+                    "Feature_countermove",
+                    "true"
+                ],
+                [
+                    "Feature_dynamic_lmr",
+                    "true"
+                ],
+                [
+                    "Feature_strategic_eval",
+                    "true"
+                ],
+                [
+                    "Feature_king_safety",
+                    "true"
+                ],
+                [
+                    "Feature_search_safety",
+                    "true"
+                ],
+                [
+                    "Feature_pawn_cache",
+                    "true"
+                ],
+                [
+                    "Hash",
+                    "32"
+                ],
+                [
+                    "ProofNodes",
+                    "0"
+                ]
+            ],
+            "limit": {
+                "tc": {
+                    "increment": 10,
+                    "fixed_time": 0,
+                    "time": 1000,
+                    "moves": 0,
+                    "timemargin": 0
+                },
+                "nodes": 0,
+                "plies": 0
+            },
+            "variant": 0
+        }
+    ],
+    "stats": {
+        "candidate_version vs reference": {
+            "wins": 47,
+            "losses": 36,
+            "draws": 17,
+            "penta_WW": 0,
+            "penta_WD": 0,
+            "penta_WL": 0,
+            "penta_DD": 0,
+            "penta_LD": 0,
+            "penta_LL": 0
+        }
+    }
+}

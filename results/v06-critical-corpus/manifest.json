@@ -1,0 +1,51 @@
+{
+  "options": {
+    "pgn": "results\\v05-paired-adaptive-time\\games.pgn|results\\v05-guard-smoke\\games.pgn|results\\audit-version-pilot\\games.pgn",
+    "converter": "build\\Release\\axiom_pgn.exe",
+    "reference": "reference\\stockfish-18\\stockfish\\stockfish-windows-x86-64-avx2.exe",
+    "out": "results\\v06-critical-corpus",
+    "target": 300,
+    "depth": 18,
+    "screen": 10000
+  },
+  "source_revision": "v05-frozen-games/v06-extraction-tool",
+  "command_line": [
+    "C:\\Program Files\\nodejs\\node.exe",
+    "C:\\Users\\A\\Documents\\Codex\\2026-09-11\\v\\outputs\\AxiomChess\\tools\\expand-critical.mjs",
+    "--pgn",
+    "results\\v05-paired-adaptive-time\\games.pgn|results\\v05-guard-smoke\\games.pgn|results\\audit-version-pilot\\games.pgn",
+    "--converter",
+    "build\\Release\\axiom_pgn.exe",
+    "--reference",
+    "reference\\stockfish-18\\stockfish\\stockfish-windows-x86-64-avx2.exe",
+    "--out",
+    "results\\v06-critical-corpus",
+    "--target",
+    "300",
+    "--depth",
+    "18"
+  ],
+  "uci": {
+    "Threads": 1,
+    "Hash": 32
+  },
+  "reference_sha256": "c86215fa1977d53b82ed854540a4c7b025be4cd042276c85ba3de53fb9118911",
+  "converter_sha256": "bbfa6be6879978383985a657eca8ac55f4c0996521c2c2e8b9e17105c5dd5d6e",
+  "tool_sha256": "b972c15abf4f20cbce38f170455178bb7d8f65438b54de4cd04423333a992224",
+  "pgn": [
+    {
+      "path": "results\\v05-paired-adaptive-time\\games.pgn",
+      "sha256": "26c4b0eda078b3e853e66522526794f7b09bb6ad0349c4415054712717fe8579"
+    },
+    {
+      "path": "results\\v05-guard-smoke\\games.pgn",
+      "sha256": "1973731884484c865aeb4341e408bc287d1947df613b349c237ebe7533518f47"
+    },
+    {
+      "path": "results\\audit-version-pilot\\games.pgn",
+      "sha256": "c5519bf69f8fc8e60c651c8c52e4869872aa0c2456dcc1d32dee54a663c0b456"
+    }
+  ],
+  "date": "2026-09-12T13:46:47.658Z",
+  "policy": "Low-node screening, depth-qualified reference confirmation. First/largest/crossings mean observed qualifying positions, not exhaustive game oracle."
+}

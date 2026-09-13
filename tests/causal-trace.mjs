@@ -1,0 +1,30 @@
+import assert from 'node:assert/strict';
+import {mkdtemp,readFile} from 'node:fs/promises';
+import {resolve} from 'node:path';
+import {spawnSync} from 'node:child_process';
+import {search,analyzeTrace} from '../tools/causal-analysis.mjs';
+const exe=process.argv[2]??'build-causal/Release/axiom-0.6-causal-research.exe';
+const dir=await mkdtemp(resolve('results/causal-test-'));
+const fen='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+const base=search(exe,fen,['--depth','5','--nodes','50000']);
+const path=resolve(dir,'trace.jsonl');
+const traced=search(exe,fen,['--depth','5','--nodes','50000','--trace-root-move','e2e4','--trace-min-iteration','3','--trace-max-events','3000','--trace-output',path]);
+for(const key of ['bestmove','score_cp','depth','nodes','moves']) assert.deepEqual(traced[key],base[key],key);
+const events=(await readFile(path,'utf8')).trim().split(/\r?\n/).map(JSON.parse);
+const actual=events.filter(e=>e.event_id),summary=events.at(-1);
+assert(actual.length<=3000); assert.equal(new Set(actual.map(e=>e.event_id)).size,actual.length);
+const nodes=new Set(events.filter(e=>e.reason==='NODE_ENTER').map(e=>e.node_id));
+for(const e of actual) {
+  if(e.node_id) assert(nodes.has(e.node_id),`Missing node ${e.node_id}`);
+  if(e.parent_id) assert(nodes.has(e.parent_id),`Missing parent ${e.parent_id}`);
+  if(e.reason!=='ROOT_ITERATION_RANK' && !e.reason.includes('INTERRUPTION')) assert.equal(e.root_move,'e2e4');
+}
+assert(events.some(e=>e.reason==='ROOT_ITERATION_RANK' && e.depth>=3));
+assert.equal(summary.reason,'TRACE_SUMMARY');
+const report=analyzeTrace(events,'e2e4'); assert.equal(report.reference_legal,true); assert.equal(report.category,'UNKNOWN');
+const before=await readFile(path,'utf8');
+const overwrite=spawnSync(resolve(exe),['--analyze','--trace-search','--trace-output',path],{encoding:'utf8',windowsHide:true});
+assert.notEqual(overwrite.status,0); assert.equal(await readFile(path,'utf8'),before);
+const tiny=resolve(dir,'tiny.jsonl');search(exe,fen,['--nodes','3000','--trace-search','--trace-max-events','1','--trace-output',tiny]);
+const capped=(await readFile(tiny,'utf8')).trim().split(/\r?\n/).map(JSON.parse);assert.equal(capped.at(-1).complete,false);assert(capped.filter(e=>e.event_id).length<=1);
+console.log(`PASS trace deterministic search, parent links, filtering, cap, no overwrite: ${dir}`);

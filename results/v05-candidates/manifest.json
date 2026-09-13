@@ -1,0 +1,142 @@
+{
+  "options": {
+    "engine": "build\\Release\\axiom-0.5-calibration.exe",
+    "fens": "results\\v05-critical\\critical.jsonl",
+    "out": "results\\v05-candidates",
+    "limit": 12,
+    "nodes": 20000,
+    "depth": 30,
+    "time": 0,
+    "matrix": "candidates",
+    "profile": 0
+  },
+  "variants": [
+    {
+      "name": "all_on_rfp_off",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "probcut",
+        "dynamic_lmr",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache"
+      ],
+      "off": []
+    },
+    {
+      "name": "plus_trend_safety",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "probcut",
+        "dynamic_lmr",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache",
+        "trend_safety"
+      ],
+      "off": []
+    },
+    {
+      "name": "plus_calibrated_lmr",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "probcut",
+        "dynamic_lmr",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache",
+        "calibrated_lmr"
+      ],
+      "off": []
+    },
+    {
+      "name": "plus_adaptive_time",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "probcut",
+        "dynamic_lmr",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache",
+        "adaptive_time"
+      ],
+      "off": []
+    },
+    {
+      "name": "plus_rfp",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "probcut",
+        "dynamic_lmr",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache",
+        "rfp"
+      ],
+      "off": []
+    }
+  ],
+  "engine_sha256": "f5388d867c5444241cf9acf72260ed5e538dceca6baefccc323eb05f3ca48a83",
+  "corpus_sha256": "abb98963047d61fc51cc35329e714394e9fdbf8d7ea1ad0b104dc3b4ae2a1e07",
+  "created": "2026-09-12T13:14:09.343Z"
+}

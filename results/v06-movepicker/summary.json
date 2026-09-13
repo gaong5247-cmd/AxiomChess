@@ -1,0 +1,96 @@
+[
+  {
+    "budget": "nodes",
+    "name": "full",
+    "positions": 30,
+    "agreement": 2,
+    "average_depth": 3.933333333333333,
+    "nodes": 600000,
+    "elapsed_ms": 6822,
+    "q_explosion_flags": [
+      17
+    ],
+    "interpretation": "Q ratio > .95 is a profiling flag, not a correctness failure."
+  },
+  {
+    "budget": "nodes",
+    "name": "partial",
+    "positions": 30,
+    "agreement": 2,
+    "average_depth": 3.8333333333333335,
+    "nodes": 600000,
+    "elapsed_ms": 6870,
+    "q_explosion_flags": [
+      17
+    ],
+    "interpretation": "Q ratio > .95 is a profiling flag, not a correctness failure."
+  },
+  {
+    "budget": "depth",
+    "name": "full",
+    "positions": 30,
+    "agreement": 4,
+    "average_depth": 4,
+    "nodes": 396542,
+    "elapsed_ms": 4547,
+    "q_explosion_flags": [
+      10,
+      17
+    ],
+    "interpretation": "Q ratio > .95 is a profiling flag, not a correctness failure."
+  },
+  {
+    "budget": "depth",
+    "name": "partial",
+    "positions": 30,
+    "agreement": 5,
+    "average_depth": 4,
+    "nodes": 400521,
+    "elapsed_ms": 4592,
+    "q_explosion_flags": [],
+    "interpretation": "Q ratio > .95 is a profiling flag, not a correctness failure."
+  },
+  {
+    "budget": "time",
+    "name": "full",
+    "positions": 30,
+    "agreement": 2,
+    "average_depth": 2.6666666666666665,
+    "nodes": 135803,
+    "elapsed_ms": 1500,
+    "q_explosion_flags": [
+      0,
+      7,
+      10,
+      16,
+      17,
+      24,
+      26,
+      28
+    ],
+    "interpretation": "Q ratio > .95 is a profiling flag, not a correctness failure."
+  },
+  {
+    "budget": "time",
+    "name": "partial",
+    "positions": 30,
+    "agreement": 2,
+    "average_depth": 2.7666666666666666,
+    "nodes": 135155,
+    "elapsed_ms": 1500,
+    "q_explosion_flags": [
+      0,
+      7,
+      10,
+      16,
+      17,
+      19,
+      21,
+      24,
+      26,
+      27,
+      28
+    ],
+    "interpretation": "Q ratio > .95 is a profiling flag, not a correctness failure."
+  }
+]

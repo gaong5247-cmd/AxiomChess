@@ -1,0 +1,50 @@
+-- Configuring done (0.1s)
+-- Generating done (0.3s)
+-- Build files have been written to: C:/Users/A/Documents/Codex/2026-09-11/v/outputs/AxiomChess/build
+msbuild 버전 18.6.3+84d3e95b4(.NET Framework용)
+
+cl : 명령줄  warning D9025: '/Ob2'을(를) '/Ob3'(으)로 재정의합니다. [C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\axiom_core.vcxproj]
+  evaluation.cpp
+  feedback.cpp
+  proof.cpp
+  search.cpp
+  strategic.cpp
+  tablebase.cpp
+  axiom_core.vcxproj -> C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Release\axiom_core.lib
+  tests.cpp
+  audit.cpp
+  main.cpp
+  corpus.cpp
+  코드를 생성하고 있습니다.
+  코드를 생성하고 있습니다.
+  Previous IPDB not found, fall back to full compilation.
+  코드를 생성하고 있습니다.
+  69 of 2088 functions ( 3.3%) were compiled, the rest were copied from previous compilation.
+    18 functions were new in current compilation
+    21 functions had inline decision re-evaluated but remain unchanged
+  코드를 생성했습니다.
+  코드를 생성하고 있습니다.
+  0 of 986 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  코드를 생성했습니다.
+  axiom_corpus.vcxproj -> C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Release\axiom_corpus.exe
+  axiom_audit.vcxproj -> C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Release\axiom_audit.exe
+  All 2200 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  코드를 생성했습니다.
+  axiom.vcxproj -> C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Release\axiom-0.5-calibration.exe
+  65 of 2573 functions ( 2.5%) were compiled, the rest were copied from previous compilation.
+    18 functions were new in current compilation
+    12 functions had inline decision re-evaluated but remain unchanged
+  코드를 생성했습니다.
+  axiom_tests.vcxproj -> C:\Users\A\Documents\Codex\2026-09-11\v\outputs\AxiomChess\build\Release\axiom_tests.exe
+Test project C:/Users/A/Documents/Codex/2026-09-11/v/outputs/AxiomChess/build
+    Start 1: axiom_tests
+1/2 Test #1: axiom_tests ......................   Passed    0.49 sec
+    Start 2: axiom_audit
+2/2 Test #2: axiom_audit ......................   Passed    5.01 sec
+
+100% tests passed out of 2
+
+Total Test time (real) =   5.52 sec
+PASS UCI handshake, finite search, concurrent isready, stop, stalemate, quit

@@ -1,0 +1,644 @@
+{
+  "options": {
+    "engine": "build\\Release\\axiom-0.5-calibration.exe",
+    "fens": "results\\v05-critical\\critical.jsonl",
+    "out": "results\\v05-interactions",
+    "limit": 5,
+    "nodes": 15000,
+    "depth": 30,
+    "time": 0,
+    "matrix": "interaction",
+    "profile": 0
+  },
+  "variants": [
+    {
+      "name": "all_on_rfp_off",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "probcut",
+        "dynamic_lmr",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache"
+      ],
+      "off": []
+    },
+    {
+      "name": "dynamic_lmr_history_pruning_0",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "probcut",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache"
+      ],
+      "off": [
+        "dynamic_lmr",
+        "history_pruning"
+      ]
+    },
+    {
+      "name": "dynamic_lmr_history_pruning_1",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "probcut",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache",
+        "dynamic_lmr"
+      ],
+      "off": [
+        "history_pruning"
+      ]
+    },
+    {
+      "name": "dynamic_lmr_history_pruning_2",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "probcut",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache",
+        "history_pruning"
+      ],
+      "off": [
+        "dynamic_lmr"
+      ]
+    },
+    {
+      "name": "dynamic_lmr_history_pruning_3",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "probcut",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache",
+        "dynamic_lmr",
+        "history_pruning"
+      ],
+      "off": []
+    },
+    {
+      "name": "probcut_see_pruning_0",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "dynamic_lmr",
+        "history_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache"
+      ],
+      "off": [
+        "probcut",
+        "see_pruning"
+      ]
+    },
+    {
+      "name": "probcut_see_pruning_1",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "dynamic_lmr",
+        "history_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache",
+        "probcut"
+      ],
+      "off": [
+        "see_pruning"
+      ]
+    },
+    {
+      "name": "probcut_see_pruning_2",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "dynamic_lmr",
+        "history_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache",
+        "see_pruning"
+      ],
+      "off": [
+        "probcut"
+      ]
+    },
+    {
+      "name": "probcut_see_pruning_3",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "dynamic_lmr",
+        "history_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache",
+        "probcut",
+        "see_pruning"
+      ],
+      "off": []
+    },
+    {
+      "name": "verified_null_rfp_0",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "probcut",
+        "dynamic_lmr",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache"
+      ],
+      "off": [
+        "verified_null",
+        "rfp"
+      ]
+    },
+    {
+      "name": "verified_null_rfp_1",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "probcut",
+        "dynamic_lmr",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache",
+        "verified_null"
+      ],
+      "off": [
+        "rfp"
+      ]
+    },
+    {
+      "name": "verified_null_rfp_2",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "probcut",
+        "dynamic_lmr",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache",
+        "rfp"
+      ],
+      "off": [
+        "verified_null"
+      ]
+    },
+    {
+      "name": "verified_null_rfp_3",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "probcut",
+        "dynamic_lmr",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache",
+        "verified_null",
+        "rfp"
+      ],
+      "off": []
+    },
+    {
+      "name": "correction_rfp_0",
+      "on": [
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "probcut",
+        "dynamic_lmr",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache"
+      ],
+      "off": [
+        "correction",
+        "rfp"
+      ]
+    },
+    {
+      "name": "correction_rfp_1",
+      "on": [
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "probcut",
+        "dynamic_lmr",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache",
+        "correction"
+      ],
+      "off": [
+        "rfp"
+      ]
+    },
+    {
+      "name": "correction_rfp_2",
+      "on": [
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "probcut",
+        "dynamic_lmr",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache",
+        "rfp"
+      ],
+      "off": [
+        "correction"
+      ]
+    },
+    {
+      "name": "correction_rfp_3",
+      "on": [
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "probcut",
+        "dynamic_lmr",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache",
+        "correction",
+        "rfp"
+      ],
+      "off": []
+    },
+    {
+      "name": "singular_dynamic_lmr_0",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "verified_null",
+        "probcut",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache"
+      ],
+      "off": [
+        "singular",
+        "dynamic_lmr"
+      ]
+    },
+    {
+      "name": "singular_dynamic_lmr_1",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "verified_null",
+        "probcut",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache",
+        "singular"
+      ],
+      "off": [
+        "dynamic_lmr"
+      ]
+    },
+    {
+      "name": "singular_dynamic_lmr_2",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "verified_null",
+        "probcut",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache",
+        "dynamic_lmr"
+      ],
+      "off": [
+        "singular"
+      ]
+    },
+    {
+      "name": "singular_dynamic_lmr_3",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "verified_null",
+        "probcut",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache",
+        "singular",
+        "dynamic_lmr"
+      ],
+      "off": []
+    },
+    {
+      "name": "continuation_dynamic_lmr_0",
+      "on": [
+        "correction",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "probcut",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache"
+      ],
+      "off": [
+        "continuation",
+        "dynamic_lmr"
+      ]
+    },
+    {
+      "name": "continuation_dynamic_lmr_1",
+      "on": [
+        "correction",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "probcut",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache",
+        "continuation"
+      ],
+      "off": [
+        "dynamic_lmr"
+      ]
+    },
+    {
+      "name": "continuation_dynamic_lmr_2",
+      "on": [
+        "correction",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "probcut",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache",
+        "dynamic_lmr"
+      ],
+      "off": [
+        "continuation"
+      ]
+    },
+    {
+      "name": "continuation_dynamic_lmr_3",
+      "on": [
+        "correction",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "probcut",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache",
+        "continuation",
+        "dynamic_lmr"
+      ],
+      "off": []
+    }
+  ],
+  "engine_sha256": "f5388d867c5444241cf9acf72260ed5e538dceca6baefccc323eb05f3ca48a83",
+  "corpus_sha256": "abb98963047d61fc51cc35329e714394e9fdbf8d7ea1ad0b104dc3b4ae2a1e07",
+  "created": "2026-09-12T13:15:54.323Z"
+}

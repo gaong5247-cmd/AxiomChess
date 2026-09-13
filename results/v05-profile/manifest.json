@@ -1,0 +1,42 @@
+{
+  "options": {
+    "engine": "build\\Release\\axiom-0.5-calibration.exe",
+    "fens": "tests\\bench.fens",
+    "out": "results\\v05-profile",
+    "limit": 5,
+    "nodes": 20000,
+    "depth": 30,
+    "time": 0,
+    "matrix": "single",
+    "profile": 1
+  },
+  "variants": [
+    {
+      "name": "all_on_rfp_off",
+      "on": [
+        "correction",
+        "continuation",
+        "capture_history",
+        "countermove",
+        "singular",
+        "verified_null",
+        "probcut",
+        "dynamic_lmr",
+        "history_pruning",
+        "see_pruning",
+        "mate_distance",
+        "iid",
+        "tt_policy",
+        "time_management",
+        "strategic_eval",
+        "king_safety",
+        "search_safety",
+        "pawn_cache"
+      ],
+      "off": []
+    }
+  ],
+  "engine_sha256": "f5388d867c5444241cf9acf72260ed5e538dceca6baefccc323eb05f3ca48a83",
+  "corpus_sha256": "46d218e5acafe2141a74f33903b7eaf96e537b63127af9cea0cdcb425168c680",
+  "created": "2026-09-12T13:14:25.030Z"
+}
