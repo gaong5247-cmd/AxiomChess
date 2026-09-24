@@ -11,10 +11,10 @@ namespace {
 std::uint64_t bit(int square) { return 1ULL<<((square>>4)*8+(square&7)); }
 enum Term { Material,Mobility,KingSafety,PawnStructure,PieceActivity,Space,Threats,PassedPawns,EndgameTerms,
     Outposts,WeakSquares,BadBishop,RookFiles,PawnBreaks,Coordination,TrappedPieces,PassedPotential,KingRingPressure,KingOpenFiles,KingCoordination,
-    OpeningDevelopment,Count };
+    OpeningDevelopment,MidgameInitiative,EndgameActivity,Count };
 constexpr const char* names[]={"Material","Mobility","KingSafety","PawnStructure","PieceActivity","Space","Threats","PassedPawns","EndgameTerms",
     "Outposts","WeakSquares","BadBishop","RookFiles","PawnBreaks","Coordination","TrappedPieces","PassedPotential","KingRingPressure","KingOpenFiles","KingCoordination",
-    "OpeningDevelopment"};
+    "OpeningDevelopment","MidgameInitiative","EndgameActivity"};
 struct AttackMap { std::uint64_t from[128]{},occupied[2]{}; unsigned char count[2][128]{}; };
 AttackMap attacks(const Board& b) {
     AXIOM_HOT(AttackMap,Inherit);
@@ -212,6 +212,45 @@ int evaluate_score(const Board& b,bool strategic,bool enhanced_king,PawnCache* c
                 bool queen_alive=false;
                 for(int s=0;s<128;++s) if(valid(s) && b.squares[s]==sign*Queen) { queen_alive=true; break; }
                 if(queen_alive) terms[OpeningDevelopment]-=sign*10*phase/24;
+            }
+        }
+
+        // Middlegame: reward control of the true center and useful penetration.
+        // These are generic principles, not learned or memorized positions.
+        if(phase>=8 && phase<=22) {
+            int center_control=0,penetration=0;
+            for(int sq:{51,52,67,68}) center_control+=map.count[c][sq]-map.count[1-c][sq]; // d4/e4/d5/e5
+            for(int s=0;s<128;++s) if(valid(s) && color(b.squares[s])==sign) {
+                const int pt=std::abs(b.squares[s]);
+                const int rel_rank=c==0?s>>4:7-(s>>4);
+                if((pt==Knight || pt==Bishop || pt==Rook) && rel_rank>=4) ++penetration;
+                if(pt==Rook && rel_rank==6) terms[MidgameInitiative]+=sign*10;
+            }
+            terms[MidgameInitiative]+=sign*(center_control*3+penetration*5)*phase/24;
+        }
+
+        // Endgame: active king + supported passers + rooks behind passers.
+        // This deliberately remains heuristic; exact endings still belong to TB/proof search.
+        if(phase<=12) {
+            const int king=b.king_square(sign);
+            if(valid(king)) {
+                const int kf=king&7,kr=king>>4;
+                int king_bonus=0;
+                for(int s=0;s<128;++s) if(valid(s) && b.squares[s]==sign*Pawn && (pawns->passed[c]&bit(s))) {
+                    const int rel_rank=c==0?s>>4:7-(s>>4);
+                    const int dist=std::max(std::abs((s&7)-kf),std::abs((s>>4)-kr));
+                    if(dist<=2) king_bonus+=(3-dist)*std::max(2,rel_rank);
+                    for(int r=0;r<128;++r) if(valid(r) && b.squares[r]==sign*Rook && (r&7)==(s&7)) {
+                        const bool behind=c==0?(r>>4)<(s>>4):(r>>4)>(s>>4);
+                        if(behind) terms[EndgameActivity]+=sign*(8+2*rel_rank);
+                    }
+                }
+                terms[EndgameActivity]+=sign*king_bonus*(24-phase)/24;
+            }
+            for(int s=0;s<128;++s) if(valid(s) && b.squares[s]==sign*Rook) {
+                const int rel_rank=c==0?s>>4:7-(s>>4);
+                if(rel_rank==6) terms[EndgameActivity]+=sign*14*(24-phase)/24;
+                if(rel_rank>=4 && !pawns->files[c][s&7]) terms[EndgameActivity]+=sign*4*(24-phase)/24;
             }
         }
     }
