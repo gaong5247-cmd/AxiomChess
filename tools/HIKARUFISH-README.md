@@ -25,3 +25,5 @@ The Stockfish search and NNUE remain intact. The style layer acts only at root m
 ## License
 
 Derived from Stockfish and distributed under GPLv3. See `COPYING-STOCKFISH-GPLv3.txt`.
+
+Build trigger: 2026-09-25
