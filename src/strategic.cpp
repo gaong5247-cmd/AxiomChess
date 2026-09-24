@@ -2,14 +2,19 @@
 #include <algorithm>
 #include <bit>
 #include <cmath>
+#ifdef AXIOM_SIMD_AVX2
+#include <immintrin.h>
+#endif
 
 namespace axiom {
 namespace {
 std::uint64_t bit(int square) { return 1ULL<<((square>>4)*8+(square&7)); }
 enum Term { Material,Mobility,KingSafety,PawnStructure,PieceActivity,Space,Threats,PassedPawns,EndgameTerms,
-    Outposts,WeakSquares,BadBishop,RookFiles,PawnBreaks,Coordination,TrappedPieces,PassedPotential,KingRingPressure,KingOpenFiles,KingCoordination,Count };
+    Outposts,WeakSquares,BadBishop,RookFiles,PawnBreaks,Coordination,TrappedPieces,PassedPotential,KingRingPressure,KingOpenFiles,KingCoordination,
+    OpeningDevelopment,Count };
 constexpr const char* names[]={"Material","Mobility","KingSafety","PawnStructure","PieceActivity","Space","Threats","PassedPawns","EndgameTerms",
-    "Outposts","WeakSquares","BadBishop","RookFiles","PawnBreaks","Coordination","TrappedPieces","PassedPotential","KingRingPressure","KingOpenFiles","KingCoordination"};
+    "Outposts","WeakSquares","BadBishop","RookFiles","PawnBreaks","Coordination","TrappedPieces","PassedPotential","KingRingPressure","KingOpenFiles","KingCoordination",
+    "OpeningDevelopment"};
 struct AttackMap { std::uint64_t from[128]{},occupied[2]{}; unsigned char count[2][128]{}; };
 AttackMap attacks(const Board& b) {
     AXIOM_HOT(AttackMap,Inherit);
@@ -29,6 +34,38 @@ AttackMap attacks(const Board& b) {
         }
     } return map;
 }
+struct PhaseInfo { int phase=0; int bishops[2]{}; };
+
+PhaseInfo phase_info(const Board& b) {
+    PhaseInfo out;
+#ifdef AXIOM_SIMD_AVX2
+    alignas(32) static constexpr int weights[8]={0,0,1,1,2,4,0,0};
+    __m256i phase_sum=_mm256_setzero_si256();
+    const __m256i white_bishop=_mm256_set1_epi32(Bishop);
+    const __m256i black_bishop=_mm256_set1_epi32(-Bishop);
+    for(int rank=0;rank<8;++rank) {
+        const __m256i pieces=_mm256_loadu_si256(reinterpret_cast<const __m256i*>(&b.squares[rank*16]));
+        const __m256i absolute=_mm256_abs_epi32(pieces);
+        phase_sum=_mm256_add_epi32(phase_sum,_mm256_i32gather_epi32(weights,absolute,4));
+        const unsigned white_mask=static_cast<unsigned>(_mm256_movemask_ps(_mm256_castsi256_ps(_mm256_cmpeq_epi32(pieces,white_bishop))));
+        const unsigned black_mask=static_cast<unsigned>(_mm256_movemask_ps(_mm256_castsi256_ps(_mm256_cmpeq_epi32(pieces,black_bishop))));
+        out.bishops[0]+=std::popcount(white_mask);
+        out.bishops[1]+=std::popcount(black_mask);
+    }
+    alignas(32) int lanes[8];
+    _mm256_store_si256(reinterpret_cast<__m256i*>(lanes),phase_sum);
+    for(int v:lanes) out.phase+=v;
+#else
+    constexpr int weights[]={0,0,1,1,2,4,0};
+    for(int s=0;s<128;++s) if(valid(s)) {
+        out.phase+=weights[std::abs(b.squares[s])];
+        if(std::abs(b.squares[s])==Bishop) ++out.bishops[b.squares[s]>0?0:1];
+    }
+#endif
+    out.phase=std::min(24,out.phase);
+    return out;
+}
+
 std::array<std::uint64_t,2> pawn_boards(const Board& b) {
     std::array<std::uint64_t,2> boards{};
     for(int s=0;s<128;++s) if(valid(s) && std::abs(b.squares[s])==Pawn) boards[b.squares[s]>0?0:1]|=bit(s);
@@ -75,9 +112,9 @@ int evaluate_score(const Board& b,bool strategic,bool enhanced_king,PawnCache* c
     PawnInfo scratch; const PawnInfo* pawns;
     if(cache) pawns=&cache->probe(b); else { scratch=PawnCache::compute(b); pawns=&scratch; }
     AttackMap map=attacks(b);
-    int phase=0,bishops[2]{}; constexpr int phaseWeights[]={0,0,1,1,2,4,0};
-    for(int s=0;s<128;++s) if(valid(s)) { phase+=phaseWeights[std::abs(b.squares[s])]; if(std::abs(b.squares[s])==Bishop) ++bishops[b.squares[s]>0?0:1]; }
-    phase=std::min(24,phase);
+    const PhaseInfo phase_data=phase_info(b);
+    const int phase=phase_data.phase;
+    int bishops[2]{phase_data.bishops[0],phase_data.bishops[1]};
     for(int c=0;c<2;++c) {
         int sign=c==0?1:-1;
         terms[PawnStructure]+=sign*pawns->structure[c];
@@ -143,6 +180,39 @@ int evaluate_score(const Board& b,bool strategic,bool enhanced_king,PawnCache* c
             int s=r*16+f;
             if(map.count[c][s] && !(pawns->attacks[1-c]&bit(s))) terms[Space]+=sign*2*phase/24;
             if(map.count[1-c][s]>=2 && !(pawns->future_attacks[c]&bit(s))) terms[WeakSquares]-=sign*4*phase/24;
+        }
+
+        // Bookless opening guidance: reward general development principles, never memorized lines.
+        // The term fades naturally as material/phase leaves the opening.
+        if(phase>=16 && b.fullmove<=16) {
+            const int home_rank=c==0?0:7;
+            const int center_dir=c==0?1:-1;
+            int developed_minors=0;
+            for(int s=0;s<128;++s) if(valid(s) && color(b.squares[s])==sign) {
+                const int pt=std::abs(b.squares[s]);
+                if((pt==Knight || pt==Bishop) && (s>>4)!=home_rank) ++developed_minors;
+            }
+            terms[OpeningDevelopment]+=sign*developed_minors*7*phase/24;
+
+            for(int file:{3,4}) {
+                for(int advance=2;advance<=3;++advance) {
+                    const int rank=home_rank+center_dir*advance;
+                    if(rank>=0 && rank<8 && b.squares[rank*16+file]==sign*Pawn)
+                        terms[OpeningDevelopment]+=sign*(advance==3?10:6)*phase/24;
+                }
+            }
+
+            const int king_square_now=b.king_square(sign);
+            if((c==0 && (king_square_now==2 || king_square_now==6)) ||
+               (c==1 && (king_square_now==114 || king_square_now==118)))
+                terms[OpeningDevelopment]+=sign*18*phase/24;
+
+            const int queen_home=home_rank*16+3;
+            if(b.fullmove<=8 && b.squares[queen_home]!=sign*Queen) {
+                bool queen_alive=false;
+                for(int s=0;s<128;++s) if(valid(s) && b.squares[s]==sign*Queen) { queen_alive=true; break; }
+                if(queen_alive) terms[OpeningDevelopment]-=sign*10*phase/24;
+            }
         }
     }
     int total=0;
