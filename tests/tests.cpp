@@ -143,20 +143,20 @@ int main() {
         }
         {
             TranspositionTable table(0); table.new_search();
-            table.store({1,"deep",12,90,Bound::Exact,{1,33,0},true},true);
-            table.store({1,"deep",1,5,Bound::Lower,{1,18,0},false},true);
-            require(table.probe(1,"deep")->depth==12,"deep exact PV preserved");
-            require(!table.probe(1,"different history"),"TT repetition context separated");
-            for(int key=2;key<=5;++key) table.store({std::uint64_t(key),std::to_string(key),1,3,Bound::Upper,{},false},true);
-            require(table.probe(1,"deep").has_value(),"cluster replacement protects deep exact");
+            table.store({1,0xD33FULL,12,90,Bound::Exact,{1,33,0},true},true);
+            table.store({1,0xD33FULL,1,5,Bound::Lower,{1,18,0},false},true);
+            require(table.probe(1,0xD33FULL)->depth==12,"deep exact PV preserved");
+            require(!table.probe(1,0xBAD5EEDULL),"TT repetition context separated");
+            for(int key=2;key<=5;++key) table.store({std::uint64_t(key),std::uint64_t(key),1,3,Bound::Upper,{},false},true);
+            require(table.probe(1,0xD33FULL).has_value(),"cluster replacement protects deep exact");
             for(int age=0;age<10;++age) table.new_search();
-            table.store({1,"deep",1,3,Bound::Upper,{},false},true);
-            require(table.probe(1,"deep")->depth==1,"age permits refresh");
+            table.store({1,0xD33FULL,1,3,Bound::Upper,{},false},true);
+            require(table.probe(1,0xD33FULL)->depth==1,"age permits refresh");
             std::atomic_bool torn=false; std::vector<std::jthread> writers;
             for(int thread=0;thread<4;++thread) writers.emplace_back([&,thread] {
                 for(int i=0;i<1000;++i) {
-                    int depth=1+(i+thread)%12; table.store({11,"shared",depth,depth*3,Bound::Exact,{},false},true);
-                    auto entry=table.probe(11,"shared"); if(entry && entry->score!=entry->depth*3) torn=true;
+                    int depth=1+(i+thread)%12; table.store({11,0x5A4EEDULL,depth,depth*3,Bound::Exact,{},false},true);
+                    auto entry=table.probe(11,0x5A4EEDULL); if(entry && entry->score!=entry->depth*3) torn=true;
                 }
             });
             for(auto& writer:writers) writer.join(); require(!torn,"shared TT snapshots are consistent");
