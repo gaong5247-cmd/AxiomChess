@@ -4,23 +4,32 @@ on:
   push:
     branches:
       - search-first-opening-simd
+  pull_request:
+    branches:
+      - main
 
 jobs:
   windows-release-avx2:
     runs-on: windows-latest
+
     steps:
       - uses: actions/checkout@v4
 
-      - name: Configure MSVC x64 AVX2
-        shell: pwsh
-        run: cmake -S . -B build -A x64 -DAXIOM_NATIVE_AVX2=ON
+      - name: Configure MSVC Release AVX2
+        run: cmake -S . -B build -DAXIOM_NATIVE_AVX2=ON
 
       - name: Build Release
-        shell: pwsh
         run: cmake --build build --config Release --parallel 2
 
+      - name: Upload Windows EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: AxiomChess-Windows-AVX2
+          path: |
+            build/Release/axiom-1.0.exe
+          if-no-files-found: error
+
       - name: Tests
-        shell: pwsh
         run: ctest --test-dir build -C Release --output-on-failure
 
       - name: Perft
@@ -30,16 +39,3 @@ jobs:
       - name: Bench
         shell: pwsh
         run: .\build\Release\axiom-1.0.exe --bench
-
-      - name: Package
-        shell: pwsh
-        run: |
-          New-Item -ItemType Directory -Force dist | Out-Null
-          Copy-Item .\build\Release\axiom-1.0.exe .\dist\AxiomChess-search-first-x64-avx2.exe
-
-      - name: Upload Windows EXE
-        uses: actions/upload-artifact@v4
-        with:
-          name: AxiomChess-search-first-Windows-x64-AVX2
-          path: dist/AxiomChess-search-first-x64-avx2.exe
-          if-no-files-found: error
