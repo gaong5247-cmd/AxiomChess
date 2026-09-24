@@ -1,0 +1,22 @@
+name: Axiom Search-First Build
+
+on:
+  push:
+    branches:
+      - search-first-opening-simd
+
+jobs:
+  linux-release-avx2:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DAXIOM_NATIVE_AVX2=ON
+      - name: Build
+        run: cmake --build build -j2
+      - name: Tests
+        run: ctest --test-dir build --output-on-failure
+      - name: Perft
+        run: ./build/axiom-1.0 --perft 4
+      - name: Bench
+        run: ./build/axiom-1.0 --bench
