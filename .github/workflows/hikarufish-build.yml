@@ -1,0 +1,64 @@
+name: Build HikaruFish 2792
+
+on:
+  push:
+    branches:
+      - hikarufish-build
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout build scripts
+        uses: actions/checkout@v4
+
+      - name: Install compilers
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y mingw-w64 make g++ zip
+
+      - name: Fetch Stockfish
+        run: |
+          git clone --depth 1 https://github.com/official-stockfish/Stockfish.git stockfish
+          cp tools/hikarufish_patch.py stockfish/hikarufish_patch.py
+
+      - name: Apply HikaruFish patch
+        working-directory: stockfish
+        run: python3 hikarufish_patch.py
+
+      - name: Build Windows AVX2
+        working-directory: stockfish/src
+        run: |
+          make -j2 build ARCH=x86-64-avx2 COMP=mingw
+          cp stockfish.exe ../../HikaruFish-2792-windows-avx2.exe
+
+      - name: Build Linux AVX2
+        working-directory: stockfish/src
+        run: |
+          make clean
+          make -j2 build ARCH=x86-64-avx2
+          cp stockfish ../../HikaruFish-2792-linux-avx2
+
+      - name: Smoke test
+        run: |
+          printf 'uci\nisready\nsetoption name UCI_LimitStrength value true\nsetoption name UCI_Elo value 2792\nposition startpos\ngo depth 8\nquit\n' | ./HikaruFish-2792-linux-avx2 | tee hikarufish-smoke.txt
+          grep -q 'id name HikaruFish 2792' hikarufish-smoke.txt
+          grep -q 'bestmove' hikarufish-smoke.txt
+
+      - name: Package
+        run: |
+          cp stockfish/Copying.txt COPYING-STOCKFISH-GPLv3.txt
+          cp tools/HIKARUFISH-README.md .
+          zip -9 HikaruFish-2792.zip HikaruFish-2792-windows-avx2.exe HikaruFish-2792-linux-avx2 hikarufish-smoke.txt HIKARUFISH-README.md COPYING-STOCKFISH-GPLv3.txt
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: HikaruFish-2792
+          path: |
+            HikaruFish-2792.zip
+            HikaruFish-2792-windows-avx2.exe
+            HikaruFish-2792-linux-avx2
+            hikarufish-smoke.txt
+          retention-days: 14
