@@ -24,7 +24,7 @@ std::size_t capture_key(int piece,int to,int victim) { return (std::size_t(Feedb
 }
 bool Features::set(const std::string& name,bool enabled) { if(name=="all") { all(enabled); return true; } for(auto [n,f]:flags) if(name==n) { this->*f=enabled; return true; } return false; }
 void Features::all(bool enabled) { for(auto [n,f]:flags) { (void)n; this->*f=enabled; } }
-void Features::middlegame() { all(false); correction=continuation=capture_history=countermove=dynamic_lmr=king_safety=strategic_eval=search_safety=pawn_cache=true; }
+void Features::middlegame() { all(false); correction=continuation=capture_history=countermove=dynamic_lmr=king_safety=strategic_eval=search_safety=pawn_cache=legal_fast_path=true; }
 std::string Features::names() const { std::string out; for(auto [n,f]:flags) if(this->*f) { if(!out.empty()) out+=','; out+=n; } return out; }
 Feedback::Feedback():captures_(768*7) { for(auto& t:corrections_) t.resize(8192); for(auto& t:continuations_) t.resize(65536); }
 void Feedback::clear() { for(auto& t:corrections_) std::fill(t.begin(),t.end(),std::int16_t{0}); for(auto& t:continuations_) std::fill(t.begin(),t.end(),std::int16_t{0}); std::fill(captures_.begin(),captures_.end(),std::int16_t{0}); counters_.fill(Move{}); }
