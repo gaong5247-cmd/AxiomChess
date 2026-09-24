@@ -1,6 +1,7 @@
 #include "axiom/chess.hpp"
 #include "axiom/hot_profile.hpp"
 #include <algorithm>
+#include <bit>
 #include <cctype>
 #include <cmath>
 #include <sstream>
