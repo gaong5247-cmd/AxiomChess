@@ -80,7 +80,7 @@ int Search::negamax(Board& b,int depth,int alpha,int beta,int ply,bool pv,bool n
     if(claim) { if(beta<=0) return 0; alpha=std::max(alpha,0); }
     const bool trusted_context=!synthetic && !auxiliary && !excluded;
     const bool pruning=trusted_context && limits_.selective;
-    auto key=b.hash(); auto context=b.proof_key();
+    auto key=b.hash(); auto context=b.proof_hash();
     auto entry=[&] { ProfileScope timer(limits_.profile,stats_.tt_ns);
         if(trusted_context && limits_.use_tt) { ++stats_.tt_probes; return tt_->probe(key,context); }
         return std::optional<TTEntry>{}; }();
@@ -318,7 +318,7 @@ int Search::negamax(Board& b,int depth,int alpha,int beta,int ply,bool pv,bool n
     return best;
 }
 std::vector<MoveResult> Search::root(Board& b,int depth,int alpha,int beta,bool independent) {
-    auto moves=b.legal_moves(); auto entry=limits_.use_tt?tt_->probe(b.hash(),b.proof_key()):std::optional<TTEntry>{};
+    auto moves=b.legal_moves(); auto entry=limits_.use_tt?tt_->probe(b.hash(),b.proof_hash()):std::optional<TTEntry>{};
     if(!limits_.force_root_move.empty()) moves.erase(std::remove_if(moves.begin(),moves.end(),[&](Move m){return m.uci()!=limits_.force_root_move;}),moves.end());
     order(b,moves,entry?entry->move:Move{},0);
     std::vector<MoveResult> results; results.reserve(moves.size()); int index=0;
@@ -556,7 +556,7 @@ SearchResult Search::run_single(Board b,Limits limits,std::atomic_bool& stop,con
             if(result.best==previous_best) ++stable_iterations;
             else { if(previous_best) ++stats_.bestmove_changes; stable_iterations=0; previous_best=result.best; }
             result.claim_draw=claim && result.score<=0; if(result.claim_draw) result.score=0;
-            if(limits_.use_tt && limits_.force_root_move.empty()) tt_->store({b.hash(),b.proof_key(),depth,score_to_tt(result.score,0),Bound::Exact,result.best,true},limits.features.tt_policy);
+            if(limits_.use_tt && limits_.force_root_move.empty()) tt_->store({b.hash(),b.proof_hash(),depth,score_to_tt(result.score,0),Bound::Exact,result.best,true},limits.features.tt_policy);
             result.nodes=shared_nodes_->load(); result.elapsed_ms=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now()-start_).count();
             if(info) {result.seldepth=stats_.seldepth;result.hashfull=tt_->hashfull();info(result);}
             if(worker_id_==0 && limits.features.time_management && limits.soft_milliseconds>0 && depth>=3) {
