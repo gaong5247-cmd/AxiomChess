@@ -55,17 +55,86 @@ namespace {
 int capture_gain(const Board& b,Move m) {
     int v=piece_value(b.squares[m.to]);
     if(std::abs(b.squares[m.from])==Pawn && m.to==b.ep && !b.squares[m.to]) v=100;
-    if(m.promotion) v+=piece_value(m.promotion)-100; return v;
+    if(m.promotion) v+=piece_value(m.promotion)-100;
+    return v;
 }
-int exchange(Board& b,int target) {
-    AXIOM_HOT(Exchange,See);
-    int best=0;
-    for(auto m:b.legal_captures_to(target)) {
-        int gain=capture_gain(b,m); auto u=b.push(m,false); int value=gain-exchange(b,target); b.pop(u); best=std::max(best,value);
-    } return best;
+
+struct SeeAttacker { int square=-1,piece=0; };
+
+bool ray_attacks(const std::array<int,128>& cells,int from,int target,int piece) {
+    int dx=(target&7)-(from&7),dy=(target>>4)-(from>>4);
+    bool diag=std::abs(dx)==std::abs(dy),straight=dx==0 || dy==0;
+    if((piece==Bishop && !diag) || (piece==Rook && !straight) || (piece==Queen && !diag && !straight)) return false;
+    int step=((dx>0)-(dx<0))+16*((dy>0)-(dy<0));
+    if(!step) return false;
+    for(int s=from+step;s!=target;s+=step) if(!valid(s) || cells[s]) return false;
+    return true;
+}
+
+SeeAttacker least_attacker(const std::array<int,128>& cells,int target,int side) {
+    // LVA order. Kings are deliberately omitted: this makes SEE conservative
+    // around king recaptures rather than risking an illegal king capture prune.
+    for(int pt:{Pawn,Knight,Bishop,Rook,Queen}) {
+        int best=-1;
+        for(int s=0;s<128;++s) if(valid(s) && cells[s]==side*pt) {
+            bool attacks=false;
+            if(pt==Pawn) {
+                const int diff=target-s;
+                attacks=diff==side*15 || diff==side*17;
+            } else if(pt==Knight) {
+                const int diff=std::abs(target-s);
+                attacks=diff==14 || diff==18 || diff==31 || diff==33;
+            } else attacks=ray_attacks(cells,s,target,pt);
+            if(attacks) { best=s; break; }
+        }
+        if(best>=0) return {best,side*pt};
+    }
+    return {};
 }
 }
-int see(Board& b,Move m) { AXIOM_HOT(See,See); int gain=capture_gain(b,m); auto u=b.push(m,false); int value=gain-exchange(b,m.to); b.pop(u); return value; }
+int see(Board& b,Move m) {
+    AXIOM_HOT(See,See);
+    if(!m || !valid(m.from) || !valid(m.to) || !b.squares[m.from]) return 0;
+
+    std::array<int,128> cells=b.squares;
+    const int us=b.side;
+    const int moving=std::abs(cells[m.from]);
+    int gain[32]{};
+    int depth=0;
+    gain[0]=capture_gain(b,m);
+
+    // Apply the candidate capture locally: no Board::push(), no history/hash work,
+    // and no recursive legal move generation.
+    cells[m.from]=0;
+    if(moving==Pawn && m.to==b.ep && !cells[m.to]) cells[m.to-us*16]=0;
+    int occupant=m.promotion?us*m.promotion:us*moving;
+    cells[m.to]=occupant;
+
+    int side=-us;
+    while(depth<30) {
+        const SeeAttacker a=least_attacker(cells,m.to,side);
+        if(a.square<0) break;
+        ++depth;
+        gain[depth]=piece_value(std::abs(occupant))-gain[depth-1];
+
+        // Standard SEE early exit: neither side benefits from extending this line.
+        if(std::max(-gain[depth-1],gain[depth])<0) break;
+
+        cells[a.square]=0;
+        int next_piece=std::abs(a.piece);
+        const int target_rank=m.to>>4;
+        if(next_piece==Pawn && ((side==White && target_rank==7) || (side==Black && target_rank==0)))
+            next_piece=Queen;
+        occupant=side*next_piece;
+        cells[m.to]=occupant;
+        side=-side;
+    }
+    while(depth>0) {
+        gain[depth-1]=-std::max(-gain[depth-1],gain[depth]);
+        --depth;
+    }
+    return gain[0];
+}
 std::vector<std::string> tactical_labels(Board& b,Move m) {
     std::vector<std::string> labels;
     if(b.capture(m)) labels.push_back("capture"); if(m.promotion) labels.push_back("promotion");
