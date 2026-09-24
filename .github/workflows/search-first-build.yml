@@ -1,4 +1,4 @@
-name: Axiom Search-First Build
+name: Axiom Search-First Windows Build
 
 on:
   push:
@@ -6,17 +6,40 @@ on:
       - search-first-opening-simd
 
 jobs:
-  linux-release-avx2:
-    runs-on: ubuntu-latest
+  windows-release-avx2:
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Configure
-        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DAXIOM_NATIVE_AVX2=ON
-      - name: Build
-        run: cmake --build build -j2
+
+      - name: Configure MSVC x64 AVX2
+        shell: pwsh
+        run: cmake -S . -B build -A x64 -DAXIOM_NATIVE_AVX2=ON
+
+      - name: Build Release
+        shell: pwsh
+        run: cmake --build build --config Release --parallel 2
+
       - name: Tests
-        run: ctest --test-dir build --output-on-failure
+        shell: pwsh
+        run: ctest --test-dir build -C Release --output-on-failure
+
       - name: Perft
-        run: ./build/axiom-1.0 --perft 4
+        shell: pwsh
+        run: .\build\Release\axiom-1.0.exe --perft 4
+
       - name: Bench
-        run: ./build/axiom-1.0 --bench
+        shell: pwsh
+        run: .\build\Release\axiom-1.0.exe --bench
+
+      - name: Package
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force dist | Out-Null
+          Copy-Item .\build\Release\axiom-1.0.exe .\dist\AxiomChess-search-first-x64-avx2.exe
+
+      - name: Upload Windows EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: AxiomChess-search-first-Windows-x64-AVX2
+          path: dist/AxiomChess-search-first-x64-avx2.exe
+          if-no-files-found: error
