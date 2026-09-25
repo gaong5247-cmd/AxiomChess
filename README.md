@@ -1,5 +1,18 @@
 # Axiom Chess — C++20
 
+## AxiomChess 2.0
+
+`axiom-2` 브랜치는 CPU 전용 classical UCI 엔진을 `v2/`에 독립 구현합니다.
+기존 엔진은 비교와 검증을 위해 보존했습니다. NNUE, 학습 모델, 오프닝 북 없이 동작합니다.
+
+- [Windows x64 실행 파일](dist/windows-x64/axiom-2.exe) · [실행 안내 및 SHA256](dist/windows-x64/README.md)
+- [빌드 및 UCI 사용법](AXIOM_2_BUILD.md)
+- [구현 범위, 테스트, 실측 결과와 한계](AXIOM_2_REPORT.md)
+- [기존 엔진 감사](docs/AXIOM_2_AUDIT.md) · [검증 원본](results/axiom2)
+
+동일 노드 기력 개선은 아직 입증되지 않았으며 DecisionImpact와 RefutationSearch는 기본 OFF입니다.
+아래는 기존 버전의 개발 기록입니다.
+
 **Phase 2 현재 후보:** `Feature_legal_fast_path` (기본 OFF). 체크가 아니며
 핀 없는 비킹 기물의 일반 수에서 legality용 push/pop을 생략합니다. 기존
 생성기는 oracle로 보존합니다. 구현 범위·실측·미완료 작업은
