@@ -1,0 +1,124 @@
+{
+  "passed": true,
+  "exe": "build-v2/Release/axiom-2.exe",
+  "results": [
+    {
+      "command": "go depth 10",
+      "best": "bestmove b1c3",
+      "elapsed_ms": 1288,
+      "last_info": "info depth 10 seldepth 24 multipv 1 score cp 20 nodes 469194 time 1287 nps 364564 hashfull 26 pv b1c3 b8c6 g1f3 g8f6 e2e4 d7d5 e4d5 f6d5 f1c4 c8e6 c3d5 e6d5"
+    },
+    {
+      "command": "go movetime 1000",
+      "best": "bestmove b1c3",
+      "elapsed_ms": 967,
+      "last_info": "info depth 9 seldepth 23 multipv 1 score cp 20 nodes 318720 time 950 nps 335494 hashfull 18 pv b1c3 b8c6 g1f3 g8f6 e2e4 d7d5 e4d5 f6d5 f1c4 c8e6 c3d5 e6d5"
+    },
+    {
+      "command": "go nodes 100000",
+      "best": "bestmove b1c3",
+      "elapsed_ms": 307,
+      "last_info": "info depth 7 seldepth 23 multipv 1 score cp 20 nodes 100000 time 287 nps 348432 hashfull 5 pv b1c3 b8c6 g1f3 g8f6 e2e4 e7e6 e4e5 f6g4 d2d4"
+    },
+    {
+      "command": "go searchmoves e2e4 d2d4 depth 5",
+      "best": "bestmove e2e4",
+      "elapsed_ms": 28,
+      "last_info": "info depth 5 seldepth 11 multipv 1 score cp 21 nodes 2701 time 10 nps 270100 hashfull 0 pv e2e4 g8f6 b1c3 b8c6 g1f3"
+    },
+    {
+      "command": "go searchmoves f6g8 depth 4",
+      "best": "bestmove f6g8",
+      "elapsed_ms": 21,
+      "last_info": "info depth 4 seldepth 7 multipv 1 score cp 0 nodes 173 time 2 nps 86500 hashfull 0 pv f6g8"
+    },
+    {
+      "command": "go depth 4",
+      "best": "bestmove b1c3",
+      "elapsed_ms": 11,
+      "last_info": "info depth 4 seldepth 8 multipv 1 score cp 10 nodes 3114 time 11 nps 283090 hashfull 0 pv b1c3 b8c6 g1f3 g8f6"
+    },
+    {
+      "command": "go infinite / stop",
+      "elapsed_ms": 1
+    },
+    {
+      "command": "go nodes 10000",
+      "best": "bestmove b1c3",
+      "elapsed_ms": 27,
+      "last_info": "info depth 5 seldepth 9 multipv 1 score cp 21 nodes 10000 time 9 nps 1111111 hashfull 1 pv b1c3 b8c6 g1f3 g8f6 e2e4"
+    },
+    {
+      "command": "go nodes 10000",
+      "best": "bestmove b1c3",
+      "elapsed_ms": 25,
+      "last_info": "info depth 4 seldepth 9 multipv 1 score cp 10 nodes 10000 time 7 nps 1428571 hashfull 0 pv b1c3 b8c6 g1f3 g8f6"
+    },
+    {
+      "command": "go nodes 10000",
+      "best": "bestmove b1c3",
+      "elapsed_ms": 27,
+      "last_info": "info depth 4 seldepth 7 multipv 1 score cp 10 nodes 10000 time 9 nps 1111111 hashfull 0 pv b1c3 b8c6 g1f3 g8f6"
+    },
+    {
+      "command": "go nodes 10000",
+      "best": "bestmove b1c3",
+      "elapsed_ms": 25,
+      "last_info": "info depth 5 seldepth 8 multipv 1 score cp 21 nodes 10000 time 7 nps 1428571 hashfull 0 pv b1c3 b8c6 g1f3 g8f6 e2e4"
+    },
+    {
+      "command": "go nodes 10000",
+      "best": "bestmove b1c3",
+      "elapsed_ms": 25,
+      "last_info": "info depth 4 seldepth 7 multipv 1 score cp 10 nodes 10000 time 7 nps 1428571 hashfull 0 pv b1c3 b8c6 g1f3 g8f6"
+    },
+    {
+      "command": "go nodes 10000",
+      "best": "bestmove b1c3",
+      "elapsed_ms": 25,
+      "last_info": "info depth 5 seldepth 9 multipv 1 score cp 21 nodes 10000 time 8 nps 1250000 hashfull 1 pv b1c3 b8c6 g1f3 g8f6 e2e4"
+    },
+    {
+      "command": "go nodes 10000",
+      "best": "bestmove b1c3",
+      "elapsed_ms": 26,
+      "last_info": "info depth 4 seldepth 7 multipv 1 score cp 10 nodes 10000 time 8 nps 1250000 hashfull 0 pv b1c3 b8c6 g1f3 g8f6"
+    },
+    {
+      "command": "go nodes 10000",
+      "best": "bestmove b1c3",
+      "elapsed_ms": 26,
+      "last_info": "info depth 4 seldepth 7 multipv 1 score cp 10 nodes 10000 time 8 nps 1250000 hashfull 0 pv b1c3 b8c6 g1f3 g8f6"
+    },
+    {
+      "command": "go depth 3",
+      "best": "bestmove b1c3",
+      "elapsed_ms": 2,
+      "last_info": "info depth 3 seldepth 3 multipv 1 score cp 63 nodes 213 time 2 nps 106500 hashfull 0 pv b1c3 b8c6 g1f3"
+    },
+    {
+      "command": "go movetime 1",
+      "best": "bestmove b1c3",
+      "elapsed_ms": 1,
+      "last_info": "info depth 2 seldepth 2 multipv 1 score cp 10 nodes 113 time 1 nps 113000 hashfull 0 pv b1c3 b8c6"
+    },
+    {
+      "command": "go wtime 100 btime 100 movestogo 1",
+      "best": "bestmove b1c3",
+      "elapsed_ms": 51,
+      "last_info": "info depth 6 seldepth 17 multipv 1 score cp 10 nodes 18176 time 50 nps 363520 hashfull 6 pv b1c3 b8c6 g1f3 g8f6 e2e4 e7e5"
+    },
+    {
+      "command": "go wtime -10 btime -10",
+      "best": "bestmove a2a3",
+      "elapsed_ms": 2,
+      "last_info": "info depth 0 seldepth 0 multipv 1 score cp 10 nodes 0 time 1 nps 0 hashfull 0 pv a2a3"
+    },
+    {
+      "command": "go depth 4",
+      "best": "bestmove 0000",
+      "elapsed_ms": 1,
+      "last_info": "info depth 0 seldepth 0 multipv 1 score mate 0 nodes 0 time 1 nps 0 hashfull 0 pv"
+    }
+  ]
+}
