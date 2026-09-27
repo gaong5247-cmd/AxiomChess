@@ -267,8 +267,17 @@ std::vector<Move> Board::legal_captures_to(int target) {
     for(int from=0;from<128;++from) if(valid(from) && color(squares[from])==side && piece_attacks(from,target)) {
         bool kingMove=std::abs(squares[from])==King;
         bool promotion=std::abs(squares[from])==Pawn && ((target>>4)==0 || (target>>4)==7);
-        for(int p:promotion?std::initializer_list<int>{Queen,Rook,Bishop,Knight}:std::initializer_list<int>{0}) {
-            Move m{from,target,p}; auto u=push(m,false); bool ok=!attacked(kingMove?target:king,side); pop(u); if(ok) moves.push_back(m);
+        auto try_capture=[&](int promo) {
+            Move m{from,target,promo};
+            auto u=push(m,false);
+            bool ok=!attacked(kingMove?target:king,side);
+            pop(u);
+            if(ok) moves.push_back(m);
+        };
+        if(promotion) {
+            for(int promo:{Queen,Rook,Bishop,Knight}) try_capture(promo);
+        } else {
+            try_capture(0);
         }
     } return moves;
 }
