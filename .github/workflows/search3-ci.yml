@@ -24,6 +24,13 @@ jobs:
         run: ctest --test-dir build -R "^(axiom_tests|axiom_audit|axiom_calibration|axiom_legal_fast)$" --output-on-failure
       - name: Bench v2
         run: ./build/axiom-2 --bench 8 100000
+      - name: Upload Axiom 2 binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: Axiom2-linux-x64
+          path: build/axiom-2
+          if-no-files-found: error
+          retention-days: 14
 
   sanitizers:
     runs-on: ubuntu-latest
