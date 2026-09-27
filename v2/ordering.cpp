@@ -10,7 +10,7 @@ void Worker::order(const Position& p,MoveList& moves,Move ttMove,int ply,Move re
         else if(m==histories->killers[ply][1])score=790000;
         else if(prev>=0&&m==histories->counters[prev])score=780000;
         else if(m==refute)score=770000;
-        else score=histories->quiet(p,m,prev,prev2);
+        else score=histories->quiet(p,m,prev,prev2,ply);
         if(m.promo())score+=50000;
         if(id&&m!=ttMove)score+=(m.v*13+id*17)%31;
         list[i]={m,score};
