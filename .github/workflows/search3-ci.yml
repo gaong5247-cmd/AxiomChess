@@ -10,25 +10,25 @@ on:
 
 jobs:
   release:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
       - name: Configure
-        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+        run: cmake -S . -B build -A x64
       - name: Build
-        run: cmake --build build --parallel 2
+        run: cmake --build build --config Release --parallel 2
       - name: Test Axiom 2
-        run: ctest --test-dir build -R axiom2 --output-on-failure
+        run: ctest --test-dir build -C Release -R axiom2 --output-on-failure
       - name: Legacy diagnostics
         continue-on-error: true
-        run: ctest --test-dir build -R "^(axiom_tests|axiom_audit|axiom_calibration|axiom_legal_fast)$" --output-on-failure
+        run: ctest --test-dir build -C Release -R "^(axiom_tests|axiom_audit|axiom_calibration|axiom_legal_fast)$" --output-on-failure
       - name: Bench v2
-        run: ./build/axiom-2 --bench 8 100000
+        run: .\build\Release\axiom-2.exe --bench 8 100000
       - name: Upload Axiom 2 binary
         uses: actions/upload-artifact@v4
         with:
-          name: Axiom2-linux-x64
-          path: build/axiom-2
+          name: Axiom2-windows-x64
+          path: build/Release/axiom-2.exe
           if-no-files-found: error
           retention-days: 14
 
