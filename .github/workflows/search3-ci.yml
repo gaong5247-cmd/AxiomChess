@@ -27,11 +27,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Configure ASan/UBSan
-        run: cmake -S . -B build-asan -DCMAKE_BUILD_TYPE=RelWithDebInfo -DAXIOM_SANITIZE=ON
+        run: cmake -S . -B ${{ runner.temp }}/axiom-build-asan -DCMAKE_BUILD_TYPE=RelWithDebInfo -DAXIOM_SANITIZE=ON
       - name: Build focused tests
-        run: cmake --build build-asan --parallel 2 --target axiom2_core_tests axiom2_search_tests
+        run: cmake --build ${{ runner.temp }}/axiom-build-asan --parallel 2 --target axiom2_core_tests axiom2_search_tests
       - name: Run v2 tests
         env:
           ASAN_OPTIONS: detect_leaks=1:halt_on_error=1
           UBSAN_OPTIONS: halt_on_error=1:print_stacktrace=1
-        run: ctest --test-dir build-asan -R axiom2 --output-on-failure
+        run: ctest --test-dir ${{ runner.temp }}/axiom-build-asan -R axiom2 --output-on-failure
