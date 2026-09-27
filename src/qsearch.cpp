@@ -29,6 +29,10 @@ int Search::quiescence(Board& b,int alpha,int beta,int ply,int qply,bool synthet
     if(!check) { if(stand>=beta) { ++stats_.q_stand_cutoffs; AXIOM_TRACE_EVENT("QSEARCH_STAND_CUTOFF",Move{},stand); return stand; } alpha=std::max(alpha,stand); }
     const bool safety=limits_.features.search_safety;
     const bool improving=safety && !check && ply>=2 && trace_[ply-2].static_eval!=Infinity && stand>trace_[ply-2].static_eval;
+    const int previous_to=ply>0 && trace_[ply-1].move?trace_[ply-1].move.to:-1;
+    // Search 3 qsearch margins grow slightly with q-depth so a noisy tactical
+    // tail does not expand forever, while recaptures keep a tactical escape hatch.
+    const int delta_margin=140+std::min(qply,6)*24;
     // Keep terminal detection above, but never sort quiet moves that qsearch
     // cannot visit. Filtering preserves the relative order of retained moves.
     if(!check) moves.erase(std::remove_if(moves.begin(),moves.end(),[&](Move m) {
@@ -50,13 +54,22 @@ int Search::quiescence(Board& b,int alpha,int beta,int ply,int qply,bool synthet
         if(limits_.selective && !clean && !check && cap && !checking && !m.promotion && protected_capture) {
             stats_.safety.record(SafetyAction::Futility,reasons);
             stats_.safety.record(SafetyAction::See,reasons);
-            AXIOM_TRACE_DETAIL(if(stand+piece_value(b.squares[m.to])+250<alpha && std::abs(b.squares[m.from])!=Pawn) causal.event("QDELTA_BLOCKED_BY_SAFETY",nodes_,m);
-                causal.base.see=see(b,m); if(*causal.base.see<0) causal.event("QSEE_BLOCKED_BY_SAFETY",nodes_,m));
+            const bool recapture=m.to==previous_to;
+            AXIOM_TRACE_DETAIL(if(!recapture && stand+piece_value(b.squares[m.to])+delta_margin<alpha && std::abs(b.squares[m.from])!=Pawn) causal.event("QDELTA_BLOCKED_BY_SAFETY",nodes_,m);
+                causal.base.see=see(b,m); if(!recapture && *causal.base.see<0) causal.event("QSEE_BLOCKED_BY_SAFETY",nodes_,m));
         }
         if(limits_.selective && !clean && !check && cap && !checking && !m.promotion && !protected_capture) {
-            if(stand+piece_value(b.squares[m.to])+250<alpha && std::abs(b.squares[m.from])!=Pawn) { ++stats_.q_delta_prunes; AXIOM_TRACE_EVENT("QSEARCH_DELTA_PRUNE",m,std::nullopt); continue; }
+            const bool recapture=m.to==previous_to;
+            const int victim=b.squares[m.to]?piece_value(std::abs(b.squares[m.to])):piece_value(Pawn);
+            if(!recapture && stand+victim+delta_margin<alpha && std::abs(b.squares[m.from])!=Pawn) {
+                ++stats_.q_delta_prunes; AXIOM_TRACE_EVENT("QSEARCH_DELTA_PRUNE",m,std::nullopt); continue;
+            }
             int exchange=facts && facts->see_known?facts->exchange:see(b,m); AXIOM_TRACE_DETAIL(causal.base.see=exchange);
-            if(exchange<0) { ++stats_.q_see_prunes; AXIOM_TRACE_EVENT("QSEARCH_SEE_PRUNE",m,std::nullopt); continue; }
+            // A small losing recapture is often required to resolve the horizon.
+            // Non-recaptures still need non-negative SEE, but recaptures get a
+            // bounded tolerance that shrinks as qsearch gets deeper.
+            const int see_floor=recapture?-std::max(20,90-12*qply):0;
+            if(exchange<see_floor) { ++stats_.q_see_prunes; AXIOM_TRACE_EVENT("QSEARCH_SEE_PRUNE",m,std::nullopt); continue; }
         }
         trace_[ply].move=m; trace_[ply].piece=b.squares[m.from];
         if(check) ++stats_.qcheck_evasions;
