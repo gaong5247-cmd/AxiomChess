@@ -88,8 +88,8 @@ int Worker::search(Position& p,int depth,int alpha,int beta,int ply,bool pv,bool
             if(score>=raised&&score<MateBound){++stats.probcut;return score-probMargin;}
         }
     }
-    int best=claim?0:-Inf,searched=0,index=0,prev=ply?stack[ply-1].token:-1;Move bestMove{};MoveList tried;
-    for(auto m:moves){if(m==excluded)continue;++index;bool cap=p.capture(m),quiet=!cap&&!m.promo();int hist=histories->quiet(p,m,prev);
+    int best=claim?0:-Inf,searched=0,index=0,prev=ply?stack[ply-1].token:-1,prev2=ply>=2?stack[ply-2].token:-1;Move bestMove{};MoveList tried;
+    for(auto m:moves){if(m==excluded)continue;++index;bool cap=p.capture(m),quiet=!cap&&!m.promo();int hist=histories->quiet(p,m,prev,prev2);
         bool killer=m==histories->killers[ply][0]||m==histories->killers[ply][1];bool protectedMove=m==ttMove||killer||m==refute;
         const int confidence=branch_confidence(pv,improving,unstable,cut,hist,index,moves.size,m==refute);
         const int seeThreshold=quiet?quiet_see_margin(depth,confidence):capture_see_margin(depth,confidence);
@@ -136,8 +136,8 @@ int Worker::search(Position& p,int depth,int alpha,int beta,int ply,bool pv,bool
         ++searched;tried.add(m);
         if(score>best){best=score;bestMove=m;}
         if(score>alpha){alpha=score;update_pv(ply,m);if(alpha>=beta){
-            if(trusted){int bonus=std::min(1600,depth*depth*32);histories->reward(p,m,prev,bonus);
-                for(auto old:tried)if(old!=m&&p.capture(old)==cap)histories->reward(p,old,prev,-bonus/2);
+            if(trusted){int bonus=std::min(1600,depth*depth*32);histories->reward(p,m,prev,bonus,prev2);
+                for(auto old:tried)if(old!=m&&p.capture(old)==cap)histories->reward(p,old,prev,-bonus/2,prev2);
                 if(quiet){histories->killers[ply][1]=histories->killers[ply][0];histories->killers[ply][0]=m;if(prev>=0)histories->counters[prev]=m;}
                 if(features.refutation)refutations.store(p.key,m);
             }break;
