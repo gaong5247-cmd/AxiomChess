@@ -3,7 +3,31 @@
 #include <cmath>
 namespace ax2 {
 namespace {
-const auto reductions=[] {std::array<std::array<int,256>,MaxPly> table{};for(int d=1;d<MaxPly;++d)for(int n=1;n<256;++n)table[d][n]=int(std::log(double(d))*std::log(double(n))/2.2);return table;}();
+int branch_confidence(bool pv,bool improving,bool unstable,bool cut,int history,int index,int moveCount,bool refutation) {
+    int c=0;
+    c+=pv?28:0;
+    c+=improving?10:-3;
+    c+=unstable?16:0;
+    c+=refutation?18:0;
+    c-=cut?8:0;
+    c+=std::clamp(history/600,-22,22);
+    c-=std::clamp(index-4,0,14);
+    if(moveCount<=4)c+=8;
+    return std::clamp(c,-64,64);
+}
+int adaptive_reduction(int depth,int index,int confidence,int nextDepth) {
+    if(depth<3||index<4)return 0;
+    double base=.55+std::log(double(depth))*std::log(double(index+1))/2.65;
+    int r=int(base)-confidence/14;
+    if(confidence<-36)++r;
+    return std::clamp(r,0,std::max(0,nextDepth-1));
+}
+int quiet_see_margin(int depth,int confidence) {
+    return -std::max(20,55*depth-confidence*2);
+}
+int capture_see_margin(int depth,int confidence) {
+    return -std::max(20,24*depth*depth-confidence*3);
+}
 }
 void Worker::tick(){
     if(control.stop.load(std::memory_order_relaxed))throw Interrupted{};
@@ -65,23 +89,29 @@ int Worker::search(Position& p,int depth,int alpha,int beta,int ply,bool pv,bool
     int best=claim?0:-Inf,searched=0,index=0,prev=ply?stack[ply-1].token:-1;Move bestMove{};MoveList tried;
     for(auto m:moves){if(m==excluded)continue;++index;bool cap=p.capture(m),quiet=!cap&&!m.promo();int hist=histories->quiet(p,m,prev);
         bool killer=m==histories->killers[ply][0]||m==histories->killers[ply][1];bool protectedMove=m==ttMove||killer||m==refute;
-        bool goodSee=!features.see||see_ge(p,m,quiet?-70*depth:-30*depth*depth);
+        const int confidence=branch_confidence(pv,improving,unstable,cut,hist,index,moves.size,m==refute);
+        const int seeThreshold=quiet?quiet_see_margin(depth,confidence):capture_see_margin(depth,confidence);
+        bool goodSee=!features.see||see_ge(p,m,seeThreshold);
         int t=token(p.board[m.from()],m.to()),score,extension=(m==ttMove?singular:0),reduction=0;
         {
             Applied applied(p,m);bool givesCheck=p.in_check();
-            if(pruning&&searched>0&&!endgame&&!unstable&&!givesCheck&&!m.promo()&&!protectedMove){
-                if(features.futility&&quiet&&depth<=3&&eval+110*depth<=alpha){++stats.futility;continue;}
-                if(features.moveCount&&quiet&&depth<=3&&index>4+depth*depth){++stats.moveCount;continue;}
-                if(features.history&&quiet&&depth<=3&&hist<-4000*depth){++stats.history;continue;}
-                if(features.see&&depth<=5&&!goodSee){++stats.see;continue;}
+            if(pruning&&searched>0&&!endgame&&!givesCheck&&!m.promo()&&!protectedMove){
+                // All forward-pruning gates consume the same confidence signal.
+                // Unstable nodes are not immune, but require substantially worse evidence.
+                const int uncertaintyBuyback=unstable?24:0;
+                const int effectiveConfidence=confidence+uncertaintyBuyback;
+                if(features.futility&&quiet&&depth<=3&&effectiveConfidence<6&&eval+(95+10*depth)*depth<=alpha){++stats.futility;continue;}
+                if(features.moveCount&&quiet&&depth<=3&&effectiveConfidence<-8&&index>3+depth*depth){++stats.moveCount;continue;}
+                if(features.history&&quiet&&depth<=4&&effectiveConfidence<-24&&hist<-2600*depth){++stats.history;continue;}
+                if(features.see&&depth<=5&&effectiveConfidence<18&&!goodSee){++stats.see;continue;}
             }
             if(check&&extensions<8&&extension==0)extension=1;
             if(extensions>=8)extension=0;
             int nextDepth=depth-1+extension;
             stack[ply].move=m;stack[ply].token=t;
             if(features.lmr&&!auxiliary&&depth>=3&&searched>=3&&quiet&&!check&&!givesCheck&&!protectedMove&&!extension){
-                reduction=reductions[std::min(depth,MaxPly-1)][std::min(index,255)]+(cut?1:0)-(pv?1:0)-(improving?1:0)-(unstable?1:0)-hist/5000;
-                reduction=std::clamp(reduction,0,std::max(0,nextDepth-1));if(reduction)++stats.lmr;
+                reduction=adaptive_reduction(depth,index,confidence,nextDepth);
+                if(reduction)++stats.lmr;
             }
             if(searched==0)score=-search(p,nextDepth,-beta,-alpha,ply+1,pv,true,{},extensions+extension,false,auxiliary);
             else {
