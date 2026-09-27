@@ -17,7 +17,7 @@ std::string Stats::text() const {std::ostringstream o;
     STAT(nullTries) STAT(nullVerify) STAT(nullReject) STAT(nullCuts) STAT(singularTries) STAT(singularExtensions)
     STAT(rfp) STAT(futility) STAT(see) STAT(delta) STAT(razor) STAT(moveCount) STAT(history) STAT(probcutTries) STAT(probcut)
     STAT(aspirationLow) STAT(aspirationHigh) STAT(decisionProbes) STAT(decisionNodes) STAT(refutationProbes) STAT(refutationNodes) STAT(refutations) STAT(tbHits)
-    STAT(nullNodes) STAT(singularNodes) STAT(probcutNodes) STAT(lmrResearchNodes) STAT(iir)
+    STAT(nullNodes) STAT(singularNodes) STAT(probcutNodes) STAT(lmrResearchNodes) STAT(iir) STAT(correctionUpdates)
     STAT(decisionInternalProbes) STAT(decisionInternalNodes)
 #undef STAT
     return o.str();
