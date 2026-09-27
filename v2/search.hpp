@@ -15,7 +15,7 @@ struct Stats {
     U64 qnodes=0,ttHits=0,ttCuts=0,pvs=0,pvsResearch=0,lmr=0,lmrResearch=0,nullTries=0,nullVerify=0,nullReject=0,nullCuts=0;
     U64 singularTries=0,singularExtensions=0,rfp=0,futility=0,see=0,delta=0,razor=0,moveCount=0,history=0,probcutTries=0,probcut=0;
     U64 aspirationLow=0,aspirationHigh=0,decisionProbes=0,decisionNodes=0,refutationProbes=0,refutationNodes=0,refutations=0,tbHits=0;
-    U64 nullNodes=0,singularNodes=0,probcutNodes=0,lmrResearchNodes=0;
+    U64 nullNodes=0,singularNodes=0,probcutNodes=0,lmrResearchNodes=0,iir=0;
     U64 decisionInternalProbes=0,decisionInternalNodes=0;
     std::string text() const;
 };
