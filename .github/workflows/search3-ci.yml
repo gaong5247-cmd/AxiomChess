@@ -1,0 +1,37 @@
+name: Search 3 CI
+
+on:
+  push:
+    branches:
+      - axiom-search3-adaptive
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+      - name: Build
+        run: cmake --build build --parallel 2
+      - name: Test
+        run: ctest --test-dir build --output-on-failure
+      - name: Bench v2
+        run: ./build/axiom-2 --bench 8 100000
+
+  sanitizers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure ASan/UBSan
+        run: cmake -S . -B build-asan -DCMAKE_BUILD_TYPE=RelWithDebInfo -DAXIOM_SANITIZE=ON
+      - name: Build focused tests
+        run: cmake --build build-asan --parallel 2 --target axiom2_core_tests axiom2_search_tests
+      - name: Run v2 tests
+        env:
+          ASAN_OPTIONS: detect_leaks=1:halt_on_error=1
+          UBSAN_OPTIONS: halt_on_error=1:print_stacktrace=1
+        run: ctest --test-dir build-asan -R axiom2 --output-on-failure
