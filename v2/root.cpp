@@ -32,6 +32,11 @@ Result Worker::run(Position p,const Limits& l,const Features& f,int workerId,int
     int stable=0,lastScore=result.score,swing=0;Move previousBest{};
     try{
         for(int depth=1;depth<=l.depth;++depth){
+            // Helpers deliberately skip a rotating subset of iterative depths.
+            // Their result is never authoritative; the goal is to seed the
+            // shared TT with less-correlated depth/frontier information.
+            if(id&&depth>=3&&((depth+id)%3)==0){++stats.helperSkips;continue;}
+            if(id)++stats.helperIterations;
             auto beforeRoots=roots;
             std::vector<Move> selected;std::vector<Result> reports;
             int pvCount=std::min(multiPV,int(roots.size()));
