@@ -39,7 +39,12 @@ int main() {
                 require(slow==fast,"fast evaluation preserves baseline score");
                 require(evaluate_score(position,true,true,&cache)==evaluate_score(position,true,true,nullptr),"pawn cache preserves enhanced score");
                 auto captures=position.legal_captures_to(move.to);
-                for(auto capture:captures) require(position.parse_move(capture.uci()).has_value(),"targeted SEE captures remain legal");
+                for(auto capture:captures) {
+                    if(!position.parse_move(capture.uci()).has_value()) {
+                        throw std::runtime_error("targeted SEE capture illegal: parent="+position.fen()+" previous="+move.uci()+" capture="+capture.uci());
+                    }
+                    ++checks;
+                }
                 position.pop(undo);
             }
             auto before=cache.hits; evaluate_score(b,false,false,&cache); evaluate_score(b,false,false,&cache);
