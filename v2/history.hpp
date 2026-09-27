@@ -4,6 +4,7 @@ namespace ax2 {
 constexpr int Tokens=768;
 constexpr std::size_t FollowupSize=1u<<18;
 constexpr std::size_t PawnHistorySize=1u<<18;
+constexpr std::size_t CorrectionSize=1u<<16;
 inline int token(int pc,int to){return (side_of(pc)*6+type(pc)-1)*64+to;}
 struct Histories {
     std::int16_t main[2][64][64]{};
@@ -16,6 +17,7 @@ struct Histories {
     // another full Tokens^2 table for every continuation distance.
     std::array<std::int16_t,FollowupSize> followup{};
     std::array<std::int16_t,PawnHistorySize> pawn{};
+    std::array<std::int16_t,CorrectionSize> correction{};
 
     std::array<Move,Tokens> counters{};
     Move killers[MaxPly][2]{};
@@ -33,6 +35,17 @@ struct Histories {
     }
     static std::size_t pawn_index(const Position& p,int current){
         return mix(pawn_key(p)^U64(current+1)*0x94D049BB133111EBULL)&(PawnHistorySize-1);
+    }
+    static std::size_t correction_index(const Position& p){
+        return mix(pawn_key(p)^U64(p.side+1)*0xD6E8FEB86659FD93ULL)&(CorrectionSize-1);
+    }
+    int corrected_eval(const Position& p,int raw) const {
+        return std::clamp(raw+int(correction[correction_index(p)])/8,-MateBound+1,MateBound-1);
+    }
+    void reward_correction(const Position& p,int error,int depth){
+        // Store scaled centipawn error with gravity; deeper searches carry more weight.
+        int bonus=std::clamp(error*std::min(depth,8)/2,-2000,2000);
+        update(correction[correction_index(p)],bonus);
     }
 
     int quiet(const Position& p,Move m,int prev1,int prev2=-1) const {
