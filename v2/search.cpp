@@ -49,7 +49,9 @@ int Worker::search(Position& p,int depth,int alpha,int beta,int ply,bool pv,bool
     U64 key=p.tt_key();auto entry=trusted?tt.probe(key):std::optional<TTEntry>{};Move ttMove=entry?entry->move:Move{};
     if(entry){++stats.ttHits;int value=from_tt(entry->score,ply);if(!pv&&entry->depth>=depth&&(entry->bound()==Exact||(entry->bound()==Lower&&value>=beta)||(entry->bound()==Upper&&value<=alpha))){++stats.ttCuts;return value;}}
     if(trusted&&tb&&depth>=2)if(auto score=tb->wdl(p)){++stats.tbHits;return *score;}
-    int eval=entry?entry->eval:evaluate(p);stack[ply].eval=check?Inf:eval;
+    const int rawEval=entry?entry->eval:evaluate(p);
+    int eval=trusted?histories->corrected_eval(p,rawEval):rawEval;
+    stack[ply].eval=check?Inf:eval;
 
     // Internal Iterative Reduction: without a credible TT move, full-depth
     // search spends too much on poorly ordered siblings. Reduce one ply first;
@@ -150,7 +152,16 @@ int Worker::search(Position& p,int depth,int alpha,int beta,int ply,bool pv,bool
         }}
     }
     if(!searched)return excluded?alpha:best;
-    if(trusted)tt.store(key,bestMove,to_tt(best,ply),eval,depth,best>=beta?Lower:best>originalAlpha?Exact:Upper,pv);
+    if(trusted){
+        const Bound bound=best>=beta?Lower:best>originalAlpha?Exact:Upper;
+        if(bestMove&&!p.capture(bestMove)&&!bestMove.promo()&&std::abs(best)<MateBound&&
+           (bound==Exact||(bound==Lower&&best>eval)||(bound==Upper&&best<eval))){
+            histories->reward_correction(p,best-rawEval,depth);
+            ++stats.correctionUpdates;
+        }
+        // Store the uncorrected static eval. Correction is search-local learned context.
+        tt.store(key,bestMove,to_tt(best,ply),rawEval,depth,bound,pv);
+    }
     return best;
 }
 }
