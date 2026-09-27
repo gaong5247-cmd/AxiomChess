@@ -22,6 +22,53 @@ bool null_material(const Board& b) {
     return count>=2 && nonpawns>=850 && b.piece_count()>10 && b.halfmove<80;
 }
 
+// Axiom Search 3: convert heterogeneous search signals into one bounded
+// confidence value. Positive values mean "spend nodes here"; negative values
+// mean "this branch is a good candidate for reduction/pruning".
+int branch_confidence(bool pv,bool tt_pv,bool improving,bool unstable,bool cut_node,
+                      bool counter,int history,int continuation,int move_index,
+                      int move_count) {
+    int c=0;
+    c+=pv?30:0;
+    c+=tt_pv?14:0;
+    c+=improving?10:-3;
+    c+=unstable?18:0;
+    c+=counter?16:0;
+    c+=std::clamp(history/450,-20,20);
+    c+=std::clamp(continuation/650,-12,12);
+    c-=cut_node?8:0;
+    c-=std::clamp(move_index-4,0,12);
+    if(move_count<=4) c+=8;
+    return std::clamp(c,-64,64);
+}
+
+int adaptive_lmr(int depth,int move_index,int confidence) {
+    if(depth<3 || move_index<3) return 0;
+    const double base=0.65 + std::log(double(depth))*std::log(double(move_index+1))/2.75;
+    // Every ~14 confidence points buys back one ply. Very low confidence can
+    // reduce one extra ply, but never below a one-ply child.
+    int r=static_cast<int>(base) - confidence/14;
+    if(confidence<-35) ++r;
+    return std::clamp(r,0,std::max(0,depth-2));
+}
+
+int adaptive_null_reduction(int depth,int static_eval,int beta,bool improving,bool unstable) {
+    int r=2+depth/4;
+    const int surplus=static_eval-beta;
+    if(surplus>180) ++r;
+    if(surplus>420) ++r;
+    if(improving) ++r;
+    if(unstable) --r;
+    return std::clamp(r,2,std::max(2,depth-1));
+}
+
+int adaptive_probcut_margin(int depth,bool improving,bool unstable) {
+    int margin=SearchTuning::ProbCutBaseMargin+(improving?SearchTuning::ProbCutImprovingMargin:0);
+    margin+=std::max(0,depth-6)*6;
+    if(unstable) margin+=35;
+    return margin;
+}
+
 }
 Search::Search(std::size_t mb):tt_(std::make_shared<TranspositionTable>(mb)),feedback_(std::make_unique<Feedback>()),pawn_cache_(std::make_unique<PawnCache>()) {}
 void Search::clear() { tt_->clear(); feedback_->clear(); pawn_cache_->clear(); for(auto& row:killers_) for(auto& m:row) m=Move{}; for(auto& side:history_) for(auto& from:side) for(auto& to:from) to=0; trace_.fill(SearchTrace{}); }
@@ -150,7 +197,7 @@ int Search::negamax(Board& b,int depth,int alpha,int beta,int ply,bool pv,bool n
     if(pruning && limits_.use_null && null_allowed && !pv && !check && moves.size()>1 && depth>=3 && null_material(b) && std::abs(beta)<MateThreshold && (!(f.verified_null || f.correction) || static_eval>=beta) && node_safety)
         { stats_.safety.record(SafetyAction::Null,node_safety); AXIOM_TRACE_EVENT("NULL_BLOCKED_BY_SAFETY",Move{},std::nullopt); }
     if(pruning && limits_.use_null && null_allowed && !pv && !check && moves.size()>1 && !(f.trend_safety && unstable) && !node_safety && depth>=3 && null_material(b) && std::abs(beta)<MateThreshold && (!(f.verified_null || f.correction) || static_eval>=beta)) {
-        ++stats_.null_attempts; int reduced=std::max(0,depth-1-(2+depth/5)),score;
+        ++stats_.null_attempts; const int null_r=adaptive_null_reduction(depth,static_eval,beta,improving,unstable); int reduced=std::max(0,depth-1-null_r),score;
         AXIOM_TRACE_EVENT("NULL_BEGIN",Move{},std::nullopt);
         trace_[ply].move={}; trace_[ply].piece=0;
         { Applied applied(b,{}); std::vector<Move> ignored;
@@ -176,7 +223,7 @@ int Search::negamax(Board& b,int depth,int alpha,int beta,int ply,bool pv,bool n
     if(pruning && f.probcut && !pv && !check && moves.size()>1 && null_material(b) && depth>=5 && std::abs(beta)<MateThreshold-256 && static_eval>=beta-150 && node_safety)
         { stats_.safety.record(SafetyAction::Probcut,node_safety); AXIOM_TRACE_EVENT("PROBCUT_BLOCKED_BY_SAFETY",Move{},std::nullopt); }
     if(pruning && f.probcut && !pv && !check && moves.size()>1 && null_material(b) && !(f.trend_safety && unstable) && !node_safety && depth>=5 && std::abs(beta)<MateThreshold-256 && static_eval>=beta-150) {
-        int raised=beta+SearchTuning::ProbCutBaseMargin+(improving?SearchTuning::ProbCutImprovingMargin:0);
+        int raised=beta+adaptive_probcut_margin(depth,improving,unstable);
         for(auto m:moves) if(b.capture(m) && !m.promotion && see(b,m)>=0) {
             ++stats_.probcut_attempts; int score; auto before=nodes_;
             AXIOM_TRACE_EVENT("PROBCUT_BEGIN",m,std::nullopt);
@@ -249,14 +296,14 @@ int Search::negamax(Board& b,int depth,int alpha,int beta,int ply,bool pv,bool n
         if(pruning && limits_.use_lmr && limits_.pvs && reasons && !check && quiet && m!=ttmove && !killer && !extension && depth>=3 && index>=3 && (!pv || f.dynamic_lmr))
         {
             stats_.safety.record(SafetyAction::Lmr,reasons);
-            AXIOM_TRACE_DETAIL(int prevented=1+static_cast<int>(std::log(double(depth))*std::log(double(index+1))/3)-(hist>2000);
-                if(f.dynamic_lmr) prevented+=(cut_node?1:0)+(hist<-1500?1:0)-(improving?1:0)-(pv?1:0)-(entry && entry->pv?1:0)-(hist>6000?1:0);
-                causal.base.reduction=std::clamp(prevented,0,depth-2); if(causal.base.reduction) causal.event("LMR_BLOCKED_BY_SAFETY",nodes_,m));
+            AXIOM_TRACE_DETAIL(const int confidence=branch_confidence(pv,entry && entry->pv,improving,unstable,cut_node,counter,hist,continuation,index,static_cast<int>(moves.size()));
+                const int prevented=adaptive_lmr(depth,index,confidence);
+                causal.base.reduction=prevented; if(causal.base.reduction) causal.event("LMR_BLOCKED_BY_SAFETY",nodes_,m));
         }
         if(pruning && limits_.use_lmr && limits_.pvs && !protected_move && !check && quiet && m!=ttmove && !killer && !extension && depth>=3 && index>=3 && (!pv || f.dynamic_lmr)) {
-            reduction=1+static_cast<int>(std::log(double(depth))*std::log(double(index+1))/3)-(hist>2000);
-            if(f.dynamic_lmr) reduction+=(cut_node?1:0)+(hist<-1500?1:0)-(improving?1:0)-(pv?1:0)-(entry && entry->pv?1:0)-(hist>6000?1:0);
-            reduction=std::clamp(reduction,0,depth-2); if(reduction) ++stats_.lmr_reductions;
+            const int confidence=branch_confidence(pv,entry && entry->pv,improving,unstable,cut_node,counter,hist,continuation,index,static_cast<int>(moves.size()));
+            reduction=adaptive_lmr(depth,index,confidence);
+            if(reduction) ++stats_.lmr_reductions;
         }
         stats_.lmr_reduction_sum+=reduction;
         if(poor_history && f.calibrated_lmr && limits_.pvs && limits_.use_lmr) {
@@ -522,7 +569,9 @@ SearchResult Search::run_single(Board b,Limits limits,std::atomic_bool& stop,con
             const auto failures_before=stats_.aspiration_fail_low+stats_.aspiration_fail_high;
             const int previous_score=result.score;
             const auto previous_pv=result.moves.empty()?std::vector<Move>{}:result.moves.front().pv;
-            int window=depth>=3 && std::abs(result.score)<MateThreshold?35+worker_id_*7:Infinity;
+            const int score_motion=std::abs(result.score-previous_score);
+            int window=depth>=3 && std::abs(result.score)<MateThreshold
+                ?std::clamp(24 + score_motion/2 + worker_id_*5,24,120):Infinity;
             std::vector<MoveResult> completed;
             for(;;) {
                 int alpha=std::max(-Infinity,result.score-window),beta=std::min(Infinity,result.score+window);
