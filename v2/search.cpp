@@ -50,6 +50,12 @@ int Worker::search(Position& p,int depth,int alpha,int beta,int ply,bool pv,bool
     if(entry){++stats.ttHits;int value=from_tt(entry->score,ply);if(!pv&&entry->depth>=depth&&(entry->bound()==Exact||(entry->bound()==Lower&&value>=beta)||(entry->bound()==Upper&&value<=alpha))){++stats.ttCuts;return value;}}
     if(trusted&&tb&&depth>=2)if(auto score=tb->wdl(p)){++stats.tbHits;return *score;}
     int eval=entry?entry->eval:evaluate(p);stack[ply].eval=check?Inf:eval;
+
+    // Internal Iterative Reduction: without a credible TT move, full-depth
+    // search spends too much on poorly ordered siblings. Reduce one ply first;
+    // the shallower pass seeds TT/history and later visits recover ordering.
+    if(trusted&&!ttMove&&!check&&depth>=(pv?7:5)){--depth;++stats.iir;if(depth<=0)return qsearch(p,alpha,beta,ply,0);}
+
     bool improving=ply>=2&&stack[ply-2].eval!=Inf&&eval>stack[ply-2].eval;
     bool unstable=ply>=2&&stack[ply-2].eval!=Inf&&std::abs(eval-stack[ply-2].eval)>100;
     bool endgame=p.phase<=6;
