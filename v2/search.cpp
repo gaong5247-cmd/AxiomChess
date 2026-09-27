@@ -71,19 +71,21 @@ int Worker::search(Position& p,int depth,int alpha,int beta,int ply,bool pv,bool
         }
     }
     int singular=0;
-    if(trusted&&features.singular&&entry&&ttMove&&depth>=6&&entry->depth>=depth-2&&entry->bound()!=Upper&&std::abs(entry->score)<MateBound&&extensions<6){
+    if(trusted&&features.singular&&entry&&ttMove&&depth>=6&&entry->depth>=depth-2&&entry->bound()!=Upper&&std::abs(entry->score)<MateBound&&extensions<4){
         ++stats.singularTries;int threshold=from_tt(entry->score,ply)-2*depth;
         U64 singularStart=localNodes;int alternative=search(p,(depth-1)/2,threshold-1,threshold,ply,false,false,ttMove,extensions,cut,true);stats.singularNodes+=localNodes-singularStart;
         if(alternative<threshold){singular=1;++stats.singularExtensions;}
     }
     stack[ply].eval=check?Inf:eval;stack[ply].pv.size=0;
     Move refute=features.refutation?refutations.probe(p.key):Move{};order(p,moves,ttMove,ply,refute);
-    if(pruning&&features.probcut&&!endgame&&depth>=5&&!unstable){int raised=beta+180;int tried=0;
+    if(pruning&&features.probcut&&!endgame&&depth>=5&&!unstable){
+        const int probMargin=150+8*std::min(depth,12)+(improving?25:0);
+        const int raised=beta+probMargin;int tried=0;
         for(auto m:moves)if(p.capture(m)&&!m.promo()&&see_ge(p,m,raised-eval)&&tried++<3){++stats.probcutTries;int score,t=token(p.board[m.from()],m.to());
             U64 probcutStart=localNodes;
             {Applied applied(p,m);stack[ply].token=t;stack[ply].move=m;score=-qsearch(p,-raised,-raised+1,ply+1,0);if(score>=raised)score=-search(p,depth-4,-raised,-raised+1,ply+1,false,false,{},extensions,true,true);}
             stats.probcutNodes+=localNodes-probcutStart;
-            if(score>=raised&&score<MateBound){++stats.probcut;return score-180;}
+            if(score>=raised&&score<MateBound){++stats.probcut;return score-probMargin;}
         }
     }
     int best=claim?0:-Inf,searched=0,index=0,prev=ply?stack[ply-1].token:-1;Move bestMove{};MoveList tried;
@@ -105,8 +107,10 @@ int Worker::search(Position& p,int depth,int alpha,int beta,int ply,bool pv,bool
                 if(features.history&&quiet&&depth<=4&&effectiveConfidence<-24&&hist<-2600*depth){++stats.history;continue;}
                 if(features.see&&depth<=5&&effectiveConfidence<18&&!goodSee){++stats.see;continue;}
             }
-            if(check&&extensions<8&&extension==0)extension=1;
-            if(extensions>=8)extension=0;
+            // Unconditional check extension is a node-explosion trap. Extend only
+            // constrained evasions; broad check positions are handled by normal depth.
+            if(check&&moves.size<=2&&extensions<4&&extension==0)extension=1;
+            if(extensions>=4)extension=0;
             int nextDepth=depth-1+extension;
             stack[ply].move=m;stack[ply].token=t;
             if(features.lmr&&!auxiliary&&depth>=3&&searched>=3&&quiet&&!check&&!givesCheck&&!protectedMove&&!extension){
@@ -120,7 +124,7 @@ int Worker::search(Position& p,int depth,int alpha,int beta,int ply,bool pv,bool
                 // At unstable PV decisions, a near-alpha upper bound can hide a
                 // changed choice. Spend one bounded extra ply on this competitor.
                 // This is an experimental bound heuristic, never an exact proof.
-                if(features.decision&&pv&&!auxiliary&&unstable&&depth>=5&&extensions+extension<6&&score<=alpha&&score>alpha-25){
+                if(features.decision&&pv&&!auxiliary&&unstable&&depth>=5&&extensions+extension<4&&score<=alpha&&score>alpha-25){
                     ++stats.decisionInternalProbes;U64 before=localNodes;++nextDepth;++extension;
                     score=-search(p,nextDepth,-alpha-1,-alpha,ply+1,false,false,{},extensions+extension,true,false);
                     stats.decisionInternalNodes+=localNodes-before;
