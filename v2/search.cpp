@@ -97,7 +97,7 @@ int Worker::search(Position& p,int depth,int alpha,int beta,int ply,bool pv,bool
         }
     }
     int best=claim?0:-Inf,searched=0,index=0,prev=ply?stack[ply-1].token:-1,prev2=ply>=2?stack[ply-2].token:-1;Move bestMove{};MoveList tried;
-    for(auto m:moves){if(m==excluded)continue;++index;bool cap=p.capture(m),quiet=!cap&&!m.promo();int hist=histories->quiet(p,m,prev,prev2,ply);
+    for(auto m:moves){if(m==excluded)continue;++index;bool cap=p.capture(m),quiet=!cap&&!m.promo();int hist=quiet?histories->quiet(p,m,prev,prev2,ply):0;
         bool killer=m==histories->killers[ply][0]||m==histories->killers[ply][1];bool protectedMove=m==ttMove||killer||m==refute;
         const int confidence=branch_confidence(pv,improving,unstable,cut,hist,index,moves.size,m==refute);
         const int seeThreshold=quiet?quiet_see_margin(depth,confidence):capture_see_margin(depth,confidence);
