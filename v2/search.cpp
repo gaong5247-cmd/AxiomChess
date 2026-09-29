@@ -3,7 +3,31 @@
 #include <cmath>
 namespace ax2 {
 namespace {
-const auto reductions=[] {std::array<std::array<int,256>,MaxPly> table{};for(int d=1;d<MaxPly;++d)for(int n=1;n<256;++n)table[d][n]=int(std::log(double(d))*std::log(double(n))/2.2);return table;}();
+int branch_confidence(bool pv,bool improving,bool unstable,bool cut,int history,int index,int moveCount,bool refutation) {
+    int c=0;
+    c+=pv?28:0;
+    c+=improving?10:-3;
+    c+=unstable?16:0;
+    c+=refutation?18:0;
+    c-=cut?8:0;
+    c+=std::clamp(history/600,-22,22);
+    c-=std::clamp(index-4,0,14);
+    if(moveCount<=4)c+=8;
+    return std::clamp(c,-64,64);
+}
+int adaptive_reduction(int depth,int index,int confidence,int nextDepth) {
+    if(depth<3||index<4)return 0;
+    double base=.55+std::log(double(depth))*std::log(double(index+1))/2.65;
+    int r=int(base)-confidence/14;
+    if(confidence<-36)++r;
+    return std::clamp(r,0,std::max(0,nextDepth-1));
+}
+int quiet_see_margin(int depth,int confidence) {
+    return -std::max(20,55*depth-confidence*2);
+}
+int capture_see_margin(int depth,int confidence) {
+    return -std::max(20,24*depth*depth-confidence*3);
+}
 }
 void Worker::tick(){
     if(control.stop.load(std::memory_order_relaxed))throw Interrupted{};
@@ -25,7 +49,15 @@ int Worker::search(Position& p,int depth,int alpha,int beta,int ply,bool pv,bool
     U64 key=p.tt_key();auto entry=trusted?tt.probe(key):std::optional<TTEntry>{};Move ttMove=entry?entry->move:Move{};
     if(entry){++stats.ttHits;int value=from_tt(entry->score,ply);if(!pv&&entry->depth>=depth&&(entry->bound()==Exact||(entry->bound()==Lower&&value>=beta)||(entry->bound()==Upper&&value<=alpha))){++stats.ttCuts;return value;}}
     if(trusted&&tb&&depth>=2)if(auto score=tb->wdl(p)){++stats.tbHits;return *score;}
-    int eval=entry?entry->eval:evaluate(p);stack[ply].eval=check?Inf:eval;
+    const int rawEval=entry?entry->eval:evaluate(p);
+    int eval=trusted?histories->corrected_eval(p,rawEval):rawEval;
+    stack[ply].eval=check?Inf:eval;
+
+    // Internal Iterative Reduction: without a credible TT move, full-depth
+    // search spends too much on poorly ordered siblings. Reduce one ply first;
+    // the shallower pass seeds TT/history and later visits recover ordering.
+    if(trusted&&!ttMove&&!check&&depth>=(pv?7:5)){--depth;++stats.iir;if(depth<=0)return qsearch(p,alpha,beta,ply,0);}
+
     bool improving=ply>=2&&stack[ply-2].eval!=Inf&&eval>stack[ply-2].eval;
     bool unstable=ply>=2&&stack[ply-2].eval!=Inf&&std::abs(eval-stack[ply-2].eval)>100;
     bool endgame=p.phase<=6;
@@ -47,41 +79,51 @@ int Worker::search(Position& p,int depth,int alpha,int beta,int ply,bool pv,bool
         }
     }
     int singular=0;
-    if(trusted&&features.singular&&entry&&ttMove&&depth>=6&&entry->depth>=depth-2&&entry->bound()!=Upper&&std::abs(entry->score)<MateBound&&extensions<6){
+    if(trusted&&features.singular&&entry&&ttMove&&depth>=6&&entry->depth>=depth-2&&entry->bound()!=Upper&&std::abs(entry->score)<MateBound&&extensions<4){
         ++stats.singularTries;int threshold=from_tt(entry->score,ply)-2*depth;
         U64 singularStart=localNodes;int alternative=search(p,(depth-1)/2,threshold-1,threshold,ply,false,false,ttMove,extensions,cut,true);stats.singularNodes+=localNodes-singularStart;
         if(alternative<threshold){singular=1;++stats.singularExtensions;}
     }
     stack[ply].eval=check?Inf:eval;stack[ply].pv.size=0;
     Move refute=features.refutation?refutations.probe(p.key):Move{};order(p,moves,ttMove,ply,refute);
-    if(pruning&&features.probcut&&!endgame&&depth>=5&&!unstable){int raised=beta+180;int tried=0;
+    if(pruning&&features.probcut&&!endgame&&depth>=5&&!unstable){
+        const int probMargin=150+8*std::min(depth,12)+(improving?25:0);
+        const int raised=beta+probMargin;int tried=0;
         for(auto m:moves)if(p.capture(m)&&!m.promo()&&see_ge(p,m,raised-eval)&&tried++<3){++stats.probcutTries;int score,t=token(p.board[m.from()],m.to());
             U64 probcutStart=localNodes;
             {Applied applied(p,m);stack[ply].token=t;stack[ply].move=m;score=-qsearch(p,-raised,-raised+1,ply+1,0);if(score>=raised)score=-search(p,depth-4,-raised,-raised+1,ply+1,false,false,{},extensions,true,true);}
             stats.probcutNodes+=localNodes-probcutStart;
-            if(score>=raised&&score<MateBound){++stats.probcut;return score-180;}
+            if(score>=raised&&score<MateBound){++stats.probcut;return score-probMargin;}
         }
     }
-    int best=claim?0:-Inf,searched=0,index=0,prev=ply?stack[ply-1].token:-1;Move bestMove{};MoveList tried;
-    for(auto m:moves){if(m==excluded)continue;++index;bool cap=p.capture(m),quiet=!cap&&!m.promo();int hist=histories->quiet(p,m,prev);
+    int best=claim?0:-Inf,searched=0,index=0,prev=ply?stack[ply-1].token:-1,prev2=ply>=2?stack[ply-2].token:-1;Move bestMove{};MoveList tried;
+    for(auto m:moves){if(m==excluded)continue;++index;bool cap=p.capture(m),quiet=!cap&&!m.promo();int hist=quiet?histories->quiet(p,m,prev,prev2,ply):0;
         bool killer=m==histories->killers[ply][0]||m==histories->killers[ply][1];bool protectedMove=m==ttMove||killer||m==refute;
-        bool goodSee=!features.see||see_ge(p,m,quiet?-70*depth:-30*depth*depth);
+        const int confidence=branch_confidence(pv,improving,unstable,cut,hist,index,moves.size,m==refute);
+        const int seeThreshold=quiet?quiet_see_margin(depth,confidence):capture_see_margin(depth,confidence);
+        bool goodSee=!features.see||see_ge(p,m,seeThreshold);
         int t=token(p.board[m.from()],m.to()),score,extension=(m==ttMove?singular:0),reduction=0;
         {
             Applied applied(p,m);bool givesCheck=p.in_check();
-            if(pruning&&searched>0&&!endgame&&!unstable&&!givesCheck&&!m.promo()&&!protectedMove){
-                if(features.futility&&quiet&&depth<=3&&eval+110*depth<=alpha){++stats.futility;continue;}
-                if(features.moveCount&&quiet&&depth<=3&&index>4+depth*depth){++stats.moveCount;continue;}
-                if(features.history&&quiet&&depth<=3&&hist<-4000*depth){++stats.history;continue;}
-                if(features.see&&depth<=5&&!goodSee){++stats.see;continue;}
+            if(pruning&&searched>0&&!endgame&&!givesCheck&&!m.promo()&&!protectedMove){
+                // All forward-pruning gates consume the same confidence signal.
+                // Unstable nodes are not immune, but require substantially worse evidence.
+                const int uncertaintyBuyback=unstable?24:0;
+                const int effectiveConfidence=confidence+uncertaintyBuyback;
+                if(features.futility&&quiet&&depth<=3&&effectiveConfidence<6&&eval+(95+10*depth)*depth<=alpha){++stats.futility;continue;}
+                if(features.moveCount&&quiet&&depth<=3&&effectiveConfidence<-8&&index>3+depth*depth){++stats.moveCount;continue;}
+                if(features.history&&quiet&&depth<=4&&effectiveConfidence<-24&&hist<-2600*depth){++stats.history;continue;}
+                if(features.see&&depth<=5&&effectiveConfidence<18&&!goodSee){++stats.see;continue;}
             }
-            if(check&&extensions<8&&extension==0)extension=1;
-            if(extensions>=8)extension=0;
+            // Unconditional check extension is a node-explosion trap. Extend only
+            // constrained evasions; broad check positions are handled by normal depth.
+            if(check&&moves.size<=2&&extensions<4&&extension==0)extension=1;
+            if(extensions>=4)extension=0;
             int nextDepth=depth-1+extension;
             stack[ply].move=m;stack[ply].token=t;
             if(features.lmr&&!auxiliary&&depth>=3&&searched>=3&&quiet&&!check&&!givesCheck&&!protectedMove&&!extension){
-                reduction=reductions[std::min(depth,MaxPly-1)][std::min(index,255)]+(cut?1:0)-(pv?1:0)-(improving?1:0)-(unstable?1:0)-hist/5000;
-                reduction=std::clamp(reduction,0,std::max(0,nextDepth-1));if(reduction)++stats.lmr;
+                reduction=adaptive_reduction(depth,index,confidence,nextDepth);
+                if(reduction)++stats.lmr;
             }
             if(searched==0)score=-search(p,nextDepth,-beta,-alpha,ply+1,pv,true,{},extensions+extension,false,auxiliary);
             else {
@@ -90,7 +132,7 @@ int Worker::search(Position& p,int depth,int alpha,int beta,int ply,bool pv,bool
                 // At unstable PV decisions, a near-alpha upper bound can hide a
                 // changed choice. Spend one bounded extra ply on this competitor.
                 // This is an experimental bound heuristic, never an exact proof.
-                if(features.decision&&pv&&!auxiliary&&unstable&&depth>=5&&extensions+extension<6&&score<=alpha&&score>alpha-25){
+                if(features.decision&&pv&&!auxiliary&&unstable&&depth>=5&&extensions+extension<4&&score<=alpha&&score>alpha-25){
                     ++stats.decisionInternalProbes;U64 before=localNodes;++nextDepth;++extension;
                     score=-search(p,nextDepth,-alpha-1,-alpha,ply+1,false,false,{},extensions+extension,true,false);
                     stats.decisionInternalNodes+=localNodes-before;
@@ -102,15 +144,39 @@ int Worker::search(Position& p,int depth,int alpha,int beta,int ply,bool pv,bool
         ++searched;tried.add(m);
         if(score>best){best=score;bestMove=m;}
         if(score>alpha){alpha=score;update_pv(ply,m);if(alpha>=beta){
-            if(trusted){int bonus=std::min(1600,depth*depth*32);histories->reward(p,m,prev,bonus);
-                for(auto old:tried)if(old!=m&&p.capture(old)==cap)histories->reward(p,old,prev,-bonus/2);
+            if(trusted){
+                int bonus=std::min(1600,depth*depth*32);
+                histories->reward(p,m,prev,bonus,prev2,ply);
+                if(quiet){
+                    ++stats.historyPositiveUpdates;
+                    if(ply<LowPlyHistoryDepth)++stats.lowPlyUpdates;
+                    if(Histories::has_threat_context(p,m))++stats.threatUpdates;
+                }
+                for(auto old:tried)if(old!=m&&p.capture(old)==cap){
+                    const bool oldQuiet=!p.capture(old)&&!old.promo();
+                    histories->reward(p,old,prev,-bonus/2,prev2,ply);
+                    if(oldQuiet){
+                        ++stats.historyNegativeUpdates;
+                        if(ply<LowPlyHistoryDepth)++stats.lowPlyUpdates;
+                        if(Histories::has_threat_context(p,old))++stats.threatUpdates;
+                    }
+                }
                 if(quiet){histories->killers[ply][1]=histories->killers[ply][0];histories->killers[ply][0]=m;if(prev>=0)histories->counters[prev]=m;}
                 if(features.refutation)refutations.store(p.key,m);
             }break;
         }}
     }
     if(!searched)return excluded?alpha:best;
-    if(trusted)tt.store(key,bestMove,to_tt(best,ply),eval,depth,best>=beta?Lower:best>originalAlpha?Exact:Upper,pv);
+    if(trusted){
+        const Bound bound=best>=beta?Lower:best>originalAlpha?Exact:Upper;
+        if(bestMove&&!p.capture(bestMove)&&!bestMove.promo()&&std::abs(best)<MateBound&&
+           (bound==Exact||(bound==Lower&&best>eval)||(bound==Upper&&best<eval))){
+            histories->reward_correction(p,best-rawEval,depth);
+            ++stats.correctionUpdates;
+        }
+        // Store the uncorrected static eval. Correction is search-local learned context.
+        tt.store(key,bestMove,to_tt(best,ply),rawEval,depth,bound,pv);
+    }
     return best;
 }
 }

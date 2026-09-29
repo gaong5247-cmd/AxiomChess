@@ -10,14 +10,18 @@ int Worker::qsearch(Position& p,int alpha,int beta,int ply,int qply){
     if(ply>=MaxPly-2){if(check)throw Interrupted{};return claim?std::max(0,stand):stand;}
     int best=check?-Inf:stand;if(claim){best=std::max(best,0);alpha=std::max(alpha,0);if(alpha>=beta)return alpha;}
     if(!check){if(stand>=beta)return stand;alpha=std::max(alpha,stand);if(qply>=24)return best;}
-    order(p,moves,{},ply);int prev=ply?stack[ply-1].token:-1;(void)prev;
+    order(p,moves,{},ply);int prev=ply?stack[ply-1].token:-1;
+    const int previousTo=ply>0&&stack[ply-1].move?stack[ply-1].move.to():-1;
+    const int deltaMargin=130+std::min(qply,6)*22;
     for(auto m:moves){bool cap=p.capture(m);int victim=p.victim(m);if(!check&&!cap&&!m.promo()&&qply>=1)continue;
-        bool good=!features.see||!cap||see_ge(p,m,0);int t=token(p.board[m.from()],m.to());int score;
+        const bool recapture=cap&&m.to()==previousTo;
+        const int seeFloor=recapture?-std::max(20,90-10*qply):0;
+        bool good=!features.see||!cap||see_ge(p,m,seeFloor);int t=token(p.board[m.from()],m.to());int score;
         {
             Applied applied(p,m);bool givesCheck=p.in_check();
             if(!check&&!cap&&!m.promo()&&!givesCheck)continue;
             if(!check&&!givesCheck&&!m.promo()){
-                if(features.delta&&stand+values[victim]+180<alpha){++stats.delta;continue;}
+                if(features.delta&&!recapture&&stand+values[victim]+deltaMargin<alpha){++stats.delta;continue;}
                 if(!good){++stats.see;continue;}
             }
             stack[ply].move=m;stack[ply].token=t;

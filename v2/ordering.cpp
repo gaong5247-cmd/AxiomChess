@@ -1,7 +1,7 @@
 #include "search.hpp"
 namespace ax2 {
 void Worker::order(const Position& p,MoveList& moves,Move ttMove,int ply,Move refute){
-    struct Scored {Move move;int score;};std::array<Scored,256> list{};int prev=ply?stack[ply-1].token:-1;
+    struct Scored {Move move;int score;};std::array<Scored,256> list{};int prev=ply?stack[ply-1].token:-1,prev2=ply>=2?stack[ply-2].token:-1;
     for(int i=0;i<moves.size;++i){Move m=moves[i];int score;
         if(m==ttMove)score=2000000;
         else if(p.capture(m))score=(see_ge(p,m,0)?1000000:-100000)+16*values[p.victim(m)]-values[type(p.board[m.from()])]+histories->captures[p.side][type(p.board[m.from()])][m.to()][p.victim(m)];
@@ -10,7 +10,7 @@ void Worker::order(const Position& p,MoveList& moves,Move ttMove,int ply,Move re
         else if(m==histories->killers[ply][1])score=790000;
         else if(prev>=0&&m==histories->counters[prev])score=780000;
         else if(m==refute)score=770000;
-        else score=histories->quiet(p,m,prev);
+        else score=histories->quiet(p,m,prev,prev2,ply);
         if(m.promo())score+=50000;
         if(id&&m!=ttMove)score+=(m.v*13+id*17)%31;
         list[i]={m,score};
