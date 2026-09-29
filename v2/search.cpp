@@ -1,10 +1,8 @@
 #include "search.hpp"
 #include "tablebase.hpp"
+#include "policy.hpp"
 #include <cmath>
 namespace ax2 {
-namespace {
-const auto reductions=[] {std::array<std::array<int,256>,MaxPly> table{};for(int d=1;d<MaxPly;++d)for(int n=1;n<256;++n)table[d][n]=int(std::log(double(d))*std::log(double(n))/2.2);return table;}();
-}
 void Worker::tick(){
     if(control.stop.load(std::memory_order_relaxed))throw Interrupted{};
     if((localNodes&255)==0&&control.time.expired()){control.stop=true;throw Interrupted{};}
@@ -30,14 +28,16 @@ int Worker::search(Position& p,int depth,int alpha,int beta,int ply,bool pv,bool
     bool unstable=ply>=2&&stack[ply-2].eval!=Inf&&std::abs(eval-stack[ply-2].eval)>100;
     bool endgame=p.phase<=6;
     bool pruning=trusted&&!pv&&!check&&!claim&&std::abs(beta)<MateBound&&moves.size>1;
+    PolicyInput nodePolicy;nodePolicy.depth=depth;nodePolicy.moveCount=moves.size;nodePolicy.eval=eval;nodePolicy.beta=beta;nodePolicy.pv=pv;nodePolicy.ttPv=entry&&entry->pv();nodePolicy.improving=improving;nodePolicy.unstable=unstable;nodePolicy.cut=cut;nodePolicy.endgame=endgame;nodePolicy.inCheck=check;
     if(pruning&&!endgame&&!unstable){
-        if(features.rfp&&depth<=3&&eval-100*depth>=beta){++stats.rfp;return eval-100*depth;}
+        const int rfpMargin=SearchPolicy::rfp_margin(nodePolicy);
+        if(features.rfp&&depth<=3&&eval-rfpMargin>=beta){++stats.rfp;return eval-rfpMargin;}
         if(features.razor&&depth<=2&&eval+220*depth<alpha){int q=qsearch(p,alpha,beta,ply,0);if(q<=alpha){++stats.razor;return q;}}
     }
     if(pruning&&features.nullMove&&nullAllowed&&depth>=3&&eval>=beta&&p.nonpawn(p.side)&&p.halfmove<80){
         bool advancedPawns=(p.bb[White][Pawn]&0x00FF000000000000ULL)||(p.bb[Black][Pawn]&0x000000000000FF00ULL);
         // Pawn-only positions and promotion races never use a null shortcut.
-        if(!advancedPawns){++stats.nullTries;int reduction=2+depth/4+std::min(2,(eval-beta)/200),score;
+        if(!advancedPawns){++stats.nullTries;int reduction=SearchPolicy::null_reduction(nodePolicy),score;
             stack[ply].move={};stack[ply].token=-1;
             U64 nullStart=localNodes;
             {Applied applied(p,{});score=-search(p,std::max(0,depth-reduction-1),-beta,-beta+1,ply+1,false,false,{},extensions,!cut,true);}
@@ -48,18 +48,18 @@ int Worker::search(Position& p,int depth,int alpha,int beta,int ply,bool pv,bool
     }
     int singular=0;
     if(trusted&&features.singular&&entry&&ttMove&&depth>=6&&entry->depth>=depth-2&&entry->bound()!=Upper&&std::abs(entry->score)<MateBound&&extensions<6){
-        ++stats.singularTries;int threshold=from_tt(entry->score,ply)-2*depth;
+        ++stats.singularTries;int threshold=from_tt(entry->score,ply)-SearchPolicy::singular_margin(nodePolicy);
         U64 singularStart=localNodes;int alternative=search(p,(depth-1)/2,threshold-1,threshold,ply,false,false,ttMove,extensions,cut,true);stats.singularNodes+=localNodes-singularStart;
         if(alternative<threshold){singular=1;++stats.singularExtensions;}
     }
     stack[ply].eval=check?Inf:eval;stack[ply].pv.size=0;
     Move refute=features.refutation?refutations.probe(p.key):Move{};order(p,moves,ttMove,ply,refute);
-    if(pruning&&features.probcut&&!endgame&&depth>=5&&!unstable){int raised=beta+180;int tried=0;
+    if(pruning&&features.probcut&&!endgame&&depth>=5&&!unstable){const int probcutMargin=SearchPolicy::probcut_margin(nodePolicy);int raised=beta+probcutMargin;int tried=0;
         for(auto m:moves)if(p.capture(m)&&!m.promo()&&see_ge(p,m,raised-eval)&&tried++<3){++stats.probcutTries;int score,t=token(p.board[m.from()],m.to());
             U64 probcutStart=localNodes;
             {Applied applied(p,m);stack[ply].token=t;stack[ply].move=m;score=-qsearch(p,-raised,-raised+1,ply+1,0);if(score>=raised)score=-search(p,depth-4,-raised,-raised+1,ply+1,false,false,{},extensions,true,true);}
             stats.probcutNodes+=localNodes-probcutStart;
-            if(score>=raised&&score<MateBound){++stats.probcut;return score-180;}
+            if(score>=raised&&score<MateBound){++stats.probcut;return score-probcutMargin;}
         }
     }
     int best=claim?0:-Inf,searched=0,index=0,prev=ply?stack[ply-1].token:-1;Move bestMove{};MoveList tried;
@@ -80,8 +80,8 @@ int Worker::search(Position& p,int depth,int alpha,int beta,int ply,bool pv,bool
             int nextDepth=depth-1+extension;
             stack[ply].move=m;stack[ply].token=t;
             if(features.lmr&&!auxiliary&&depth>=3&&searched>=3&&quiet&&!check&&!givesCheck&&!protectedMove&&!extension){
-                reduction=reductions[std::min(depth,MaxPly-1)][std::min(index,255)]+(cut?1:0)-(pv?1:0)-(improving?1:0)-(unstable?1:0)-hist/5000;
-                reduction=std::clamp(reduction,0,std::max(0,nextDepth-1));if(reduction)++stats.lmr;
+                PolicyInput movePolicy=nodePolicy;movePolicy.moveIndex=index;movePolicy.history=hist;movePolicy.counter=prev>=0&&m==histories->counters[prev];movePolicy.refutation=m==refute;movePolicy.givesCheck=givesCheck;
+                reduction=SearchPolicy::lmr_reduction(movePolicy,nextDepth);if(reduction)++stats.lmr;
             }
             if(searched==0)score=-search(p,nextDepth,-beta,-alpha,ply+1,pv,true,{},extensions+extension,false,auxiliary);
             else {
