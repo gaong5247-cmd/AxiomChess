@@ -62,3 +62,5 @@ singular-search margins can now consume the same node evidence instead of each
 owning unrelated magic-number logic.
 
 This is an architectural change, **not an Elo claim**.
+
+CI bootstrap: the default branch now owns the pull-request workflow; branch pushes validate this work on both Windows and Linux.
