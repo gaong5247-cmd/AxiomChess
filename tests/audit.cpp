@@ -10,7 +10,7 @@ struct SearchAudit {
         static std::atomic_bool stop=false;
         s.clear(); s.stop_=&stop; s.limits_=Limits{}; s.limits_.selective=selective; s.limits_.features=features;
         s.deadline_=std::chrono::steady_clock::time_point::max(); s.nodes_=0; s.stats_={};
-        if(entry) { entry->key=b.hash(); entry->context=b.proof_key(); entry->move=b.legal_moves().front(); s.tt_->store(*entry,false); }
+        if(entry) { entry->key=b.hash(); entry->context=b.proof_hash(); entry->move=b.legal_moves().front(); s.tt_->store(*entry,false); }
         std::vector<Move> line;
         return s.negamax(b,depth,alpha,beta,2,false,true,line,false,{},auxiliary);
     }

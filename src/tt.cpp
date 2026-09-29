@@ -2,11 +2,9 @@
 #include <algorithm>
 namespace axiom {
 TranspositionTable::TranspositionTable(std::size_t mb) {
-    // Context strings remain exact. This is responsibility separation, not
-    // a compact-token substitution that could weaken repetition identity.
-    buckets_.resize(std::max<std::size_t>(1,std::min<std::size_t>(mb,1024)*1024*1024/(sizeof(Bucket)+4*256)));
+    buckets_.resize(std::max<std::size_t>(1,std::min<std::size_t>(mb,1024)*1024*1024/sizeof(Bucket)));
 }
-std::optional<TTEntry> TranspositionTable::probe(std::uint64_t key,const std::string& context) const {
+std::optional<TTEntry> TranspositionTable::probe(std::uint64_t key,std::uint64_t context) const {
     auto index=key%buckets_.size();std::lock_guard<std::mutex> guard(locks_[index%locks_.size()]);
     for(const auto& entry:buckets_[index].entries)if(entry.depth>=0&&entry.key==key&&entry.context==context)return entry;return {};
 }

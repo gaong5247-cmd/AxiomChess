@@ -38,6 +38,7 @@ public:
     std::string fen() const;
     std::uint64_t hash() const;
     std::string proof_key() const;
+    std::uint64_t proof_hash() const;
     bool attacked(int sq, int by) const;
     bool piece_attacks(int from,int to) const;
     int king_square(int who) const;

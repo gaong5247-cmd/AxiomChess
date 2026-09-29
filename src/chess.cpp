@@ -1,6 +1,7 @@
 #include "axiom/chess.hpp"
 #include "axiom/hot_profile.hpp"
 #include <algorithm>
+#include <bit>
 #include <cctype>
 #include <cmath>
 #include <sstream>
@@ -126,6 +127,18 @@ std::string Board::proof_key() const {
     auto start=history.size()>static_cast<std::size_t>(halfmove+1)?history.size()-halfmove-1:0;
     for(std::size_t i=start;i<identities.size();++i) key+=identities[i];
     return key;
+}
+std::uint64_t Board::proof_hash() const {
+    AXIOM_HOT(ProofKey,Inherit);
+    // Compact search-context fingerprint. It covers the exact current repetition
+    // identity, 50/75-move clock and all reversible-history position hashes.
+    // The string form remains available for proof/debug paths; TT hot probes avoid
+    // dynamic allocation and long byte comparisons.
+    std::uint64_t h=mix(hash() ^ (std::uint64_t(halfmove)<<32) ^ std::uint64_t(ep+2));
+    auto start=history.size()>static_cast<std::size_t>(halfmove+1)?history.size()-halfmove-1:0;
+    for(std::size_t i=start;i<history.size();++i)
+        h=mix(h ^ std::rotl(history[i],static_cast<int>((i-start)&63)) ^ (0x9e3779b97f4a7c15ULL+std::uint64_t(i-start)));
+    return h;
 }
 std::vector<Move> Board::pseudo_moves() const {
     AXIOM_HOT(Pseudo,Inherit);

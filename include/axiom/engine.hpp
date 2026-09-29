@@ -61,7 +61,7 @@ struct SearchStats : CalibrationStats {
 };
 struct TTEntry {
     std::uint64_t key=0;
-    std::string context;
+    std::uint64_t context=0;
     int depth=-1,score=0;
     Bound bound=Bound::Estimate;
     Move move;
@@ -71,7 +71,7 @@ struct TTEntry {
 class TranspositionTable {
 public:
     explicit TranspositionTable(std::size_t mb=32);
-    std::optional<TTEntry> probe(std::uint64_t key,const std::string& context) const;
+    std::optional<TTEntry> probe(std::uint64_t key,std::uint64_t context) const;
     void store(TTEntry entry,bool policy);
     void clear();
     void new_search() { ++generation_; }
