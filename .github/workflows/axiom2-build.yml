@@ -1,0 +1,47 @@
+name: Axiom 2 Build
+
+on:
+  push:
+    branches:
+      - main
+      - axiom-unified-search-v1
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            artifact: axiom2-windows-x64
+          - os: ubuntu-latest
+            artifact: axiom2-linux-x64
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+      - name: Build
+        run: cmake --build build --config Release --target axiom2 axiom2_core_tests axiom2_search_tests axiom2_policy_tests
+      - name: Test
+        run: ctest --test-dir build -C Release --output-on-failure
+      - name: Stage Windows binary
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force artifact | Out-Null
+          Copy-Item build/Release/axiom-2.exe artifact/axiom-2.exe
+      - name: Stage Linux binary
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          mkdir -p artifact
+          cp build/axiom-2 artifact/axiom-2
+          chmod +x artifact/axiom-2
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: artifact/*
+          if-no-files-found: error
